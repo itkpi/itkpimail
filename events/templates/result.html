@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Rendered mail</title>
+</head>
+<body>
+
+<h1>Generated HTML</h1>
+    <pre>
+{{ content }}
+    </pre>
+
+<hr />
+<h1>Preview</h1>
+
+<iframe srcdoc='{{ content | safe }}' width="100%"></iframe>
+
+</body>
+</html>
