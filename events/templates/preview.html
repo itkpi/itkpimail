@@ -6,6 +6,13 @@
 </head>
 <body>
 
+<h1>Submit</h1>
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="submit">
+</form>
+
 <h1>Generated HTML</h1>
     <pre>
 {{ preview.body }}

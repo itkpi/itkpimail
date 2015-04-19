@@ -127,3 +127,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_APIKEY", None)
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

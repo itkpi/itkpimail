@@ -32,6 +32,7 @@ class Template(models.Model):
 class Preview(models.Model):
     template = models.ForeignKey('Template')
     body = models.TextField(null=True)
+    list_id = models.CharField(max_length=20, null=True)
 
     @models.permalink
     def get_absolute_url(self):
