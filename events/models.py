@@ -24,6 +24,7 @@ class Event(models.Model):
 class Template(models.Model):
     slug = models.CharField(max_length=80, default="unknown.html", unique=True)
     template_body = models.TextField(null=True)
+    variables = models.CharField(max_length=200, help_text='"~!~"-separated variables list', default='')
 
     def __str__(self):
         return self.slug

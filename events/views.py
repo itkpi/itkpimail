@@ -1,12 +1,20 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.http import HttpResponse
+from django.shortcuts import redirect, render_to_response
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView
+from django.views.generic import FormView, View
 from events.forms import CampaignCreateForm1, CampaignCreateForm2
+from events.mailchimp_utils import mailchimp_api, get_list
 from events.models import Preview
 
 
-class PreviewView(FormView):
+class PreviewView(View):
+    def get(self, request, p_id):
+        preview = Preview.objects.get(pk=int(p_id))
+        return HttpResponse(preview.body)
+
+
+class PreviewView1(FormView):
     form_class = CampaignCreateForm1
     template_name = 'preview.html'
 
@@ -19,7 +27,7 @@ class PreviewView(FormView):
     def form_valid(self, form):
         # Post.objects.create(**form.cleaned_data)
         print(form.cleaned_data)
-        self.model.list_id = form.cleaned_data['subscribers_list']
+        self.model.list_id = form.cleaned_data['list_id']
         self.model.save()
         return redirect('preview_step2', self.preview_id)
 
@@ -33,7 +41,6 @@ class PreviewView(FormView):
 class PreviewView2(FormView):
     form_class = CampaignCreateForm2
     template_name = 'preview.html'
-    success_url = '/success/'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -42,9 +49,19 @@ class PreviewView2(FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        # Post.objects.create(**form.cleaned_data)
-        print(form.cleaned_data)
-        return redirect(self.get_success_url())
+        options = {
+            'list_id': form.cleaned_data['list_id'],
+            'subject': form.cleaned_data['subject'],
+            'from_name': form.cleaned_data['from_name'],
+            'from_email': form.cleaned_data['from_email'],
+            }
+
+        content = {
+            'html': self.model.body,
+        }
+
+        data = mailchimp_api.campaigns.create('regular', options, content)
+        return render_to_response('successful.html', {'web_id': data['web_id']})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,4 +70,11 @@ class PreviewView2(FormView):
         return context
 
     def get_initial(self):
-        return {'subscribers_list': self.model.list_id}
+        list_info = get_list(self.model.list_id)
+        initial = {
+            'subject': list_info['default_subject'],
+            'from_name': list_info['default_from_name'],
+            'from_email': list_info['default_from_email'],
+        }
+        initial.update(self.model.__dict__)
+        return initial

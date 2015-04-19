@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Rendered mail</title>
-</head>
-<body>
+{% extends "admin/base_site.html" %}
+
+{% block content %}
 
 <h1>Submit</h1>
 <form method="POST">
@@ -21,7 +17,6 @@
 <hr />
 <h1>Preview</h1>
 
-<iframe srcdoc='{{ preview.body | safe }}' width="100%"></iframe>
+<iframe src='{{ preview.get_absolute_url }}' width="100%" height="600px"></iframe>
 
-</body>
-</html>
+{% endblock %}
