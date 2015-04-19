@@ -18,7 +18,15 @@ class Event(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
-        return "[%s] %s" % (self.date.strftime("%d/%m/%y"), self.title)
+        return '[%s] %s' % (self.date.strftime("%d/%m/%y"), self.title)
+
+    def level_html(self):
+        if self.level == Event.EASY:
+            return '<span style="color: green">&#x25A0</span>'
+        if self.level == Event.MIDDLE:
+            return '<span style="color: yellow">&#x25B2</span>'
+        if self.level == Event.HARDCORE:
+            return '<span style="color: red">&#x25CF</span>'
 
 
 class Template(models.Model):
