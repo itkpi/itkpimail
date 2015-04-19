@@ -8,13 +8,13 @@
 
 <h1>Generated HTML</h1>
     <pre>
-{{ content }}
+{{ preview.body }}
     </pre>
 
 <hr />
 <h1>Preview</h1>
 
-<iframe srcdoc='{{ content | safe }}' width="100%"></iframe>
+<iframe srcdoc='{{ preview.body | safe }}' width="100%"></iframe>
 
 </body>
 </html>

@@ -2,26 +2,22 @@ from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm
 from django import forms
 from django.forms import ModelForm
-from django.shortcuts import render_to_response
-from django.template import Context
-from django.template.loader import get_template
-from events.models import Event, Template
+from events.adminactions import generate_mail
+from events.models import Event, Template, Preview
 from itkpimail import settings
+
+# Previews
+
+
+class PreviewAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(Preview, PreviewAdmin)
+
+# Events
 
 
 class EventActionForm(ActionForm):
     template = forms.ModelChoiceField(queryset=Template.objects.all(), required=False)
-
-
-def generate_mail(modeladmin, request, queryset):
-    template_id = request.POST['template']
-    template_slug = Template.objects.get(pk=int(template_id)).slug
-    template = get_template(template_slug)
-    rendered = template.render(Context({"events": queryset.order_by('date')}))
-
-    return render_to_response("result.html", {"content": str(rendered)})
-
-generate_mail.short_description = "Сгенерировать письмо"
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -31,10 +27,11 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(Event, EventAdmin)
 
+# Templates
+
 
 class TemplateAdminForm(ModelForm):
     class Media:
-
         css = {
             'all': (
                 '%sevents/css/codemirror.css' % settings.STATIC_URL,

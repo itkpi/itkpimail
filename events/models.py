@@ -27,3 +27,12 @@ class Template(models.Model):
 
     def __str__(self):
         return self.slug
+
+
+class Preview(models.Model):
+    template = models.ForeignKey('Template')
+    body = models.TextField(null=True)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'preview', [str(self.id)]

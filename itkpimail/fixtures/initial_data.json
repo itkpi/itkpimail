@@ -1,0 +1,301 @@
+[
+{
+  "pk": 1,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_logentry",
+    "content_type": 1,
+    "name": "Can add log entry"
+  }
+},
+{
+  "pk": 2,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_logentry",
+    "content_type": 1,
+    "name": "Can change log entry"
+  }
+},
+{
+  "pk": 3,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_logentry",
+    "content_type": 1,
+    "name": "Can delete log entry"
+  }
+},
+{
+  "pk": 4,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_permission",
+    "content_type": 2,
+    "name": "Can add permission"
+  }
+},
+{
+  "pk": 5,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_permission",
+    "content_type": 2,
+    "name": "Can change permission"
+  }
+},
+{
+  "pk": 6,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_permission",
+    "content_type": 2,
+    "name": "Can delete permission"
+  }
+},
+{
+  "pk": 7,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_group",
+    "content_type": 3,
+    "name": "Can add group"
+  }
+},
+{
+  "pk": 8,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_group",
+    "content_type": 3,
+    "name": "Can change group"
+  }
+},
+{
+  "pk": 9,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_group",
+    "content_type": 3,
+    "name": "Can delete group"
+  }
+},
+{
+  "pk": 10,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_user",
+    "content_type": 4,
+    "name": "Can add user"
+  }
+},
+{
+  "pk": 11,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_user",
+    "content_type": 4,
+    "name": "Can change user"
+  }
+},
+{
+  "pk": 12,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_user",
+    "content_type": 4,
+    "name": "Can delete user"
+  }
+},
+{
+  "pk": 13,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_contenttype",
+    "content_type": 5,
+    "name": "Can add content type"
+  }
+},
+{
+  "pk": 14,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_contenttype",
+    "content_type": 5,
+    "name": "Can change content type"
+  }
+},
+{
+  "pk": 15,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_contenttype",
+    "content_type": 5,
+    "name": "Can delete content type"
+  }
+},
+{
+  "pk": 16,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_session",
+    "content_type": 6,
+    "name": "Can add session"
+  }
+},
+{
+  "pk": 17,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_session",
+    "content_type": 6,
+    "name": "Can change session"
+  }
+},
+{
+  "pk": 18,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_session",
+    "content_type": 6,
+    "name": "Can delete session"
+  }
+},
+{
+  "pk": 19,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_event",
+    "content_type": 7,
+    "name": "Can add event"
+  }
+},
+{
+  "pk": 20,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_event",
+    "content_type": 7,
+    "name": "Can change event"
+  }
+},
+{
+  "pk": 21,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_event",
+    "content_type": 7,
+    "name": "Can delete event"
+  }
+},
+{
+  "pk": 22,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_template",
+    "content_type": 8,
+    "name": "Can add template"
+  }
+},
+{
+  "pk": 23,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_template",
+    "content_type": 8,
+    "name": "Can change template"
+  }
+},
+{
+  "pk": 24,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_template",
+    "content_type": 8,
+    "name": "Can delete template"
+  }
+},
+{
+  "pk": 25,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_preview",
+    "content_type": 9,
+    "name": "Can add preview"
+  }
+},
+{
+  "pk": 26,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_preview",
+    "content_type": 9,
+    "name": "Can change preview"
+  }
+},
+{
+  "pk": 27,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_preview",
+    "content_type": 9,
+    "name": "Can delete preview"
+  }
+},
+{
+  "pk": 1,
+  "model": "auth.user",
+  "fields": {
+    "date_joined": "2015-04-18T20:12:02Z",
+    "last_name": "",
+    "username": "admin",
+    "user_permissions": [],
+    "is_active": true,
+    "is_staff": true,
+    "is_superuser": true,
+    "last_login": "2015-04-19T07:48:11.821Z",
+    "first_name": "",
+    "password": "pbkdf2_sha256$20000$Dra2Bl1vgojt$gAywd5IipmLl7dYpgXTE/UBjHqw38i4yFAdIvRPXs9g=",
+    "groups": [],
+    "email": ""
+  }
+},
+{
+  "pk": 1,
+  "model": "events.event",
+  "fields": {
+    "title": "\u041e\u0442\u043a\u0440\u044b\u0442\u0438\u0435 Brain Academy \u0432 \u041a\u0438\u0435\u0432\u043e-\u041c\u043e\u0433\u0438\u043b\u044f\u043d\u0441\u043a\u043e\u0439 \u0410\u043a\u0430\u0434\u0435\u043c\u0438\u0438",
+    "level": "NOOB",
+    "description": "\u041d\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u0438 \u0432\u044b\u0441\u0442\u0443\u043f\u044f\u0442 \u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043b\u0438:\r\n\u2014 \u041c\u0438\u043d\u0438\u0441\u0442\u0435\u0440\u0441\u0442\u0432\u0430 \u043e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u043d\u0438\u044f \u0423\u043a\u0440\u0430\u0438\u043d\u044b,\r\n\u2014 \u043a\u0440\u0443\u043f\u043d\u0435\u0439\u0448\u0438\u0445 IT \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0439 \u041a\u0438\u0435\u0432\u0430,\r\n\u2014 \u041a\u0438\u0435\u0432\u043e-\u041c\u043e\u0433\u0438\u043b\u044f\u043d\u0441\u043a\u043e\u0439 \u0410\u043a\u0430\u0434\u0435\u043c\u0438\u0438,\r\n\u2014 Brain Academy.\r\n\r\n\u041f\u0440\u0438\u0433\u043b\u0430\u0448\u0430\u0435\u043c \u0432\u0441\u0435\u0445 \u0436\u0435\u043b\u0430\u044e\u0449\u0438\u0445 \u043f\u043e\u0441\u0435\u0442\u0438\u0442\u044c \u044d\u0442\u043e \u0441\u043e\u0431\u044b\u0442\u0438\u0435.\r\n\r\n\u0412\u044b \u0443\u0437\u043d\u0430\u0435\u0442\u0435:\r\n\u2022 \u043e \u043f\u0435\u0440\u0441\u043f\u0435\u043a\u0442\u0438\u0432\u0430\u0445 \u0440\u0430\u0431\u043e\u0442\u044b IT \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u043e\u0432 \u0432 \u0423\u043a\u0440\u0430\u0438\u043d\u0435,\r\n\u2022 \u043e \u0442\u0435\u043d\u0434\u0435\u043d\u0446\u0438\u044f\u0445 \u0440\u0430\u0437\u0432\u0438\u0442\u0438\u044f IT \u043e\u0442\u0440\u0430\u0441\u043b\u0438,\r\n\u2022 \u043f\u0440\u043e \u043c\u0435\u0436\u0434\u0443\u043d\u0430\u0440\u043e\u0434\u043d\u044b\u0435 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u044e\u0442 \u0432 \u043d\u0430\u0448\u0435\u0439 \u0441\u0442\u0440\u0430\u043d\u0435,\r\n\u2022 \u043e\u0431 \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u0445 \u043e\u0431\u0443\u0447\u0435\u043d\u0438\u044f, \u0443\u0447\u0435\u0431\u043d\u044b\u0445 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430\u0445, \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u0445 \u043f\u0440\u0438\u0435\u043c\u0430 \u0441\u043b\u0443\u0448\u0430\u0442\u0435\u043b\u0435\u0439 \u0438 \u0442\u0440\u0443\u0434\u043e\u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0435 \u043b\u0443\u0447\u0448\u0438\u0445 \u0432\u044b\u043f\u0443\u0441\u043a\u043d\u0438\u043a\u043e\u0432 \u0432 IT\u043a\u043e\u043c\u043f\u0430\u043d\u0438\u044f\u0445 \u2014 \u043f\u0430\u0440\u0442\u043d\u0435\u0440\u0430\u0445 \u043f\u0440\u043e\u0435\u043a\u0442\u0430.\r\n\r\n\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435\u0441\u044c \u2014 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043c\u0435\u0441\u0442 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043e\r\n\r\n\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f\r\n\r\n\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435 \u043e \u043c\u0435\u0440\u043e\u043f\u0440\u0438\u044f\u0442\u0438\u0438 \u2014 \u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0442\u0443\u0442 \u2014 brainacad.com/...ya-v-kieve-vrain-academy\r\n",
+    "date": "2015-04-18T20:13:48.793Z"
+  }
+},
+{
+  "pk": 2,
+  "model": "events.event",
+  "fields": {
+    "title": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u0435 \u043f\u0440\u0438\u043c\u0435\u043d\u0435\u043d\u0438\u0435 \u041e\u041e\u041f (\u0421\u0435\u043c\u0438\u043d\u0430\u0440 \u0432 \u041d\u0410\u0423)",
+    "level": "PADAWAN",
+    "description": "\u0410\u043d\u0434\u0440\u0435\u0439 \u0414\u0443\u0434\u043d\u0438\u043a\r\n\r\n\u0423\u0447\u0435\u0431\u043d\u044b\u0439 \u0446\u0435\u043d\u0442\u0440 CyberBionic Systematics \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0430\u0435\u0442 \u0441\u0435\u0440\u0438\u044e \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u044b\u0445 IT \u0441\u0435\u043c\u0438\u043d\u0430\u0440\u043e\u0432 \u0434\u043b\u044f \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u043e\u0432 \u043a\u0438\u0435\u0432\u0441\u043a\u0438\u0445 \u0412\u0423\u0417\u043e\u0432, \u043f\u0440\u0438\u043d\u044f\u0442\u044c \u0443\u0447\u0430\u0441\u0442\u0438\u0435 \u0432 \u043a\u043e\u0442\u043e\u0440\u044b\u0445 \u043c\u043e\u0436\u043d\u043e, \u043f\u0440\u043e\u0439\u0434\u044f \u043f\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043b\u044c\u043d\u0443\u044e \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044e.\r\n\r\n\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 \u0441\u0435\u043c\u0438\u043d\u0430\u0440\u0430 \u0432\u043a\u043b\u044e\u0447\u0430\u0435\u0442 \u0440\u0430\u0441\u0441\u043c\u043e\u0442\u0440\u0435\u043d\u0438\u0435 \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0445 \u0442\u0435\u043c:\r\n\u2014 \u043e\u0441\u043e\u0431\u0435\u043d\u043d\u043e\u0441\u0442\u0438 \u0440\u0435\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u0438 \u043f\u0430\u0440\u0430\u0434\u0438\u0433\u043c \u041e\u041e\u041f \u0441 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435\u043c \u044f\u0437\u044b\u043a\u0430 \u0421#;\r\n\u2014 \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0438\u043d\u043a\u0430\u043f\u0441\u0443\u043b\u044f\u0446\u0438\u0438, \u043f\u043e\u043b\u0438\u043c\u043e\u0440\u0444\u0438\u0437\u043c\u0430 \u0438 \u043d\u0430\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u044f \u043d\u0430 C#;\r\n\u2014 \u043f\u0440\u0438\u043c\u0435\u0440\u044b \u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e\u0433\u043e \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f \u041e\u041e\u041f.\r\n\r\n\u0412\u0435\u0434\u0443\u0449\u0438\u0439: \u041a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438\u043d \u0427\u0435\u0440\u043d\u044b\u0439, .Net \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a, \u0442\u0440\u0435\u043d\u0435\u0440-\u043a\u043e\u043d\u0441\u0443\u043b\u044c\u0442\u0430\u043d\u0442 CyberBionic Systematics\r\n\r\n\u0412\u0438\u0434\u0435\u043e\u0437\u0430\u043f\u0438\u0441\u044c \u0441\u0435\u043c\u0438\u043d\u0430\u0440\u0430 \u0431\u0443\u0434\u0435\u0442 \u043f\u043e\u0437\u0436\u0435 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u0430 \u043d\u0430 \u043d\u0430\u0448\u0435\u043c YouTube \u043a\u0430\u043d\u0430\u043b\u0435.\r\n",
+    "date": "2015-04-18T20:14:09.213Z"
+  }
+},
+{
+  "pk": 3,
+  "model": "events.event",
+  "fields": {
+    "title": "\u0412\u0435\u0431\u0438\u043d\u0430\u0440: \u0414\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0441\u0442\u044c \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439 \u0432 \u0433\u0438\u0431\u0440\u0438\u0434\u043d\u044b\u0445 \u0434\u0430\u0442\u0430 \u0446\u0435\u043d\u0442\u0440\u0430\u0445",
+    "level": "JEDI",
+    "description": "\u0413\u0438\u0431\u0440\u0438\u0434\u043d\u044b\u0435 \u0434\u0430\u0442\u0430 \u0446\u0435\u043d\u0442\u0440\u044b \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u044e\u0442 \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044f\u043c \u0441\u043e\u043a\u0440\u0430\u0442\u0438\u0442\u044c \u0432\u0440\u0435\u043c\u044f \u043f\u0440\u043e\u0441\u0442\u043e\u044f \u0441\u0435\u0440\u0432\u0438\u0441\u043e\u0432, \u043f\u043e\u0432\u044b\u0441\u0438\u0442\u044c \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0441\u0442\u044c \u0438 \u044d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u0440\u0430\u0431\u043e\u0442\u044b \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439. \u0412\u0441\u0435 \u0431\u043e\u043b\u044c\u0448\u0435 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0439 \u0438\u043d\u0442\u0435\u0433\u0440\u0438\u0440\u0443\u044e\u0442 \u0447\u0430\u0441\u0442\u044c \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439 \u0441 \u043e\u0431\u043b\u0430\u0447\u043d\u044b\u043c\u0438 \u0440\u0435\u0448\u0435\u043d\u0438\u044f\u043c\u0438. \u041a \u0441\u043e\u0436\u0430\u043b\u0435\u043d\u0438\u044e, \u0442\u0440\u0430\u0434\u0438\u0446\u0438\u043e\u043d\u043d\u044b\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u044f \u043f\u043e \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044e \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f\u043c\u0438 \u043d\u0435 \u0440\u0435\u0448\u0430\u044e\u0442 \u043f\u0440\u043e\u0431\u043b\u0435\u043c, \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0445 \u0441 \u043d\u043e\u0432\u043e\u0439 \u0433\u0438\u0431\u0440\u0438\u0434\u043d\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0434\u0430\u043d\u043d\u044b\u0445.\r\n\r\n\u041d\u0430 \u0434\u0430\u043d\u043d\u043e\u043c \u0432\u0435\u0431\u0438\u043d\u0430\u0440\u0435 \u0432\u044b \u0443\u0437\u043d\u0430\u0435\u0442\u0435 \u043f\u0440\u043e:\r\n\u2014 \u043c\u0430\u0441\u0448\u0442\u0430\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0433\u0438\u0431\u0440\u0438\u0434\u043d\u043e\u0433\u043e \u0446\u0435\u043d\u0442\u0440\u0430 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u0434\u043b\u044f \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0435\u043d\u0438\u044f \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0441\u0442\u0438 \u0438 \u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439;\r\n\u2014 \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u0438 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439;\r\n\u2014 SSL-\u043e\u043f\u0442\u0438\u043c\u0438\u0437\u0430\u0446\u0438\u0438;\r\n\u2014 \u043c\u043e\u043d\u0438\u0442\u043e\u0440\u0438\u043d\u0433 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0438 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0441\u0442\u0438 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439.\r\n\r\n\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f\r\n",
+    "date": "2015-04-18T20:14:30.438Z"
+  }
+},
+{
+  "pk": 1,
+  "model": "events.template",
+  "fields": {
+    "slug": "digest.html",
+    "template_body": "<!DOCTYPE html>\r\n<html>\r\n<head lang=\"en\">\r\n    <meta charset=\"UTF-8\">\r\n    <title>\u0406\u0422 \u041a\u041f\u0406 - \u0414\u0430\u0439\u0434\u0436\u0435\u0441\u0442</title>\r\n</head>\r\n<body>\r\n\r\n\t<h1>\u041f\u0440\u0438\u0432\u0456\u0442 \u0432\u0456\u0434 \u0406\u0422 \u041a\u041f\u0406!</h1>\r\n\r\n\t<h2>\u0410\u043d\u043e\u043d\u0441:</h2>\r\n\t{% for event in events %}\r\n\t\t<h3>{{ event.title }} [{{ event.level }}]</h3>\r\n\t\t{{ event.description }}\r\n\t{% endfor %}\r\n\r\n</body>\r\n</html>"
+  }
+}
+]
