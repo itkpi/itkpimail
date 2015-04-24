@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm
 from django import forms
 from django.forms import ModelForm
-from events.adminactions import generate_mail
+from events.adminactions import generate_mail, preview
 from events.models import Event, Template, Preview
 from itkpimail import settings
 
@@ -19,10 +19,14 @@ admin.site.register(Preview, PreviewAdmin)
 class EventActionForm(ActionForm):
     template = forms.ModelChoiceField(queryset=Template.objects.all(), required=False)
 
+    def __init__(self, *args, **kwargs):
+        kwargs["initial"] = {"template": Template.objects.filter(is_default=True)[0].id}
+        super().__init__(*args, **kwargs)
+
 
 class EventAdmin(admin.ModelAdmin):
     action_form = EventActionForm
-    actions = [generate_mail]
+    actions = [generate_mail, preview]
     ordering = ['-date']
 
 admin.site.register(Event, EventAdmin)

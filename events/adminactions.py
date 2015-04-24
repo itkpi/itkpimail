@@ -5,8 +5,15 @@ from django.template import Context, RequestContext
 from django.template.loader import get_template
 from events.models import Template, Preview
 
+from collections import OrderedDict
+
 
 def parse_vars(variables):
+    if not variables:
+        variables = []
+    else:
+        variables = [var.strip() for var in variables.split('~!~')]
+
     for var in variables:
         if '=' in var:
             name, initial = var.split('=', 2)
@@ -14,13 +21,11 @@ def parse_vars(variables):
         else:
             yield {'name': var, 'initial': None}
 
-
 def make_template_form(template):
-    if not template.variables:
-        return
-    variables = [var.strip() for var in template.variables.split('~!~')]
+    fields = OrderedDict()
+    for var in parse_vars(template.variables):
+        fields[var['name']] = forms.CharField(initial=var['initial'])
 
-    fields = {var['name']: forms.CharField(initial=var['initial']) for var in parse_vars(variables)}
     fields['template'] = forms.CharField(widget=forms.HiddenInput, initial=template.id)
     fields['_selected_action'] = forms.CharField(widget=forms.MultipleHiddenInput)
     return type('TemplateForm', (forms.BaseForm, ), {'base_fields': fields})
@@ -54,3 +59,21 @@ def generate_mail(modeladmin, request, queryset):
                               context_instance=RequestContext(request))
 
 generate_mail.short_description = "Сгенерировать письмо"
+
+
+def preview(modeladmin, request, queryset):
+    template_id = request.POST['template']
+    template_db = Template.objects.get(pk=int(template_id))
+
+    template_slug = template_db.slug
+    template = get_template(template_slug)
+
+    variables = {var["name"]: var["initial"] for var in parse_vars(template_db.variables)}
+    variables['events'] = queryset.order_by('when')
+    rendered = template.render(Context(variables))
+
+    return render_to_response('pre_preview.html',
+                              {'body': rendered},
+                              context_instance=RequestContext(request))
+
+preview.short_description = "Preview event"

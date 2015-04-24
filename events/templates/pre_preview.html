@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<iframe id="preview_iframe" src="about:blank" style="width: 100%"></iframe>
+<script type="text/javascript">
+    var iframe = document.getElementById('preview_iframe');
+    var doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write('{{ body | escapejs }}');
+    doc.close();
+
+    var newheight = iframe.contentWindow.document.body.scrollHeight + 100;
+    // var newwidth = iframe.contentWindow.document.body.scrollWidth;
+
+    iframe.height= (newheight) + "px";
+    // iframe.width= (newwidth) + "px";
+</script>
+
+{% endblock %}

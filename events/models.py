@@ -1,6 +1,7 @@
 from django.db import models
 
 from redactor.fields import RedactorField
+from exclusivebooleanfield.fields import ExclusiveBooleanField
 
 
 class Event(models.Model):
@@ -35,7 +36,10 @@ class Event(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
-        return '[%s] %s' % (self.date.strftime("%d/%m/%y"), self.title)
+        if self.when:
+            return '[%s] %s' % (self.when.strftime("%d/%m/%y"), self.title)
+        else:
+            return self.title
 
     def level_html(self):
         if self.level == Event.EASY:
@@ -50,6 +54,7 @@ class Template(models.Model):
     slug = models.CharField(max_length=80, default="unknown.html", unique=True)
     template_body = models.TextField(null=True)
     variables = models.CharField(max_length=200, help_text='"~!~"-separated variables list', default='', null=True, blank=True)
+    is_default = ExclusiveBooleanField(default=False)
 
     def __str__(self):
         return self.slug
