@@ -2,6 +2,7 @@ dj-database-url==0.3.0
 dj-static==0.0.6
 Django==1.8
 django-toolbelt==0.0.1
+django-wysiwyg-redactor==0.4.5.1
 docopt==0.4.0
 gunicorn==19.3.0
 mailchimp==2.0.9

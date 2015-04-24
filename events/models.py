@@ -1,5 +1,7 @@
 from django.db import models
 
+from redactor.fields import RedactorField
+
 
 class Event(models.Model):
     EASY = 'NOOB'
@@ -13,7 +15,12 @@ class Event(models.Model):
     )
 
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = RedactorField(
+                        verbose_name=u'Description',
+                        redactor_options={'lang': 'en', 'focus': 'true'},
+                        allow_file_upload=False,
+                        allow_image_upload=False
+                    )
     level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EASY)
     date = models.DateTimeField(auto_now_add=True, blank=True)
 

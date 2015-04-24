@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^events/', include('events.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^redactor/', include('redactor.urls'))
 ]

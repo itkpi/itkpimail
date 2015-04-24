@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'redactor',
     'events',
 )
 
@@ -129,6 +130,9 @@ STATICFILES_DIRS = (
 )
 
 MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_APIKEY", None)
+
+REDACTOR_OPTIONS = {'lang': 'en'}
+REDACTOR_UPLOAD = 'uploads/'
 
 try:
     from .local_settings import *
