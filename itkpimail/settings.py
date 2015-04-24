@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,6 +58,7 @@ ROOT_URLCONF = 'itkpimail.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'override_templates')],
         'OPTIONS': {
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -133,6 +135,8 @@ MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_APIKEY", None)
 
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
+
+GRAPPELLI_ADMIN_TITLE = 'IT KPI Maillist Template Engine'
 
 try:
     from .local_settings import *
