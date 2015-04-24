@@ -15,13 +15,23 @@ class Event(models.Model):
     )
 
     title = models.CharField(max_length=200)
+    agenda = RedactorField(
+                        verbose_name=u'Agenda',
+                        redactor_options={'lang': 'en', 'focus': 'true'},
+                        allow_file_upload=False,
+                        allow_image_upload=False,
+                        default=""
+                    )
     description = RedactorField(
-                        verbose_name=u'Description',
+                        verbose_name=u'Comment',
                         redactor_options={'lang': 'en', 'focus': 'true'},
                         allow_file_upload=False,
                         allow_image_upload=False
                     )
+    speaker = models.CharField(max_length=200, default="")
     level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EASY)
+    place = models.CharField(max_length=200, null=True)
+    when = models.DateTimeField(null=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
