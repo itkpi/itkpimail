@@ -30,6 +30,7 @@ class Event(models.Model):
                         allow_image_upload=False
                     )
     speaker = models.CharField(max_length=200, default="")
+    image_url = models.CharField(max_length=200, default="")
     level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EASY)
     place = models.CharField(max_length=200, null=True)
     when = models.DateTimeField(null=True)
