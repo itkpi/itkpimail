@@ -41,7 +41,7 @@ def generate_mail(modeladmin, request, queryset):
             template = get_template(template_slug)
 
             variables = form.cleaned_data
-            variables['events'] = queryset.order_by('date')
+            variables['events'] = queryset.order_by('when')
             rendered = template.render(Context(variables))
 
             preview = Preview(template=template_db, body=str(rendered))

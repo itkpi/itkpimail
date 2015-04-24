@@ -50,9 +50,10 @@ class TemplateAdminForm(ModelForm):
             '%sevents/js/admin-connector.js' % settings.STATIC_URL,
         )
 
+    variables = forms.CharField(required=False)
+
 
 class TemplatesAdmin(admin.ModelAdmin):
-
     form = TemplateAdminForm
 
 admin.site.register(Template, TemplatesAdmin)
