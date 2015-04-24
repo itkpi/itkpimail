@@ -20,7 +20,9 @@ class EventActionForm(ActionForm):
     template = forms.ModelChoiceField(queryset=Template.objects.all(), required=False)
 
     def __init__(self, *args, **kwargs):
-        kwargs["initial"] = {"template": Template.objects.filter(is_default=True)[0].id}
+        default_template = list(Template.objects.filter(is_default=True))
+        if default_template:
+            kwargs["initial"] = {"template": default_template[0].id}
         super().__init__(*args, **kwargs)
 
 
@@ -28,6 +30,9 @@ class EventAdmin(admin.ModelAdmin):
     action_form = EventActionForm
     actions = [generate_mail, preview]
     ordering = ['-date']
+
+    image_url = forms.CharField(required=False)
+    description = forms.CharField(required=False)
 
 admin.site.register(Event, EventAdmin)
 
