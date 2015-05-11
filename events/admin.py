@@ -34,6 +34,8 @@ class EventAdmin(admin.ModelAdmin):
     image_url = forms.CharField(required=False)
     description = forms.CharField(required=False)
 
+    fields = ('title', 'description', 'agenda', 'speaker', 'image_url', 'level', 'place', 'when')
+
 admin.site.register(Event, EventAdmin)
 
 # Templates
