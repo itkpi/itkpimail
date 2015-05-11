@@ -26,15 +26,29 @@ class EventActionForm(ActionForm):
         super().__init__(*args, **kwargs)
 
 
+class EventAdminForm(ModelForm):
+    image_url = forms.CharField(required=False)
+    description = forms.CharField(required=False)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        when_time = cleaned_data['when_time']
+        when_time_required = cleaned_data['when_time_required']
+        if when_time_required and not when_time:
+            raise forms.ValidationError("when_time field is required!")
+        if not when_time_required and when_time:
+            raise forms.ValidationError("when_time field is required to be empty!")
+
+
 class EventAdmin(admin.ModelAdmin):
     action_form = EventActionForm
     actions = [generate_mail, preview]
     ordering = ['-date']
 
-    image_url = forms.CharField(required=False)
-    description = forms.CharField(required=False)
+    form = EventAdminForm
 
-    fields = ('title', 'description', 'agenda', 'speaker', 'image_url', 'level', 'place', 'when')
+    fields = ('title', 'description', 'agenda', 'speaker', 'image_url', 'level', 'place',
+              ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration')
 
 admin.site.register(Event, EventAdmin)
 

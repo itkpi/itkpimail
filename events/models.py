@@ -33,8 +33,13 @@ class Event(models.Model):
     image_url = models.CharField(max_length=200, default="", blank=True)
     level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EASY)
     place = models.CharField(max_length=200, null=True)
-    when = models.DateTimeField(null=True)
+    when = models.DateField(null=True)
+    when_time = models.TimeField(null=True, blank=True)
+    when_end = models.DateField(null=True, blank=True)
+    when_end_time = models.TimeField(null=True, blank=True)
+    when_time_required = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True, blank=True)
+    registration = models.CharField(max_length=200, default="", blank=True)
 
     def __str__(self):
         if self.when:
