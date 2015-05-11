@@ -5,14 +5,14 @@ from exclusivebooleanfield.fields import ExclusiveBooleanField
 
 
 class Event(models.Model):
-    EASY = 'NOOB'
-    MIDDLE = 'PADAWAN'
-    HARDCORE = 'JEDI'
+    EASY = 'TRAINEE'
+    MIDDLE = 'JUNIOR'
+    HARDCORE = 'MIDDLE'
 
     LEVEL_OF_EVENT = (
-        (EASY, 'noob'),
-        (MIDDLE, 'padawan'),
-        (HARDCORE, 'jedi'),
+        (EASY, 'trainee'),
+        (MIDDLE, 'junior'),
+        (HARDCORE, 'middle'),
     )
 
     title = models.CharField(max_length=200)
