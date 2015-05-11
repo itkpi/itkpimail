@@ -5,6 +5,7 @@ from django.forms import ModelForm
 from events.adminactions import generate_mail, preview
 from events.models import Event, Template, Preview
 from itkpimail import settings
+from redactor.widgets import RedactorEditor
 
 # Previews
 
@@ -28,7 +29,7 @@ class EventActionForm(ActionForm):
 
 class EventAdminForm(ModelForm):
     image_url = forms.CharField(required=False)
-    description = forms.CharField(required=False)
+    description = forms.CharField(widget=RedactorEditor, required=False)
 
     def clean(self):
         cleaned_data = super().clean()
