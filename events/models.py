@@ -33,12 +33,11 @@ class Event(models.Model):
                                 """
                     )
     description = RedactorField(
-                        verbose_name=u'Comment',
+                        verbose_name=u'Social',
                         redactor_options={'lang': 'en', 'focus': 'true'},
                         allow_file_upload=False,
                         allow_image_upload=False
                     )
-    speaker = models.CharField(max_length=200, default="")
     image_url = models.CharField(max_length=200, default="", blank=True)
     level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EASY)
     place = models.CharField(max_length=200, null=True)

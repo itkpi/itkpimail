@@ -55,7 +55,7 @@ class EventAdmin(admin.ModelAdmin):
 
     form = EventAdminForm
 
-    fields = ('title', 'description', 'agenda', 'speaker', 'image_url', 'level', 'place',
+    fields = ('title', 'description', 'agenda', 'image_url', 'level', 'place',
               ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration')
 
 admin.site.register(Event, EventAdmin)
