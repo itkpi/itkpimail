@@ -21,7 +21,16 @@ class Event(models.Model):
                         redactor_options={'lang': 'en', 'focus': 'true'},
                         allow_file_upload=False,
                         allow_image_upload=False,
-                        default=""
+                        default="""
+                                <strong>Програма:</strong><br/>
+                                <ul>
+                                <li></li>
+                                </ul>
+                                <strong>Спікери:</strong><br/>
+                                <ul>
+                                <li>&nbsp;</li>
+                                </ul>
+                                """
                     )
     description = RedactorField(
                         verbose_name=u'Comment',
@@ -37,7 +46,7 @@ class Event(models.Model):
     when_time = models.TimeField(null=True, blank=True)
     when_end = models.DateField(null=True, blank=True)
     when_end_time = models.TimeField(null=True, blank=True)
-    when_time_required = models.BooleanField(default=False)
+    when_time_required = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
     registration = models.CharField(max_length=200, default="", blank=True)
 

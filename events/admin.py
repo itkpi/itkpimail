@@ -28,6 +28,13 @@ class EventActionForm(ActionForm):
 
 
 class EventAdminForm(ModelForm):
+    class Media:
+        css = {
+            'all': (
+                '%sevents/css/redactor-custom.css' % settings.STATIC_URL,
+            )
+        }
+
     image_url = forms.CharField(required=False)
     description = forms.CharField(widget=RedactorEditor, required=False)
 
