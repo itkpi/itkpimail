@@ -5,11 +5,13 @@ from exclusivebooleanfield.fields import ExclusiveBooleanField
 
 
 class Event(models.Model):
+    EMPTY = 'NONE'
     EASY = 'TRAINEE'
     MIDDLE = 'JUNIOR'
     HARDCORE = 'MIDDLE'
 
     LEVEL_OF_EVENT = (
+        (EMPTY, 'none'),
         (EASY, 'trainee'),
         (MIDDLE, 'junior'),
         (HARDCORE, 'middle'),
@@ -32,14 +34,14 @@ class Event(models.Model):
                                 </ul>
                                 """
                     )
-    description = RedactorField(
+    social = RedactorField(
                         verbose_name=u'Social',
                         redactor_options={'lang': 'en', 'focus': 'true'},
                         allow_file_upload=False,
                         allow_image_upload=False
                     )
-    image_url = models.CharField(max_length=200, default="", blank=True)
-    level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EASY)
+    image_url = models.CharField(max_length=200, default="")
+    level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EMPTY)
     place = models.CharField(max_length=200, null=True)
     when = models.DateField(null=True)
     when_time = models.TimeField(null=True, blank=True)
@@ -47,21 +49,13 @@ class Event(models.Model):
     when_end_time = models.TimeField(null=True, blank=True)
     when_time_required = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
-    registration = models.CharField(max_length=200, default="", blank=True)
+    registration = models.CharField(max_length=200, default="")
 
     def __str__(self):
         if self.when:
             return '[%s] %s' % (self.when.strftime("%d/%m/%y"), self.title)
         else:
             return self.title
-
-    def level_html(self):
-        if self.level == Event.EASY:
-            return '<span style="color: green">&#x25A0</span>'
-        if self.level == Event.MIDDLE:
-            return '<span style="color: yellow">&#x25B2</span>'
-        if self.level == Event.HARDCORE:
-            return '<span style="color: red">&#x25CF</span>'
 
 
 class Template(models.Model):

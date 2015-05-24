@@ -35,8 +35,7 @@ class EventAdminForm(ModelForm):
             )
         }
 
-    image_url = forms.CharField(required=False)
-    description = forms.CharField(widget=RedactorEditor, required=False)
+    social = forms.CharField(widget=RedactorEditor, required=False)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -47,6 +46,12 @@ class EventAdminForm(ModelForm):
         if not when_time_required and when_time:
             raise forms.ValidationError("when_time field is required to be empty!")
 
+    def clean_level(self):
+        level = self.cleaned_data['level']
+        if level == 'NONE':
+            raise forms.ValidationError("This field is required")
+        return level
+
 
 class EventAdmin(admin.ModelAdmin):
     action_form = EventActionForm
@@ -55,8 +60,8 @@ class EventAdmin(admin.ModelAdmin):
 
     form = EventAdminForm
 
-    fields = ('title', 'description', 'agenda', 'image_url', 'level', 'place',
-              ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration')
+    fields = ('title', 'agenda', 'image_url', 'level', 'place',
+              ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration', 'social')
 
 admin.site.register(Event, EventAdmin)
 
