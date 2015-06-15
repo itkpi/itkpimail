@@ -76,4 +76,4 @@ def preview(modeladmin, request, queryset):
                               {'body': rendered},
                               context_instance=RequestContext(request))
 
-preview.short_description = "Preview event"
+preview.short_description = "Предпросмотр события"
