@@ -25,8 +25,6 @@ class PreviewView1(FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        # Post.objects.create(**form.cleaned_data)
-        print(form.cleaned_data)
         self.model.list_id = form.cleaned_data['list_id']
         self.model.save()
         return redirect('preview_step2', self.preview_id)

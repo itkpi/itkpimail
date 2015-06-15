@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'redactor',
     'events',
+    'suggest'
 )
 
 MIDDLEWARE_CLASSES = (
