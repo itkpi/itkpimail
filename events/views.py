@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render_to_response
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View
 from events.forms import CampaignCreateForm1, CampaignCreateForm2
-from events.mailchimp_utils import mailchimp_api, get_list
+from events.mailchimp_utils import get_mailchimp_api, get_list
 from events.models import Preview
 
 
@@ -25,8 +25,6 @@ class PreviewView1(FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        # Post.objects.create(**form.cleaned_data)
-        print(form.cleaned_data)
         self.model.list_id = form.cleaned_data['list_id']
         self.model.save()
         return redirect('preview_step2', self.preview_id)
@@ -60,7 +58,7 @@ class PreviewView2(FormView):
             'html': self.model.body,
         }
 
-        data = mailchimp_api.campaigns.create('regular', options, content)
+        data = get_mailchimp_api().campaigns.create('regular', options, content)
         return render_to_response('successful.html', {'web_id': data['web_id']})
 
     def get_context_data(self, **kwargs):

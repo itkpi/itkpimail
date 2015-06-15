@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'redactor',
     'events',
+    'mailchimp_app',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -132,7 +133,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_APIKEY", None)
+# MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_APIKEY", None)
 
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
