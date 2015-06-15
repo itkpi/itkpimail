@@ -1,7 +1,18 @@
 from django.db import models
+from django.db.models import Q
+from django.contrib.auth.models import User
 
 from redactor.fields import RedactorField
-from exclusivebooleanfield.fields import ExclusiveBooleanField
+#from exclusivebooleanfield.fields import ExclusiveBooleanField
+from events.fields import ExclusiveBooleanFieldOnOwnerGroups
+
+
+def filter_by_owner_group(queryset, request):
+    queryset = queryset.filter(owner__isnull=False)
+    q = Q()
+    for group in request.user.groups.all():
+        q |= Q(owner__groups=group)
+    return queryset.filter(q).distinct()
 
 
 class Event(models.Model):
@@ -51,6 +62,8 @@ class Event(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True)
     registration = models.CharField(max_length=200, default="")
 
+    owner = models.ForeignKey(User, null=True, editable=False)
+
     def __str__(self):
         if self.when:
             return '[%s] %s' % (self.when.strftime("%d/%m/%y"), self.title)
@@ -59,10 +72,14 @@ class Event(models.Model):
 
 
 class Template(models.Model):
-    slug = models.CharField(max_length=80, default="unknown.html", unique=True)
+    class Meta:
+        unique_together = ['slug', 'owner']
+    slug = models.CharField(max_length=80, default="unknown.html")
     template_body = models.TextField(null=True)
     variables = models.CharField(max_length=200, help_text='"~!~"-separated variables list', default='', null=True, blank=True)
-    is_default = ExclusiveBooleanField(default=False)
+    is_default = ExclusiveBooleanFieldOnOwnerGroups(default=False)
+
+    owner = models.ForeignKey(User, null=True, editable=False)
 
     def __str__(self):
         return self.slug
@@ -72,6 +89,8 @@ class Preview(models.Model):
     template = models.ForeignKey('Template')
     body = models.TextField(null=True)
     list_id = models.CharField(max_length=20, null=True)
+
+    owner = models.ForeignKey(User, null=True, editable=False)
 
     @models.permalink
     def get_absolute_url(self):
