@@ -9,14 +9,16 @@
 <input type="submit" value="submit">
 </form>
 
+<h1>Preview</h1>
+
+<iframe src='{{ preview.get_absolute_url }}' width="100%" height="600px"></iframe>
+
+<hr />
+
 <h1>Generated HTML</h1>
     <pre>
 {{ preview.body }}
     </pre>
 
-<hr />
-<h1>Preview</h1>
-
-<iframe src='{{ preview.get_absolute_url }}' width="100%" height="600px"></iframe>
 
 {% endblock %}
