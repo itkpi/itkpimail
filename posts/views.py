@@ -23,6 +23,9 @@ def vk_auth_done_view(request):
 @staff_member_required
 def vk_auth_save_view(request, access_token):
     vk_app = VKApp.objects.get(is_default=True, owner__groups__in=request.user.groups.all())
+
+    VKCredential.objects.filter(owner=request.user, app=vk_app).delete()  # remove previous credentials
+
     credential = VKCredential()
     credential.owner = request.user
     credential.access_token = access_token
