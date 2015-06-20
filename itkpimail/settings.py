@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'redactor',
     'events',
     'mailchimp_app',
-    'posts'
+    'posts',
 )
 
 MIDDLEWARE_CLASSES = (

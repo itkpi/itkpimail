@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<p>Для того чтоб имет возможность постить в паблик ВК, необходимо выполнить несколько шагов. Просто следуйте инструкции</p>
+<br>
+<p>1. <a style="position: relative; display: inline-block; margin: 0px; padding: 5px; height: 28px; font-weight: bold; border-radius: 5px ! important; box-sizing: border-box; cursor: pointer; overflow: hidden; vertical-align: top; color: rgb(255, 255, 255); border: 1px solid rgb(43, 138, 171); background-size: 100% auto; background-image: linear-gradient(rgb(79, 178, 211), rgb(48, 155, 191));" href="{{ vk_oauth_url }}" target="_blank">Начать процедуру авторизации</a>.
+    Не закрывайте открывшееся окно.</p>
+<p>2. После авторизации приложения, пожалуйста <strong>скопируйте текст в адресной строке открывшегося окна в соответствующее поле ниже.</strong></p>
+<p>Не стоит верить тому, что написано в открытом окне. <font color="red">Они врут.</font></p>
+<p>
+    <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" name="apply" value="Сохранить">
+    </form>
+</p>
+
+{% endblock %}
