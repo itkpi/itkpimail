@@ -1,14 +1,16 @@
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib.auth.models import User
 
 from redactor.fields import RedactorField
-#from exclusivebooleanfield.fields import ExclusiveBooleanField
 from events.fields import ExclusiveBooleanFieldOnOwnerGroups
 
 
 def filter_by_owner_group(queryset, request):
-    queryset = queryset.filter(owner__isnull=False)
+    if len(request.user.groups.all()) == 0:
+        return queryset.none()
+    queryset = queryset.\
+        filter(owner__isnull=False)
     q = Q()
     for group in request.user.groups.all():
         q |= Q(owner__groups=group)

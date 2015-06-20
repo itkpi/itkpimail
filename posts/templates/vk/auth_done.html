@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<script>
+    function get_token_save_url(token){
+        return "{% url 'admin:posts_vkcredential_auth_save' access_token='ACCESSTOKEN' %}".
+            replace("ACCESSTOKEN", token);
+    }
+
+    function get_access_token() {
+        var token;
+        window.location.hash.substring(1).split("&").forEach(function(entry) {
+            var param = entry.split("=");
+            if (param[0] == "access_token") {
+                token = param[1];
+            }
+        });
+        return token;
+    }
+    var access_token = get_access_token();
+    if (access_token != undefined) {
+        window.location = get_token_save_url(access_token);
+    }
+</script>
+{% endblock %}
