@@ -58,7 +58,7 @@ class Post(models.Model):
     owner = models.ForeignKey(User, null=False, editable=False)
 
     def __str__(self):
-        return self.content
+        return self.plain_content()
 
     def plain_content(self):
         return html2text.html2text(self.content)
