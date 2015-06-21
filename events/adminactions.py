@@ -46,7 +46,7 @@ def generate_mail(modeladmin, request, queryset):
             template = get_template(template_slug)
 
             variables = form.cleaned_data
-            variables['events'] = queryset.order_by('when')
+            setup_template_variables(queryset, variables)
             rendered = template.render(Context(variables))
 
             preview = Preview(template=template_db, body=str(rendered))
@@ -69,11 +69,17 @@ def preview(modeladmin, request, queryset):
     template = get_template(template_slug)
 
     variables = {var["name"]: var["initial"] for var in parse_vars(template_db.variables)}
-    variables['events'] = queryset.order_by('when')
+    setup_template_variables(queryset, variables)
     rendered = template.render(Context(variables))
 
     return render_to_response('pre_preview.html',
                               {'body': rendered},
                               context_instance=RequestContext(request))
+
+
+def setup_template_variables(queryset, variables):
+    variables['events'] = queryset.order_by('when')
+    variables['special_events'] = queryset.filter(special=True).order_by('when')
+
 
 preview.short_description = "Предпросмотр события"
