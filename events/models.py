@@ -62,6 +62,8 @@ class Event(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True)
     registration = models.CharField(max_length=200, default="")
 
+    special = models.BooleanField(default=False)
+
     owner = models.ForeignKey(User, null=True, editable=False)
 
     def __str__(self):

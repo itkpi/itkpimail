@@ -87,7 +87,7 @@ class EventAdmin(admin.ModelAdmin):
 
     form = EventAdminForm
 
-    fields = ('title', 'agenda', 'image_url', 'level', 'place',
+    fields = ('title', 'special', 'agenda', 'image_url', 'level', 'place',
               ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration', 'social')
     list_display = ('title', 'when', 'level', 'owner_groups')
 
