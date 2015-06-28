@@ -59,12 +59,12 @@ class Event(models.Model):
     when_end = models.DateField(null=True, blank=True)
     when_end_time = models.TimeField(null=True, blank=True)
     when_time_required = models.BooleanField(default=True)
-    date = models.DateTimeField(auto_now_add=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Created datetime")
     registration = models.CharField(max_length=200, default="")
 
     special = models.BooleanField(default=False)
 
-    owner = models.ForeignKey(User, null=True, editable=False)
+    owner = models.ForeignKey(User, null=True, editable=False, verbose_name=u"Created by")
 
     def __str__(self):
         if self.when:

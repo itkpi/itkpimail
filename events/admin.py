@@ -89,7 +89,7 @@ class EventAdmin(admin.ModelAdmin):
 
     fields = ('title', 'special', 'agenda', 'image_url', 'level', 'place',
               ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration', 'social')
-    list_display = ('title', 'when', 'level', 'created_by', 'created_datetime', 'owner_groups')
+    list_display = ('title', 'when', 'owner', 'date', 'owner_groups')
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
@@ -103,11 +103,6 @@ class EventAdmin(admin.ModelAdmin):
         if obj.owner:
             return ','.join(group.name for group in obj.owner.groups.all())
 
-    def created_by(self, obj):
-        return obj.owner
-
-    def created_datetime(self, obj):
-        return obj.date
 
 
 admin.site.register(Event, EventAdmin)
