@@ -49,8 +49,11 @@ def generate_mail(modeladmin, request, queryset):
             setup_template_variables(queryset, variables)
             rendered = template.render(Context(variables))
 
-            preview = Preview(template=template_db, body=str(rendered))
+            preview = Preview(body=str(rendered))
             preview.save()
+
+            for event in queryset:
+                event.previews.add(preview)
             return redirect('preview_step1', preview.id)
     if not form:
         form = TemplateForm(initial={'_selected_action': request.POST.getlist(ACTION_CHECKBOX_NAME)})

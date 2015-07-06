@@ -20,7 +20,7 @@ def filter_by_owner_group_admin(queryset, request):
 
 
 class PreviewAdmin(admin.ModelAdmin):
-    list_display = ('id', 'template', 'owner_groups')
+    list_display = ('id', 'owner_groups', 'published', 'mailchimp_url')
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user

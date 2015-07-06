@@ -59,6 +59,11 @@ class PreviewView2(FormView):
         }
 
         data = get_mailchimp_api().campaigns.create('regular', options, content)
+
+        self.model.published = True
+        self.model.mailchimp_url = "https://admin.mailchimp.com/campaigns/wizard/html-paste?id={}".\
+                                    format(data['web_id'])
+        self.model.save()
         return render_to_response('successful.html', {'web_id': data['web_id']})
 
     def get_context_data(self, **kwargs):
