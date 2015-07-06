@@ -62,9 +62,12 @@ class Event(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Created datetime")
     registration = models.CharField(max_length=200, default="")
 
-    special = models.BooleanField(default=False)
+    special = models.BooleanField(default=False, help_text='This event will be published in special way (if template '
+                                                           'supports it). You can set special on "promoted" events or '
+                                                           'some events you wish to draw attention to.')
 
     owner = models.ForeignKey(User, null=True, editable=False, verbose_name=u"Created by")
+    published = models.CharField(max_length=200, default=None, null=True, editable=False)
 
     def __str__(self):
         if self.when:
