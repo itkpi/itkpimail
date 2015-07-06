@@ -61,7 +61,7 @@ def generate_mail(modeladmin, request, queryset):
                               {'form': form},
                               context_instance=RequestContext(request))
 
-generate_mail.short_description = "Сгенерировать письмо"
+generate_mail.short_description = "Generate email"
 
 
 def preview(modeladmin, request, queryset):
@@ -80,9 +80,12 @@ def preview(modeladmin, request, queryset):
                               context_instance=RequestContext(request))
 
 
+preview.short_description = "Event preview"
+
+
 def setup_template_variables(queryset, variables):
     variables['events'] = queryset.order_by('when')
     variables['special_events'] = queryset.filter(special=True).order_by('when')
 
 
-preview.short_description = "Предпросмотр события"
+preview.short_description = "Event preview"
