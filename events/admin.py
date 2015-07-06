@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm
 from django import forms
-from django.db.models import Count
 from django.forms import ModelForm
 
 from events.middlewares import get_current_request
