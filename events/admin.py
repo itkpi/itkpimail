@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm
 from django import forms
 from django.forms import ModelForm
+from events.loaders import is_github_remote_enabled, get_github_repo
 
 from events.middlewares import get_current_request
 from events.adminactions import generate_mail, preview
@@ -39,19 +40,31 @@ admin.site.register(Preview, PreviewAdmin)
 # Events
 
 
+def choice():
+    if is_github_remote_enabled():
+        return [(file.name, file.name) for file in get_github_repo().get_dir_contents('/')]
+    else:
+        request = get_current_request()
+
+        return [(template.slug, template.slug) for template in
+                Template.objects.filter(owner__groups__in=request.user.groups.all()).all()]
+
+
 class EventActionForm(ActionForm):
-    template = forms.ModelChoiceField(queryset=Template.objects.all(), required=False)
+    template = forms.ChoiceField(choices=choice, required=False)
 
     def __init__(self, *args, **kwargs):
         request = get_current_request()
 
-        default_template = list(Template.objects.filter(is_default=True, owner__groups__in=request.user.groups.all()))
-        if default_template:
-            kwargs["initial"] = {"template": default_template[0].id}
+        if is_github_remote_enabled():
+            kwargs["initial"] = {"template": "main.html"}
+        else:
+            default_template = list(Template.objects.filter(is_default=True,
+                                                            owner__groups__in=request.user.groups.all()))
+            if default_template:
+                kwargs["initial"] = {"template": default_template[0].slug}
 
         super().__init__(*args, **kwargs)
-
-        self.fields['template'].queryset = Template.objects.filter(owner__groups__in=request.user.groups.all())
 
 
 class EventAdminForm(ModelForm):
