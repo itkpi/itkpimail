@@ -1,8 +1,11 @@
+import json
 from django import forms
 from django.contrib.admin import ACTION_CHECKBOX_NAME
 from django.shortcuts import render_to_response, redirect
 from django.template import Context, RequestContext
+from django.template.debug import DebugVariableNode
 from django.template.loader import get_template
+from events.loaders import is_github_remote_enabled, get_github_repo
 from events.models import Template, Preview
 
 from collections import OrderedDict
@@ -21,20 +24,22 @@ def parse_vars(variables):
         else:
             yield {'name': var, 'initial': None}
 
-def make_template_form(template):
-    fields = OrderedDict()
-    for var in parse_vars(template.variables):
-        fields[var['name']] = forms.CharField(initial=var['initial'])
+def make_template_form(template_id):
+    template_obj, variables = retrieve_template(template_id)
 
-    fields['template'] = forms.CharField(widget=forms.HiddenInput, initial=template.id)
+    fields = OrderedDict()
+    for name in sorted(variables.keys()):
+        fields[name] = forms.CharField(initial=variables[name])
+
+    fields['template'] = forms.CharField(widget=forms.HiddenInput, initial=template_id)
     fields['_selected_action'] = forms.CharField(widget=forms.MultipleHiddenInput)
     return type('TemplateForm', (forms.BaseForm, ), {'base_fields': fields})
 
 
 def generate_mail(modeladmin, request, queryset):
     template_id = request.POST['template']
-    template_db = Template.objects.get(pk=int(template_id))
-    TemplateForm = make_template_form(template_db)
+    template_obj, variables = retrieve_template(template_id)
+    TemplateForm = make_template_form(template_id)
 
     form = None
     if 'apply' in request.POST:
@@ -42,12 +47,9 @@ def generate_mail(modeladmin, request, queryset):
         form = TemplateForm(request.POST)
 
         if form.is_valid():
-            template_slug = template_db.slug
-            template = get_template(template_slug)
-
             variables = form.cleaned_data
             setup_template_variables(queryset, variables)
-            rendered = template.render(Context(variables))
+            rendered = template_obj.render(Context(variables))
 
             preview = Preview(body=str(rendered))
             preview.save()
@@ -64,14 +66,26 @@ def generate_mail(modeladmin, request, queryset):
 generate_mail.short_description = "Generate email"
 
 
+def retrieve_template(template_id):
+    if is_github_remote_enabled():
+        template_slug = template_id
+        variables = json.loads(
+            get_github_repo().get_file_contents('/' + template_slug + '.defaults').decoded_content.decode())
+        template = get_template(template_slug)
+    else:
+        template_db = Template.objects.get(pk=int(template_id))
+        template_slug = template_db.slug
+
+        variables = {var["name"]: var["initial"] for var in parse_vars(template_db.variables)}
+        template = get_template(template_slug)
+    return template, variables
+
+
 def preview(modeladmin, request, queryset):
     template_id = request.POST['template']
-    template_db = Template.objects.get(pk=int(template_id))
 
-    template_slug = template_db.slug
-    template = get_template(template_slug)
+    template, variables = retrieve_template(template_id)
 
-    variables = {var["name"]: var["initial"] for var in parse_vars(template_db.variables)}
     setup_template_variables(queryset, variables)
     rendered = template.render(Context(variables))
 

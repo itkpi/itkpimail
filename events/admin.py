@@ -46,7 +46,7 @@ def choice():
     else:
         request = get_current_request()
 
-        return [(template.slug, template.slug) for template in
+        return [(template.id, template.slug) for template in
                 Template.objects.filter(owner__groups__in=request.user.groups.all()).all()]
 
 
@@ -62,7 +62,7 @@ class EventActionForm(ActionForm):
             default_template = list(Template.objects.filter(is_default=True,
                                                             owner__groups__in=request.user.groups.all()))
             if default_template:
-                kwargs["initial"] = {"template": default_template[0].slug}
+                kwargs["initial"] = {"template": default_template[0].id}
 
         super().__init__(*args, **kwargs)
 
