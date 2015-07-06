@@ -65,7 +65,7 @@ TEMPLATES = [
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
-                'events.loaders.DatabaseLoader',
+                'events.loaders.MyLoader',
             ],
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -133,10 +133,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-# MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_APIKEY", None)
+GITHUB_API_TOKEN = os.environ.get("GITHUB_API_TOKEN", None)
 
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
+
 
 try:
     from .local_settings import *

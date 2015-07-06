@@ -90,6 +90,21 @@ class Template(models.Model):
         return self.slug
 
 
+class GitRemote(models.Model):
+    class Meta:
+        unique_together = ('remote', 'owner')
+        verbose_name = "Github remote"
+    remote = models.CharField(max_length=200)
+
+    is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected',
+                                                    help_text='If any of remotes is selected, it will be used. '
+                                                              'Otherwise, Templates from DB will be used.')
+    owner = models.ForeignKey(User, null=True, editable=False)
+
+    def __str__(self):
+        return self.remote
+
+
 class Preview(models.Model):
     published = models.BooleanField(default=False)
     body = models.TextField(null=True)

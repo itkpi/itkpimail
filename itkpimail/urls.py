@@ -5,7 +5,6 @@ from django.views.generic import RedirectView
 admin.site.site_header = 'Sociomator'
 
 urlpatterns = [
-    # Examples:
     url(r'^$', RedirectView.as_view(url='/admin/')),
     url(r'^events/', include('events.urls')),
 
