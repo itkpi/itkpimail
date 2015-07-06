@@ -138,8 +138,6 @@ STATICFILES_DIRS = (
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
 
-GRAPPELLI_ADMIN_TITLE = 'IT KPI Maillist Template Engine'
-
 try:
     from .local_settings import *
 except ImportError:
