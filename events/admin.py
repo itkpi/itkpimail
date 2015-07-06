@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm
 from django import forms
+from django.db.models import Count
 from django.forms import ModelForm
 
 from events.middlewares import get_current_request
@@ -80,6 +81,24 @@ class EventAdminForm(ModelForm):
         return level
 
 
+
+class PublishedListFilter(admin.SimpleListFilter):
+    title = 'published state'
+    parameter_name = 'published'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('published', 'Published'),
+            ('notpublished', 'Not yet published'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'published':
+            return queryset.filter(previews__published=True)
+        if self.value() == 'notpublished':
+            return queryset.exclude(previews__published=True)
+
+
 class EventAdmin(admin.ModelAdmin):
     action_form = EventActionForm
     actions = [generate_mail, preview]
@@ -89,7 +108,8 @@ class EventAdmin(admin.ModelAdmin):
 
     fields = ('title', 'special', 'agenda', 'image_url', 'level', 'place',
               ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration', 'social')
-    list_display = ('title', 'when', 'owner', 'date', 'owner_groups')
+    list_display = ('title', 'when', 'owner', 'date', 'owner_groups', 'published')
+    list_filter = (PublishedListFilter, 'special', 'level')
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
@@ -103,6 +123,9 @@ class EventAdmin(admin.ModelAdmin):
         if obj.owner:
             return ','.join(group.name for group in obj.owner.groups.all())
 
+    def published(self, obj):
+      return obj.previews.filter(published=True).count() > 0
+    published.boolean = True
 
 
 admin.site.register(Event, EventAdmin)
