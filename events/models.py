@@ -1,4 +1,4 @@
-from customauth.models import CustomUser
+from customauth.models import User
 from django.db import models
 from django.db.models import Q
 
@@ -68,7 +68,7 @@ class Event(models.Model):
                                                            'supports it). You can set special on "promoted" events or '
                                                            'some events you wish to draw attention to.')
 
-    owner = models.ForeignKey(CustomUser, null=True, editable=False, verbose_name=u"Created by")
+    owner = models.ForeignKey(User, null=True, editable=False, verbose_name=u"Created by")
     previews = models.ManyToManyField('Preview')
 
     def __str__(self):
@@ -88,7 +88,7 @@ class Template(models.Model):
     variables = models.CharField(max_length=200, help_text='"~!~"-separated variables list', default='', null=True, blank=True)
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=False)
 
-    owner = models.ForeignKey(CustomUser, null=True, editable=False)
+    owner = models.ForeignKey(User, null=True, editable=False)
 
     def __str__(self):
         return self.slug
@@ -104,7 +104,7 @@ class GitRemote(models.Model):
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected',
                                                     help_text='If any of remotes is selected, it will be used. '
                                                               'Otherwise, Templates from DB will be used.')
-    owner = models.ForeignKey(CustomUser, null=True, editable=False)
+    owner = models.ForeignKey(User, null=True, editable=False)
 
     def __str__(self):
         return self.remote
@@ -116,7 +116,7 @@ class Preview(models.Model):
     list_id = models.CharField(max_length=20, null=True)
     mailchimp_url = models.CharField(max_length=200, null=True, blank=True, editable=False)
 
-    owner = models.ForeignKey(CustomUser, null=True, editable=False)
+    owner = models.ForeignKey(User, null=True, editable=False)
 
     @models.permalink
     def get_absolute_url(self):

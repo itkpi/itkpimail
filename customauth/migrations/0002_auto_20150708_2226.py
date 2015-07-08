@@ -11,8 +11,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='customuser',
-            options={'verbose_name': 'User'},
+        migrations.RenameModel(
+            old_name='CustomUser',
+            new_name='User',
         ),
     ]

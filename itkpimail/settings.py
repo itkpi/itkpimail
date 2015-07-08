@@ -146,7 +146,7 @@ GITHUB_API_TOKEN = os.environ.get("GITHUB_API_TOKEN", None)
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
 
-AUTH_USER_MODEL = 'customauth.CustomUser'
+AUTH_USER_MODEL = 'customauth.User'
 
 
 ADMIN_TOOLS_INDEX_DASHBOARD = 'itkpimail.dashboard.dashboard.CustomIndexDashboard'
