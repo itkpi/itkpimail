@@ -12,7 +12,8 @@ from redactor.widgets import RedactorEditor
 
 
 def filter_by_owner_group_admin(queryset, request):
-    if not request.user.is_superuser:
+    print(request.user.has_perm("events.ignore_tenancy"))
+    if not request.user.has_perm("events.ignore_tenancy"):
         queryset = filter_by_owner_group(queryset, request)
     return queryset
 

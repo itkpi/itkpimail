@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'admin_tools.menu',
     'admin_tools.dashboard',
 
-    'wpadmin',
+    # 'wpadmin',
+    'customauth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,6 +145,8 @@ GITHUB_API_TOKEN = os.environ.get("GITHUB_API_TOKEN", None)
 
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
+
+AUTH_USER_MODEL = 'customauth.CustomUser'
 
 
 ADMIN_TOOLS_INDEX_DASHBOARD = 'itkpimail.dashboard.dashboard.CustomIndexDashboard'

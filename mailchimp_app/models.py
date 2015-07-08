@@ -1,5 +1,5 @@
+from customauth.models import CustomUser
 from django.db import models
-from django.contrib.auth.models import User
 from events.fields import ExclusiveBooleanFieldOnOwnerGroups
 
 
@@ -12,7 +12,7 @@ class MailChimpCredential(models.Model):
     api_key = models.CharField(max_length=200)
 
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected')
-    owner = models.ForeignKey(User, null=True, editable=False)
+    owner = models.ForeignKey(CustomUser, null=True, editable=False)
 
     def __str__(self):
         return self.name

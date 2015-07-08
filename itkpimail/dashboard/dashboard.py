@@ -63,7 +63,7 @@ class CustomIndexDashboard(Dashboard):
             _('Administration'),
             deletable=False,
             collapsible=False,
-            models=('django.contrib.*',),
+            models=('django.contrib.*', 'customauth.*'),
         ))
 
         self.children.append(ConfigurationChecker())
