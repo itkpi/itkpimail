@@ -79,6 +79,8 @@ class Event(models.Model):
 class Template(models.Model):
     class Meta:
         unique_together = ['slug', 'owner']
+        verbose_name = "Email Template (Deprecated. Use Github Remote)"
+        verbose_name_plural = "Email Templates (Deprecated. Use Github Remote)"
     slug = models.CharField(max_length=80, default="unknown.html")
     template_body = models.TextField(null=True)
     variables = models.CharField(max_length=200, help_text='"~!~"-separated variables list', default='', null=True, blank=True)
@@ -93,7 +95,8 @@ class Template(models.Model):
 class GitRemote(models.Model):
     class Meta:
         unique_together = ('remote', 'owner')
-        verbose_name = "Github remote"
+        verbose_name = "Github remote with Email Templates"
+        verbose_name_plural = "Github remotes with Email Templates"
     remote = models.CharField(max_length=200)
 
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected',

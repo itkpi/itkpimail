@@ -6,6 +6,7 @@ from django.template import Context, RequestContext
 from django.template.debug import DebugVariableNode
 from django.template.loader import get_template
 from events.loaders import is_github_remote_enabled, get_github_repo
+from events.middlewares import get_current_request
 from events.models import Template, Preview
 
 from collections import OrderedDict
@@ -67,10 +68,11 @@ generate_mail.short_description = "Generate email"
 
 
 def retrieve_template(template_id):
-    if is_github_remote_enabled():
+    request = get_current_request()
+    if is_github_remote_enabled(request):
         template_slug = template_id
         variables = json.loads(
-            get_github_repo().get_file_contents('/' + template_slug + '.defaults').decoded_content.decode())
+            get_github_repo(request).get_file_contents('/' + template_slug + '.defaults').decoded_content.decode())
         template = get_template(template_slug)
     else:
         template_db = Template.objects.get(pk=int(template_id))

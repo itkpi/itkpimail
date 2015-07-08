@@ -31,6 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
+
     'wpadmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -60,7 +66,8 @@ ROOT_URLCONF = 'itkpimail.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'override_templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'override_templates'),
+                 os.path.join(BASE_DIR, 'itkpimail', 'templates')],
         'OPTIONS': {
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -138,6 +145,9 @@ GITHUB_API_TOKEN = os.environ.get("GITHUB_API_TOKEN", None)
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
 
+
+ADMIN_TOOLS_INDEX_DASHBOARD = 'itkpimail.dashboard.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
 
 try:
     from .local_settings import *

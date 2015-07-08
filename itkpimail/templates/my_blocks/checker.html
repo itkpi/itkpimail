@@ -1,0 +1,10 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% block module_content %}
+    <ul>
+        <li><strong>MailChimp:</strong> {{ module.mailchimp_configured|yesno:"OK Configured.,Not configured!" }}</li>
+        <li><strong>Github:</strong> {{ module.github_configured|yesno:"OK Configured. Digest generator will use templates from Github and not from DB,Not configured! - deprecated templates from DB will be used." }}
+        {% if module.github_configured %}
+            <li><strong>Github:</strong> {{ module.github_configured_auth|yesno:"OK Authenticated - unlimited requests,Not authenticated - this may cause errors related to the github request limitation for unauthenticated users." }}
+        {% endif %}
+    </ul>
+{% endblock %}

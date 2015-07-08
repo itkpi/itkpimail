@@ -1,0 +1,28 @@
+#header {
+    background: white;
+}
+
+#user-tools{
+    display: none;
+}
+
+.dashboard-title{
+    display: none;
+}
+
+#header #branding h1 {
+    display: none;
+}
+
+div.breadcrumbs {
+    display: block;
+    padding: 10px 15px;
+    border: 0;
+    background-position: 0 -8px;
+    border-bottom: 1px solid #ededed;
+}
+
+div.breadcrumbs a {
+    display: inline;
+}
+

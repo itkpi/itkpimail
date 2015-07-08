@@ -41,8 +41,9 @@ admin.site.register(Preview, PreviewAdmin)
 
 
 def choice():
-    if is_github_remote_enabled():
-        return [(file.name, file.name) for file in get_github_repo().get_dir_contents('/')]
+    request = get_current_request()
+    if is_github_remote_enabled(request):
+        return [(file.name, file.name) for file in get_github_repo(request).get_dir_contents('/')]
     else:
         request = get_current_request()
 
@@ -56,7 +57,7 @@ class EventActionForm(ActionForm):
     def __init__(self, *args, **kwargs):
         request = get_current_request()
 
-        if is_github_remote_enabled():
+        if is_github_remote_enabled(request):
             kwargs["initial"] = {"template": "main.html"}
         else:
             default_template = list(Template.objects.filter(is_default=True,

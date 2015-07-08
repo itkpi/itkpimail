@@ -5,13 +5,26 @@ from mailchimp_app.models import MailChimpCredential
 import mailchimp
 
 
+def get_mailchimp_key(request):
+    return MailChimpCredential.objects.\
+        get(is_default=True, owner__groups__in=request.user.groups.all()).api_key
+
+
+def is_mailchimp_configured(request):
+    try:
+        get_mailchimp_key(request)
+        return True
+    except MailChimpCredential.DoesNotExist:
+        return False
+
+
 def get_mailchimp_api():
     request = get_current_request()
     try:
-        default_key = MailChimpCredential.objects.get(is_default=True, owner__groups__in=request.user.groups.all())
-    except MailChimpCredential.DoesNotExist :
+        default_key = get_mailchimp_key(request)
+    except MailChimpCredential.DoesNotExist:
         raise Exception("Check if your API key present.")
-    return mailchimp.Mailchimp(default_key.api_key)
+    return mailchimp.Mailchimp(default_key)
 
 
 def list_list():
