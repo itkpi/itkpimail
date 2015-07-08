@@ -3,11 +3,12 @@
 }
 
 #user-tools{
-    display: none;
+    color: black;
+    margin-right: 50px;
 }
 
-.dashboard-title{
-    display: none;
+#header a:link, #header a:visited {
+    color: blue;
 }
 
 #header #branding h1 {
