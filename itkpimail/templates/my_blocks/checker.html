@@ -1,5 +1,11 @@
 {% extends "admin_tools/dashboard/module.html" %}
 {% block module_content %}
+    {% if user.is_supreme %}
+        <p>
+            <strong><span style="color: red">Warnign: You are supreme user,
+                it's not safe to do anything except of administrative operations </span></strong>
+        </p>
+    {% endif %}
     <ul>
         <li><strong>MailChimp:</strong> {{ module.mailchimp_configured|yesno:"OK Configured.,Not configured!" }}</li>
         <li><strong>Github:</strong> {{ module.github_configured|yesno:"OK Configured. Digest generator will use templates from Github and not from DB,Not configured! - deprecated templates from DB will be used." }}
