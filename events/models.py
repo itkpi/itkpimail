@@ -60,6 +60,7 @@ class Event(models.Model):
     when_end = models.DateField(null=True, blank=True)
     when_end_time = models.TimeField(null=True, blank=True)
     when_time_required = models.BooleanField(default=True)
+    publish = models.BooleanField(default=False, help_text=u'This event will be published on your company\'s page')
     date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Created datetime")
     registration = models.CharField(max_length=200, default="")
 

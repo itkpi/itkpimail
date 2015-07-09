@@ -104,4 +104,18 @@ def setup_template_variables(queryset, variables):
     variables['special_events'] = queryset.filter(special=True).order_by('when')
 
 
-preview.short_description = "Event preview"
+def publish(modeladmin, request, queryset):
+    for event in queryset:
+        event.publish = True
+        event.save()
+
+
+publish.short_description = "Publish on company's page"
+
+def unpublish(modeladmin, request, queryset):
+    for event in queryset:
+        event.publish = False
+        event.save()
+
+
+unpublish.short_description = "Remove from company's page"

@@ -7,7 +7,7 @@ admin.site.site_title = "IT KPI Maillist Generation Engine"
 admin.site.index_title = "IT KPI Maillist Generation Engine"
 
 urlpatterns = [
-    url(r'^$', RedirectView.as_view(url='/admin/')),
+    url(r'^$', RedirectView.as_view(url='/admin/', permanent=False)),
     url(r'^events/', include('events.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

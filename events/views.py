@@ -1,11 +1,12 @@
+from customauth.admin import CustomGroup
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView, View
+from django.views.generic import FormView, View, TemplateView, ListView
 from events.forms import CampaignCreateForm1, CampaignCreateForm2
 from events.mailchimp_utils import get_mailchimp_api, get_list
-from events.models import Preview
+from events.models import Preview, Event
 
 
 class PreviewView(View):
@@ -62,7 +63,7 @@ class PreviewView2(FormView):
 
         self.model.published = True
         self.model.mailchimp_url = "https://admin.mailchimp.com/campaigns/wizard/html-paste?id={}".\
-                                    format(data['web_id'])
+                                   format(data['web_id'])
         self.model.save()
         return redirect(self.model.mailchimp_url, permanent=False)
 
@@ -81,3 +82,32 @@ class PreviewView2(FormView):
         }
         initial.update(self.model.__dict__)
         return initial
+
+
+class CompaniesListView(TemplateView):
+    template_name = 'companies/list.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['companies'] = sorted(group.name for group in CustomGroup.objects.all())
+        return data
+
+
+class CompanyView(ListView):
+    template_name = 'companies/home.html'
+    model = Event
+    paginate_by = 5
+
+    def get_queryset(self):
+        group = CustomGroup.objects.get(name=self.group_name)
+        return Event.objects.filter(owner__groups=group, publish=True).\
+            order_by('-when')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.group_name = kwargs['slug']
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['name'] = self.group_name
+        return data

@@ -32,7 +32,7 @@ class CustomIndexDashboard(Dashboard):
             deletable=False,
             collapsible=False,
             children=[
-                [_('Return to site'), '/'],
+                [_('Go to public page'), reverse('company', args=(context.request.user.groups.all()[0].name,))],
                 [_('Change password'),
                  reverse('%s:password_change' % site_name)],
                 [_('Log out'), reverse('%s:logout' % site_name)],

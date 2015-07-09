@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+
+{% block title %}IKMGE{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'companies_list' %}">{% trans 'Home' %}</a>
+<a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a>
+{% if title %} &rsaquo; {{ title }}{% endif %}
+</div>
+{% endblock %}

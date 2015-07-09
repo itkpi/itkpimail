@@ -1,0 +1,13 @@
+{% extends "base_public.html" %}
+
+{% block content %}
+
+<h1>Companies</h1>
+
+<ul>
+{% for company in companies %}
+<li><a href="{% url 'company' company %}">{{ company }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

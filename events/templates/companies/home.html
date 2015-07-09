@@ -1,0 +1,107 @@
+{% extends "base_public.html" %}
+
+{% block title %}{{ name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ name }}</h1>
+
+<ul>
+{% for event in object_list %}
+    <li>
+
+        {% if event.image_url %}
+            <img src="{{ event.image_url }}" alt="image for {{ event.title }}" style="width:300px; float: right" />
+        {% endif %}
+
+    <h3>{{ event.title }} </h3>
+    <p>
+        {{ event.description | safe }}
+    </p>
+
+
+    <p>
+        {{ event.agenda | safe }}
+    </p>
+
+
+    {% if event.speaker %}
+    <p>
+        <b>Спікери: </b> {{ event.speaker | safe }}
+    </p>
+    {% endif %}
+
+
+    {% if event.when %}
+        <p><b>Дата і час: </b>
+            {{ event.when | date:"d.m D" }}
+
+            {% if event.when_time %}
+              {{ event.when_time | time:"H:i" }}
+            {% endif %}
+
+
+            {% if event.when_end %}
+             –
+            {{ event.when_end | date:"d.m D" }}
+
+            {% if event.when_end_time %}
+              {{ event.when_end_time | time:"H:i" }}
+            {% endif %}
+
+            {% endif %}
+        </p>
+    {% endif %}
+
+
+    <p>
+        <b>Місце: </b>
+        {% if event.place|slice:":6" == "Онлайн" %}
+            {% if event.place|slice:"6:8" == " +" %}
+                Онлайн + <a href="https://www.google.com/maps?q={{ event.place|slice:"8:" }}">{{ event.place|slice:"8:" }}</a>
+            {% else %}
+                {{ event.place | safe }}
+            {% endif %}
+        {% else %}
+        <a href="https://www.google.com/maps?q={{ event.place }}">{{ event.place | safe }}</a>
+        {% endif %}
+    </p>
+
+    {% if event.social %}
+    <p>
+        {{ event.social | safe }}
+    </p>
+    {% endif %}
+    <p>
+        <b><a href="{{ event.registration | safe }}">Реєстрація</a></b>
+    </p>
+
+    <hr />
+    <br />
+
+
+
+    </li>
+{% empty %}
+    <li>No events yet.</li>
+{% endfor %}
+</ul>
+
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt; prev</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next &gt;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+{% endblock %}

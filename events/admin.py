@@ -5,7 +5,7 @@ from django.forms import ModelForm
 from events.loaders import is_github_remote_enabled, get_github_repo
 
 from events.middlewares import get_current_request
-from events.adminactions import generate_mail, preview
+from events.adminactions import generate_mail, preview, publish, unpublish
 from events.models import Event, Template, Preview, filter_by_owner_group, GitRemote
 from itkpimail import settings
 from redactor.widgets import RedactorEditor
@@ -115,14 +115,14 @@ class PublishedListFilter(admin.SimpleListFilter):
 
 class EventAdmin(admin.ModelAdmin):
     action_form = EventActionForm
-    actions = [generate_mail, preview]
+    actions = [generate_mail, preview, publish, unpublish]
     ordering = ['-when']
 
     form = EventAdminForm
 
-    fields = ('title', 'special', 'agenda', 'image_url', 'level', 'place',
+    fields = ('title', ('special', 'publish'), 'agenda', 'image_url', 'level', 'place',
               ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration', 'social')
-    list_display = ('title', 'when', 'owner', 'date', 'owner_groups', 'published')
+    list_display = ('title', 'when', 'owner', 'date', 'owner_groups', 'email_sent')
     list_filter = (PublishedListFilter, 'special', 'level')
 
     def save_model(self, request, obj, form, change):
@@ -137,9 +137,9 @@ class EventAdmin(admin.ModelAdmin):
         if obj.owner:
             return ','.join(group.name for group in obj.owner.groups.all())
 
-    def published(self, obj):
+    def email_sent(self, obj):
       return obj.previews.filter(published=True).count() > 0
-    published.boolean = True
+    email_sent.boolean = True
 
 
 admin.site.register(Event, EventAdmin)
