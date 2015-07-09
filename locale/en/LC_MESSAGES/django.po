@@ -1,0 +1,325 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-09 17:27+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: customauth/admin.py:29
+msgid "Personal info"
+msgstr ""
+
+#: customauth/admin.py:30
+msgid "Permissions"
+msgstr ""
+
+#: customauth/admin.py:33
+msgid "Important dates"
+msgstr ""
+
+#: customauth/admin.py:53
+msgid "Group"
+msgstr ""
+
+#: customauth/apps.py:7
+msgid "Authentication"
+msgstr ""
+
+#: customauth/models.py:11
+msgid "supreme user status"
+msgstr ""
+
+#: customauth/models.py:12
+msgid "Designates whether the user can ignore ownership of items."
+msgstr ""
+
+#: events/admin.py:127
+msgid "Basic info"
+msgstr ""
+
+#: events/admin.py:128
+msgid "Decorations"
+msgstr ""
+
+#: events/admin.py:129
+msgid "Details"
+msgstr ""
+
+#: events/admin.py:131
+msgid "Additional info"
+msgstr ""
+
+#: events/adminactions.py:73
+msgid "Generate email"
+msgstr ""
+
+#: events/adminactions.py:105
+msgid "Event preview"
+msgstr ""
+
+#: events/adminactions.py:119
+msgid "Publish on company's page"
+msgstr ""
+
+#: events/adminactions.py:127
+msgid "Remove from company's page"
+msgstr ""
+
+#: events/adminactions.py:138
+msgid "Suggested events accepted."
+msgstr ""
+
+#: events/adminactions.py:141
+msgid "Accept suggested event"
+msgstr ""
+
+#: events/adminactions.py:164
+msgid "Events suggested successfully to group {}."
+msgstr ""
+
+#: events/adminactions.py:172
+msgid "Suggest event"
+msgstr ""
+
+#: events/forms.py:8
+msgid "Subscription List"
+msgstr ""
+
+#: events/forms.py:12
+msgid "Suggest to group"
+msgstr ""
+
+#: events/mailchimp_utils.py:27
+msgid "Check if your API key present."
+msgstr ""
+
+#: events/models.py:36
+msgid "Agenda"
+msgstr ""
+
+#: events/models.py:40
+msgid ""
+"\n"
+"                                <strong>Програма:</strong><br/>\n"
+"                                <ul>\n"
+"                                <li></li>\n"
+"                                </ul>\n"
+"                                <strong>Спікери:</strong><br/>\n"
+"                                <ul>\n"
+"                                <li>&nbsp;</li>\n"
+"                                </ul>\n"
+"                                "
+msgstr ""
+
+#: events/models.py:65
+msgid "This event will be published on your company's page"
+msgstr ""
+
+#: events/models.py:68
+msgid ""
+"This event will be published in special way (if template supports it). You "
+"can set special on \"promoted\" events or some events you wish to draw "
+"attention to."
+msgstr ""
+
+#: events/models.py:82
+msgid "Email Template (Deprecated. Use Github Remote)"
+msgstr ""
+
+#: events/models.py:83
+msgid "Email Templates (Deprecated. Use Github Remote)"
+msgstr ""
+
+#: events/models.py:86
+msgid "\"~!~\"-separated variables list"
+msgstr ""
+
+#: events/models.py:98
+msgid "Github remote with Email Templates"
+msgstr ""
+
+#: events/models.py:99
+msgid "Github remotes with Email Templates"
+msgstr ""
+
+#: events/models.py:103
+msgid ""
+"If any of remotes is selected, it will be used. Otherwise, Templates from DB "
+"will be used."
+msgstr ""
+
+#: events/models.py:127
+msgid "Created datetime"
+msgstr ""
+
+#: events/models.py:131
+msgid "Owner group"
+msgstr ""
+
+#: events/models.py:133
+msgid "Submitted"
+msgstr ""
+
+#: events/templates/admin/events/template/change_list.html:9
+msgid "Import from GIT"
+msgstr ""
+
+#: events/templates/base_public.html:5
+msgid "IKMGE"
+msgstr ""
+
+#: events/templates/base_public.html:9
+msgid "Home"
+msgstr ""
+
+#: events/templates/base_public.html:10 itkpimail/dashboard/dashboard.py:83
+msgid "Administration"
+msgstr ""
+
+#: events/templates/companies/event.html:20
+msgid "Speakers"
+msgstr ""
+
+#: events/templates/companies/event.html:26
+msgid "Date and time"
+msgstr ""
+
+#: events/templates/companies/event.html:48
+msgid "Location"
+msgstr ""
+
+#: events/templates/companies/event.html:51
+msgid "Online"
+msgstr ""
+
+#: events/templates/companies/event.html:66
+msgid "Registration"
+msgstr ""
+
+#: events/templates/companies/home.html:19
+msgid "No events yet."
+msgstr ""
+
+#: events/templates/companies/home.html:28
+msgid "prev"
+msgstr ""
+
+#: events/templates/companies/home.html:31
+msgid "Page"
+msgstr ""
+
+#: events/templates/companies/home.html:31
+msgid "of"
+msgstr ""
+
+#: events/templates/companies/home.html:34
+msgid "next"
+msgstr ""
+
+#: events/templates/companies/list.html:5
+msgid "Companies"
+msgstr ""
+
+#: events/templates/companies/suggest.html:7
+msgid "Suggest events"
+msgstr ""
+
+#: events/templates/companies/suggest.html:25
+msgid "No events selected"
+msgstr ""
+
+#: events/templates/parametrize.html:7
+msgid "Pass parameters to template"
+msgstr ""
+
+#: events/templates/preview.html:7
+msgid "Submit"
+msgstr ""
+
+#: events/templates/preview.html:14
+msgid "Preview"
+msgstr ""
+
+#: events/templates/preview.html:20
+msgid "Generated HTML"
+msgstr ""
+
+#: itkpimail/dashboard/checker.py:17
+msgid "Configuration check"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:28
+msgid "Welcome, Supreme User, The Greatest of all Users, My Creator!"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:30
+msgid "Maillist Generation Engine"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:37
+msgid "Go to public page of {}"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:40
+msgid "Public page"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:45
+msgid "Go to public view: companies list"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:54
+msgid "Quick links"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:63
+msgid "General"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:67
+msgid "Configuration"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:72
+msgid "Digest Generator"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:107
+msgid "Recent Actions"
+msgstr ""
+
+#: itkpimail/settings.py:111
+msgid "Ukrainian"
+msgstr ""
+
+#: itkpimail/settings.py:112
+msgid "English"
+msgstr ""
+
+#: itkpimail/urls.py:6 itkpimail/urls.py:7 itkpimail/urls.py:8
+msgid "IT KPI Maillist Generation Engine"
+msgstr ""
+
+#: mailchimp_app/apps.py:6
+msgid "MailChimp Configuration"
+msgstr ""
+
+#: mailchimp_app/models.py:10
+msgid "Mailchimp API Key"
+msgstr ""
+
+#: mailchimp_app/models.py:15
+msgid "Selected"
+msgstr ""

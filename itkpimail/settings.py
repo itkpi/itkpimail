@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -85,6 +86,8 @@ TEMPLATES = [
     },
 ]
 
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
+
 WSGI_APPLICATION = 'itkpimail.wsgi.application'
 
 
@@ -103,6 +106,11 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = (
+    ('uk', _('Ukrainian')),
+    ('en', _('English')),
+)
 
 TIME_ZONE = 'UTC'
 
