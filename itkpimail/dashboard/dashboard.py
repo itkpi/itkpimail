@@ -66,7 +66,7 @@ class CustomIndexDashboard(Dashboard):
         events_admin = modules.ModelList(
             _('Configuration'),
             models=('events.*', 'mailchimp_app.*'),
-            exclude=('events.models.Event', 'events.models.Preview', ),
+            exclude=('events.models.Event', 'events.models.SuggestedEvent', 'events.models.Preview', ),
         )
         self.children.append(modules.Group(
             title=_('Digest Generator'),
