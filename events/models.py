@@ -1,4 +1,4 @@
-from customauth.admin import CustomGroup
+from django.utils.translation import ugettext_lazy as _
 from customauth.models import User
 from django.contrib.auth.models import Group
 from django.db import models
@@ -33,11 +33,11 @@ class BaseEvent(models.Model):
 
     title = models.CharField(max_length=200)
     agenda = RedactorField(
-                        verbose_name=u'Agenda',
+                        verbose_name=_('Agenda'),
                         redactor_options={'lang': 'en', 'focus': 'true'},
                         allow_file_upload=False,
                         allow_image_upload=False,
-                        default="""
+                        default=_("""
                                 <strong>Програма:</strong><br/>
                                 <ul>
                                 <li></li>
@@ -46,7 +46,7 @@ class BaseEvent(models.Model):
                                 <ul>
                                 <li>&nbsp;</li>
                                 </ul>
-                                """
+                                """)
                     )
     social = RedactorField(
                         verbose_name=u'Social',
@@ -62,12 +62,12 @@ class BaseEvent(models.Model):
     when_end = models.DateField(null=True, blank=True)
     when_end_time = models.TimeField(null=True, blank=True)
     when_time_required = models.BooleanField(default=True)
-    publish = models.BooleanField(default=False, help_text=u'This event will be published on your company\'s page')
+    publish = models.BooleanField(default=False, help_text=_(u'This event will be published on your company\'s page'))
     registration = models.CharField(max_length=200, default="")
 
-    special = models.BooleanField(default=False, help_text=u'This event will be published in special way (if template '
-                                                           'supports it). You can set special on "promoted" events or '
-                                                           'some events you wish to draw attention to.')
+    special = models.BooleanField(default=False, help_text=_('This event will be published in special way (if template '
+                                                             'supports it). You can set special on "promoted" events or '
+                                                             'some events you wish to draw attention to.'))
 
     def __str__(self):
         if self.when:
@@ -79,11 +79,11 @@ class BaseEvent(models.Model):
 class Template(models.Model):
     class Meta:
         unique_together = ['slug', 'owner']
-        verbose_name = "Email Template (Deprecated. Use Github Remote)"
-        verbose_name_plural = "Email Templates (Deprecated. Use Github Remote)"
+        verbose_name = _("Email Template (Deprecated. Use Github Remote)")
+        verbose_name_plural = _("Email Templates (Deprecated. Use Github Remote)")
     slug = models.CharField(max_length=80, default="unknown.html")
     template_body = models.TextField(null=True)
-    variables = models.CharField(max_length=200, help_text='"~!~"-separated variables list', default='', null=True, blank=True)
+    variables = models.CharField(max_length=200, help_text=_('"~!~"-separated variables list'), default='', null=True, blank=True)
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=False)
 
     owner = models.ForeignKey(User, null=True, editable=False)
@@ -95,13 +95,13 @@ class Template(models.Model):
 class GitRemote(models.Model):
     class Meta:
         unique_together = ('remote', 'owner')
-        verbose_name = "Github remote with Email Templates"
-        verbose_name_plural = "Github remotes with Email Templates"
+        verbose_name = _("Github remote with Email Templates")
+        verbose_name_plural = _("Github remotes with Email Templates")
     remote = models.CharField(max_length=200)
 
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected',
-                                                    help_text='If any of remotes is selected, it will be used. '
-                                                              'Otherwise, Templates from DB will be used.')
+                                                    help_text=_('If any of remotes is selected, it will be used. '
+                                                                'Otherwise, Templates from DB will be used.'))
     owner = models.ForeignKey(User, null=True, editable=False)
 
     def __str__(self):
@@ -124,10 +124,10 @@ class Preview(models.Model):
 class Event(BaseEvent):
     previews = models.ManyToManyField('Preview')
     owner = models.ForeignKey(User, null=True, editable=False)
-    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Created datetime")
+    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_(u"Created datetime"))
 
 
 class SuggestedEvent(BaseEvent):
-    group = models.ForeignKey(Group, null=True, editable=False, verbose_name=u"Owner group")
+    group = models.ForeignKey(Group, null=True, editable=False, verbose_name=_("Owner group"))
     suggested_by = models.CharField(max_length=200, editable=False, default='anonymous')
-    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Submitted")
+    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_("Submitted"))

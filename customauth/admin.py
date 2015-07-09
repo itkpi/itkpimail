@@ -21,6 +21,7 @@ class CustomUserCreationForm(UserCreationForm):
 
         return user
 
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     fieldsets = (
@@ -49,7 +50,7 @@ admin.site.register(User, CustomUserAdmin)
 class CustomGroup(Group):
     class Meta:
         proxy = True
-        verbose_name = 'Group'
+        verbose_name = _('Group')
 
 
 class CustomGroupAdmin(GroupAdmin):

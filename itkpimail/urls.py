@@ -1,10 +1,11 @@
+from django.utils.translation import ugettext_lazy as _
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import RedirectView
 
-admin.site.site_header = "IT KPI Maillist Generation Engine"
-admin.site.site_title = "IT KPI Maillist Generation Engine"
-admin.site.index_title = "IT KPI Maillist Generation Engine"
+admin.site.site_header = _("IT KPI Maillist Generation Engine")
+admin.site.site_title = _("IT KPI Maillist Generation Engine")
+admin.site.index_title = _("IT KPI Maillist Generation Engine")
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/admin/', permanent=False)),

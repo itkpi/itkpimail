@@ -2,10 +2,8 @@
 
 
 from django.db import models, transaction
-from django.db.models import Q
 
 from six import string_types
-from six.moves import reduce
 
 
 try:

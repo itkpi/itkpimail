@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.admin import ACTION_CHECKBOX_NAME
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 from django.forms import model_to_dict
 from django.shortcuts import render_to_response, redirect, render
 from django.template import Context, RequestContext
@@ -69,7 +70,7 @@ def generate_mail(modeladmin, request, queryset):
                               {'form': form},
                               context_instance=RequestContext(request))
 
-generate_mail.short_description = "Generate email"
+generate_mail.short_description = _("Generate email")
 
 
 def retrieve_template(template_id):
@@ -78,13 +79,13 @@ def retrieve_template(template_id):
         template_slug = template_id
         variables = json.loads(
             get_github_repo(request).get_file_contents('/' + template_slug + '.defaults').decoded_content.decode())
-        template = get_template(template_slug)
     else:
         template_db = Template.objects.get(pk=int(template_id))
         template_slug = template_db.slug
 
         variables = {var["name"]: var["initial"] for var in parse_vars(template_db.variables)}
-        template = get_template(template_slug)
+
+    template = get_template(template_slug)  # TODO: using=MyLoader
     return template, variables
 
 
@@ -101,7 +102,7 @@ def preview(modeladmin, request, queryset):
                               context_instance=RequestContext(request))
 
 
-preview.short_description = "Event preview"
+preview.short_description = _("Event preview")
 
 
 def setup_template_variables(queryset, variables):
@@ -115,7 +116,7 @@ def publish(modeladmin, request, queryset):
         event.save()
 
 
-publish.short_description = "Publish on company's page"
+publish.short_description = _("Publish on company's page")
 
 def unpublish(modeladmin, request, queryset):
     for event in queryset:
@@ -123,7 +124,7 @@ def unpublish(modeladmin, request, queryset):
         event.save()
 
 
-unpublish.short_description = "Remove from company's page"
+unpublish.short_description = _("Remove from company's page")
 
 
 def accept_suggested(modeladmin, request, queryset):
@@ -134,10 +135,10 @@ def accept_suggested(modeladmin, request, queryset):
         kwargs['owner'] = request.user
         event = Event(**kwargs)
         event.save()
-    modeladmin.message_user(request, "Suggested events accepted.")
+    modeladmin.message_user(request, _("Suggested events accepted."))
     return redirect(reverse('admin:events_event_changelist'))
 
-accept_suggested.short_description = "Accept suggested event"
+accept_suggested.short_description = _("Accept suggested event")
 
 
 def suggest(modeladmin, request, queryset):
@@ -160,7 +161,7 @@ def suggest(modeladmin, request, queryset):
                 s_event.date = now()
                 s_event.save()
 
-            modeladmin.message_user(request, "Events suggested successfully to group {}.".format(group_name))
+            modeladmin.message_user(request, _("Events suggested successfully to group {}.").format(group_name))
             return redirect(request.get_full_path())
 
     if not form:
@@ -168,4 +169,4 @@ def suggest(modeladmin, request, queryset):
 
     return render(request, 'companies/suggest.html', {'object_list': queryset, 'form': form})
 
-suggest.short_description = u"Suggest event"
+suggest.short_description = _("Suggest event")

@@ -3,6 +3,7 @@ from django.contrib.admin import helpers
 from django.contrib.admin.helpers import ActionForm
 from django import forms
 from django.forms import ModelForm
+from django.utils.translation import ugettext_lazy as _
 from events.loaders import is_github_remote_enabled, get_github_repo
 
 from events.middlewares import get_current_request
@@ -123,13 +124,18 @@ class EventAdmin(admin.ModelAdmin):
 
     form = EventAdminForm
 
-    fields = ('title', ('special', 'publish'), 'agenda', 'image_url', 'level', 'place',
-              ('when', 'when_time', 'when_time_required'), ('when_end', 'when_end_time'), 'registration', 'social')
+    fieldsets = ((_('Basic info'), {'fields': ('title', 'publish', 'agenda')}),
+                 (_('Decorations'), {'fields': ('special', 'image_url', 'level')}),
+                 (_('Details'), {'fields': ('place', ('when', 'when_time', 'when_time_required'),
+                                            ('when_end', 'when_end_time'), 'registration')}),
+                 (_('Additional info'), {'fields': ('social', )}),
+                 )
     list_display = ('title', 'when', 'owner', 'date', 'owner_groups', 'email_sent')
     list_filter = (PublishedListFilter, 'special', 'level')
 
     def save_model(self, request, obj, form, change):
-        obj.owner = request.user
+        if not obj.owner:
+            obj.owner = request.user
         obj.save()
 
     def get_queryset(self, request):

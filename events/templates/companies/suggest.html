@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1>Suggest events</h1>
+<h1>{% trans 'Suggest events' %}</h1>
 
 <form action="" method="POST">
 {% csrf_token %}
@@ -22,7 +22,7 @@
         <br />
     </li>
 {% empty %}
-    <li>No events selected</li>
+    <li>{% trans 'No events selected' %}</li>
 {% endfor %}
 </ul>
 

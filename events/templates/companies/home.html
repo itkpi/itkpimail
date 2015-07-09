@@ -1,5 +1,7 @@
 {% extends "base_public.html" %}
 
+{% load i18n %}
+
 {% block title %}{{ name }}{% endblock %}
 
 {% block content %}
@@ -14,7 +16,7 @@
         <br />
     </li>
 {% empty %}
-    <li>No events yet.</li>
+    <li>{% trans 'No events yet.' %}</li>
 {% endfor %}
 </ul>
 
@@ -23,13 +25,13 @@
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}">&lt; prev</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt; {% trans 'prev' %}</a>
                 {% endif %}
                 <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next &gt;</a>
+                    <a href="?page={{ page_obj.next_page_number }}">{% trans 'next' %} &gt;</a>
                 {% endif %}
             </span>
         </div>

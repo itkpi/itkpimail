@@ -1,7 +1,8 @@
+{% load i18n %}
 
-    {% if event.image_url %}
-        <img src="{{ event.image_url }}" alt="image for {{ event.title }}" style="width:300px; float: right" />
-    {% endif %}
+{% if event.image_url %}
+    <img src="{{ event.image_url }}" alt="image for {{ event.title }}" style="width:300px; float: right" />
+{% endif %}
 
 <h3>{{ event.title }} </h3>
 <p>
@@ -16,13 +17,13 @@
 
 {% if event.speaker %}
 <p>
-    <b>Спікери: </b> {{ event.speaker | safe }}
+    <b>{% trans "Speakers" %}: </b> {{ event.speaker | safe }}
 </p>
 {% endif %}
 
 
 {% if event.when %}
-    <p><b>Дата і час: </b>
+    <p><b>{% trans "Date and time" %}: </b>
         {{ event.when | date:"d.m D" }}
 
         {% if event.when_time %}
@@ -44,10 +45,10 @@
 
 
 <p>
-    <b>Місце: </b>
-    {% if event.place|slice:":6" == "Онлайн" %}
+    <b>{% trans "Location" %}: </b>
+    {% if event.place|slice:":6" == "Онлайн" or event.place|slice:":6" == "Online" %}
         {% if event.place|slice:"6:8" == " +" %}
-            Онлайн + <a href="https://www.google.com/maps?q={{ event.place|slice:"8:" }}">{{ event.place|slice:"8:" }}</a>
+            {% trans "Online" %} + <a href="https://www.google.com/maps?q={{ event.place|slice:"8:" }}">{{ event.place|slice:"8:" }}</a>
         {% else %}
             {{ event.place | safe }}
         {% endif %}
@@ -62,5 +63,5 @@
 </p>
 {% endif %}
 <p>
-    <b><a href="{{ event.registration | safe }}">Реєстрація</a></b>
+    <b><a href="{{ event.registration | safe }}">{% trans "Registration" %}</a></b>
 </p>

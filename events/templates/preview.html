@@ -1,21 +1,23 @@
 {% extends "admin/base_site.html" %}
 
+{% load i18n %}
+
 {% block content %}
 
-<h1>Submit</h1>
+<h1>{% trans 'Submit' %}</h1>
 <form method="POST">
 {% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="submit">
 </form>
 
-<h1>Preview</h1>
+<h1>{% trans 'Preview' %}</h1>
 
 <iframe src='{{ preview.get_absolute_url }}' width="100%" height="600px"></iframe>
 
 <hr />
 
-<h1>Generated HTML</h1>
+<h1>{% trans 'Generated HTML' %}</h1>
     <pre>
 {{ preview.body }}
     </pre>

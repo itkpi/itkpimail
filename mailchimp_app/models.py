@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from customauth.models import User
 from django.db import models
 from events.fields import ExclusiveBooleanFieldOnOwnerGroups
@@ -6,12 +7,12 @@ from events.fields import ExclusiveBooleanFieldOnOwnerGroups
 class MailChimpCredential(models.Model):
     class Meta:
         unique_together = ('name', 'owner')
-        verbose_name = "Mailchimp API Key"
+        verbose_name = _("Mailchimp API Key")
 
     name = models.CharField(max_length=200, default='default')
     api_key = models.CharField(max_length=200)
 
-    is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected')
+    is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name=_('Selected'))
     owner = models.ForeignKey(User, null=True, editable=False)
 
     def __str__(self):

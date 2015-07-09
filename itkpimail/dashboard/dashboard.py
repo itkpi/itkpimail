@@ -22,21 +22,41 @@ class CustomIndexDashboard(Dashboard):
     """
     Custom index dashboard for itkpimail.
     """
+
     def init_with_context(self, context):
+        if context.request.user.is_supreme:
+            self.title = _("Welcome, Supreme User, The Greatest of all Users, My Creator!")
+        else:
+            self.title = _("Maillist Generation Engine")
         site_name = get_admin_site_name(context)
 
+        links = []
+        if context.request.user.groups.all():
+            company_name = context.request.user.groups.all()[0].name
+            links.append({
+                'title': _('Go to public page of {}'.format(company_name)),
+                'url': reverse('company', args=(company_name,)),
+                'external': True,
+                'description': _('Public page'),
+                'attrs': {'target': '_blank'},
+            })
+        links += [
+                {
+                    'title': _('Go to public view: companies list'),
+                    'url': reverse('companies_list'),
+                    'external': True,
+                    'description': 'Public page',
+                    'attrs': {'target': '_blank'},
+                },
+                # [_('Change password'), reverse('%s:password_change' % site_name)],
+            ]
         self.children.append(modules.LinkList(
             _('Quick links'),
-            layout='inline',
+            layout='stacked',  # inline
             draggable=False,
             deletable=False,
             collapsible=False,
-            children=[
-                [_('Go to public page'), reverse('company', args=(context.request.user.groups.all()[0].name,))],
-                [_('Change password'),
-                 reverse('%s:password_change' % site_name)],
-                [_('Log out'), reverse('%s:logout' % site_name)],
-            ]
+            children=links,
         ))
 
         events_main = modules.ModelList(

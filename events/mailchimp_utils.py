@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from itkpimail import settings
 from events.middlewares import get_current_request
 from mailchimp_app.models import MailChimpCredential
@@ -23,7 +24,7 @@ def get_mailchimp_api():
     try:
         default_key = get_mailchimp_key(request)
     except MailChimpCredential.DoesNotExist:
-        raise Exception("Check if your API key present.")
+        raise Exception(_("Check if your API key present."))
     return mailchimp.Mailchimp(default_key)
 
 

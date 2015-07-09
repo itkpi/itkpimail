@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from admin_tools.dashboard import modules
 from events.loaders import is_github_remote_enabled
 from events.mailchimp_utils import is_mailchimp_configured
@@ -13,7 +14,7 @@ class ConfigurationChecker(modules.DashboardModule):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.title = "Configuration check"
+        self.title = _("Configuration check")
         self.template = 'my_blocks/checker.html'
         self.github_configured = False
         self.mailchimp_configured = False
