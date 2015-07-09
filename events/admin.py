@@ -43,7 +43,8 @@ admin.site.register(Preview, PreviewAdmin)
 def choice():
     request = get_current_request()
     if is_github_remote_enabled(request):
-        return [(file.name, file.name) for file in get_github_repo(request).get_dir_contents('/')]
+        return [(file.name, file.name) for file in get_github_repo(request).get_dir_contents('/')
+                if file.name.endswith(".html") or file.name.endswith(".template")]
     else:
         request = get_current_request()
 
