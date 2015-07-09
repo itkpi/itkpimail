@@ -1,4 +1,6 @@
+from customauth.admin import CustomGroup
 from customauth.models import User
+from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Q
 
@@ -14,9 +16,9 @@ def filter_by_owner_group(queryset, request):
     return queryset.filter(q).distinct()
 
 
-class Event(models.Model):
+class BaseEvent(models.Model):
     class Meta:
-        permissions = (("ignore_tenancy", "Can see items owned by any tenant"),)
+        abstract = True
     EMPTY = 'NONE'
     EASY = 'TRAINEE'
     MIDDLE = 'JUNIOR'
@@ -61,15 +63,11 @@ class Event(models.Model):
     when_end_time = models.TimeField(null=True, blank=True)
     when_time_required = models.BooleanField(default=True)
     publish = models.BooleanField(default=False, help_text=u'This event will be published on your company\'s page')
-    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Created datetime")
     registration = models.CharField(max_length=200, default="")
 
     special = models.BooleanField(default=False, help_text=u'This event will be published in special way (if template '
                                                            'supports it). You can set special on "promoted" events or '
                                                            'some events you wish to draw attention to.')
-
-    owner = models.ForeignKey(User, null=True, editable=False, verbose_name=u"Created by")
-    previews = models.ManyToManyField('Preview')
 
     def __str__(self):
         if self.when:
@@ -121,3 +119,15 @@ class Preview(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return 'preview', [str(self.id)]
+
+
+class Event(BaseEvent):
+    previews = models.ManyToManyField('Preview')
+    owner = models.ForeignKey(User, null=True, editable=False)
+    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Created datetime")
+
+
+class SuggestedEvent(BaseEvent):
+    group = models.ForeignKey(Group, null=True, editable=False, verbose_name=u"Owner group")
+    suggested_by = models.CharField(max_length=200, editable=False, default='anonymous')
+    date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=u"Submitted")

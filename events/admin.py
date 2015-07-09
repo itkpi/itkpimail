@@ -1,12 +1,13 @@
 from django.contrib import admin
+from django.contrib.admin import helpers
 from django.contrib.admin.helpers import ActionForm
 from django import forms
 from django.forms import ModelForm
 from events.loaders import is_github_remote_enabled, get_github_repo
 
 from events.middlewares import get_current_request
-from events.adminactions import generate_mail, preview, publish, unpublish
-from events.models import Event, Template, Preview, filter_by_owner_group, GitRemote
+from events.adminactions import generate_mail, preview, publish, unpublish, accept_suggested, suggest
+from events.models import Event, Template, Preview, filter_by_owner_group, GitRemote, SuggestedEvent
 from itkpimail import settings
 from redactor.widgets import RedactorEditor
 
@@ -78,15 +79,17 @@ class EventAdminForm(ModelForm):
         }
 
     social = forms.CharField(widget=RedactorEditor, required=False)
+    check_when_time_required = True
 
     def clean(self):
         cleaned_data = super().clean()
-        when_time = cleaned_data['when_time']
-        when_time_required = cleaned_data['when_time_required']
-        if when_time_required and not when_time:
-            raise forms.ValidationError("when_time field is required!")
-        if not when_time_required and when_time:
-            raise forms.ValidationError("when_time field is required to be empty!")
+        if self.check_when_time_required:
+            when_time = cleaned_data['when_time']
+            when_time_required = cleaned_data['when_time_required']
+            if when_time_required and not when_time:
+                raise forms.ValidationError("when_time field is required!")
+            if not when_time_required and when_time:
+                raise forms.ValidationError("when_time field is required to be empty!")
 
     def clean_level(self):
         level = self.cleaned_data['level']
@@ -115,7 +118,7 @@ class PublishedListFilter(admin.SimpleListFilter):
 
 class EventAdmin(admin.ModelAdmin):
     action_form = EventActionForm
-    actions = [generate_mail, preview, publish, unpublish]
+    actions = [generate_mail, preview, publish, unpublish, suggest]
     ordering = ['-when']
 
     form = EventAdminForm
@@ -143,6 +146,35 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Event, EventAdmin)
+
+class SuggestedEventAdminForm(EventAdminForm):
+    check_when_time_required = False
+    registration = forms.CharField(required=False)
+    image_url = forms.CharField(required=False)
+    level = forms.ChoiceField(required=False, choices=Event.LEVEL_OF_EVENT)
+
+
+class SuggestedEventAdmin(admin.ModelAdmin):
+    form = SuggestedEventAdminForm
+    actions = [accept_suggested]
+    fields = ('title', 'agenda', 'image_url', 'level', 'place',
+              ('when', 'when_time'), ('when_end', 'when_end_time'), 'registration', 'social')
+    ordering = ['date']
+    list_display = ('title', 'when', 'date', 'group', 'suggested_by')
+
+    def save_model(self, request, obj, form, change):
+        obj.group = request.user.groups.all()[0]
+        obj.save()
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_supreme:
+            queryset = queryset.filter(group=request.user.groups.all())
+        return queryset
+
+
+
+admin.site.register(SuggestedEvent, SuggestedEventAdmin)
 
 # Templates
 

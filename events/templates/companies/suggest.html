@@ -1,0 +1,29 @@
+{% extends "base_public.html" %}
+
+{% block title %}{{ name }}{% endblock %}
+
+{% block content %}
+
+<h1>Suggest events</h1>
+
+<form action="" method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+
+<input type="hidden" name="action" value="suggest" />
+<input type="submit" name="apply" value="submit">
+</form>
+
+<ul>
+{% for event in object_list %}
+    <li>
+        {% include 'companies/event.html' %}
+        <hr />
+        <br />
+    </li>
+{% empty %}
+    <li>No events selected</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

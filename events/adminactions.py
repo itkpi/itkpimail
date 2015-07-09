@@ -1,13 +1,18 @@
 import json
 from django import forms
 from django.contrib.admin import ACTION_CHECKBOX_NAME
-from django.shortcuts import render_to_response, redirect
+from django.contrib.auth.models import Group
+from django.core.urlresolvers import reverse
+from django.forms import model_to_dict
+from django.shortcuts import render_to_response, redirect, render
 from django.template import Context, RequestContext
 from django.template.debug import DebugVariableNode
 from django.template.loader import get_template
+from django.utils.timezone import now
+from events.forms import SuggestForm
 from events.loaders import is_github_remote_enabled, get_github_repo
 from events.middlewares import get_current_request
-from events.models import Template, Preview
+from events.models import Template, Preview, Event, SuggestedEvent
 
 from collections import OrderedDict
 
@@ -119,3 +124,48 @@ def unpublish(modeladmin, request, queryset):
 
 
 unpublish.short_description = "Remove from company's page"
+
+
+def accept_suggested(modeladmin, request, queryset):
+    for suggested_event in queryset:
+        kwargs = model_to_dict(suggested_event)
+        print(kwargs)
+        kwargs['date'] = now()
+        kwargs['owner'] = request.user
+        event = Event(**kwargs)
+        event.save()
+    modeladmin.message_user(request, "Suggested events accepted.")
+    return redirect(reverse('admin:events_event_changelist'))
+
+accept_suggested.short_description = "Accept suggested event"
+
+
+def suggest(modeladmin, request, queryset):
+    form = None
+
+    if 'apply' in request.POST:
+        form = SuggestForm(request.POST)
+        if form.is_valid():
+            group_name = form.cleaned_data['group']
+            group = Group.objects.get(name=group_name)
+
+            for event in queryset:
+                kwargs = model_to_dict(event)
+                print(kwargs)
+                del kwargs['previews']
+                s_event = SuggestedEvent(**kwargs)
+                s_event.group = group
+                user_group = ','.join(group.name for group in request.user.groups.all())
+                s_event.suggested_by = "{}::{}".format(user_group, request.user.username)
+                s_event.date = now()
+                s_event.save()
+
+            modeladmin.message_user(request, "Events suggested successfully to group {}.".format(group_name))
+            return redirect(request.get_full_path())
+
+    if not form:
+        form = SuggestForm(initial={'_selected_action': request.POST.getlist(ACTION_CHECKBOX_NAME)})
+
+    return render(request, 'companies/suggest.html', {'object_list': queryset, 'form': form})
+
+suggest.short_description = u"Suggest event"

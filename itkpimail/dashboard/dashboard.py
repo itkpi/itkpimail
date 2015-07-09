@@ -41,7 +41,7 @@ class CustomIndexDashboard(Dashboard):
 
         events_main = modules.ModelList(
             _('General'),
-            models=('events.models.Event', 'events.models.Preview', ),
+            models=('events.models.Event', 'events.models.SuggestedEvent', 'events.models.Preview', ),
         )
         events_admin = modules.ModelList(
             _('Configuration'),
