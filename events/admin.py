@@ -170,6 +170,8 @@ class SuggestedEventAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.group = request.user.groups.all()[0]
+        user_group = ','.join(group.name for group in request.user.groups.all())
+        obj.suggested_by = "{}::{}".format(user_group, request.user.username)
         obj.save()
 
     def get_queryset(self, request):
