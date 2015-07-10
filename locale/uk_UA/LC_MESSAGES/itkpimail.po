@@ -1,0 +1,339 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: IT KPI Mail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-09 15:31+0100\n"
+"PO-Revision-Date: 2015-07-10 21:26+0100\n"
+"Last-Translator: Roman\n"
+"Language-Team: antigluk\n"
+"Language: Ukrainian (Ukraine)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && n%"
+"10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Loco-Source-Locale: en_GB\n"
+"X-Loco-Target-Locale: uk_UA\n"
+"X-Loco-Project-Id: 8783\n"
+"X-Loco-Api-Version: 1.0.11"
+
+#: customauth/admin.py:29 loco:559e860014d7253f4a8b4567
+msgid "Personal info"
+msgstr "Особиста інформація"
+
+#: customauth/admin.py:30 loco:559e860014d7253f4a8b4568
+msgid "Permissions"
+msgstr "Дозволи"
+
+#: customauth/admin.py:33 loco:559e860014d7253f4a8b4569
+msgid "Important dates"
+msgstr "Важливі дати"
+
+#: customauth/admin.py:53 loco:559e860014d7253f4a8b456a
+msgid "Group"
+msgstr "Група"
+
+#: customauth/apps.py:7 loco:559e860014d7253f4a8b456b
+msgid "Authentication"
+msgstr "Автентифікація"
+
+#: customauth/models.py:11 loco:559e860014d7253f4a8b456c
+msgid "supreme user status"
+msgstr "Головний адмін"
+
+#: customauth/models.py:12 loco:559e860014d7253f4a8b456d
+msgid "Designates whether the user can ignore ownership of items."
+msgstr ""
+
+#: events/admin.py:127 loco:559e860014d7253f4a8b456e
+msgid "Basic info"
+msgstr "Базова інформація"
+
+#: events/admin.py:128 loco:559e860014d7253f4a8b456f
+msgid "Decorations"
+msgstr "Прикраси"
+
+#: events/admin.py:129 loco:559e860014d7253f4a8b4570
+msgid "Details"
+msgstr "Деталі"
+
+#: events/admin.py:131 loco:559e860014d7253f4a8b4571
+msgid "Additional info"
+msgstr "Додаткова інформація"
+
+#: events/adminactions.py:73 loco:559e860014d7253f4a8b4572
+msgid "Generate email"
+msgstr "Згенерувати лист"
+
+#: events/adminactions.py:105 loco:559e860014d7253f4a8b4573
+msgid "Event preview"
+msgstr "Переглянути події"
+
+#: events/adminactions.py:119 loco:559e860014d7253f4a8b4574
+msgid "Publish on company's page"
+msgstr "Опублікувати на сторінці компанії"
+
+#: events/adminactions.py:127 loco:559e860014d7253f4a8b4575
+msgid "Remove from company's page"
+msgstr "Видалити зі сторінки компанії"
+
+#: events/adminactions.py:138 loco:559e860014d7253f4a8b4576
+msgid "Suggested events accepted."
+msgstr "Запропоновані події прийнято."
+
+#: events/adminactions.py:141 loco:559e860014d7253f4a8b4577
+msgid "Accept suggested event"
+msgstr "Прийняти запропоновану подію"
+
+#: events/adminactions.py:164 loco:559e860014d7253f4a8b4578
+msgid "Events suggested successfully to group {}."
+msgstr "Подія успішно запропонована групі {}."
+
+#: events/adminactions.py:172 loco:559e860014d7253f4a8b4579
+msgid "Suggest event"
+msgstr "Запропонувати подію"
+
+#: events/forms.py:8 loco:559e860014d7253f4a8b457a
+msgid "Subscription List"
+msgstr "Список підписників"
+
+#: events/forms.py:12 loco:559e860014d7253f4a8b457b
+msgid "Suggest to group"
+msgstr "Запропонувати групі"
+
+#: events/mailchimp_utils.py:27 loco:559e860014d7253f4a8b457c
+msgid "Check if your API key present."
+msgstr "Перевірте наявність вашого API-ключа."
+
+#: events/models.py:36 loco:559e860014d7253f4a8b457d
+msgid "Agenda"
+msgstr "Програма"
+
+#: events/models.py:40 loco:559e860014d7253f4a8b457e
+msgid ""
+"\n"
+"                                <strong>Agenda:</strong><br/>\n"
+"                                <ul>\n"
+"                                <li></li>\n"
+"                                </ul>\n"
+"                                <strong>Speakers:</strong><br/>\n"
+"                                <ul>\n"
+"                                <li>&nbsp;</li>\n"
+"                                </ul>\n"
+"                                "
+msgstr ""
+"\n"
+"                                <strong>Програма:</strong><br/>\n"
+"                                <ul>\n"
+"                                <li></li>\n"
+"                                </ul>\n"
+"                                <strong>Спікери:</strong><br/>\n"
+"                                <ul>\n"
+"                                <li>&nbsp;</li>\n"
+"                                </ul>\n"
+"                                "
+
+#: events/models.py:65 loco:559e860014d7253f4a8b457f
+msgid "This event will be published on your company's page"
+msgstr "Ця подія буде опублікована на сторінці вашої компанії"
+
+#: events/models.py:68 loco:559e860014d7253f4a8b4580
+msgid ""
+"This event will be published in special way (if template supports it). You "
+"can set special on \"promoted\" events or some events you wish to draw "
+"attention to."
+msgstr ""
+
+#: events/models.py:82 loco:559e860014d7253f4a8b4581
+msgid "Email Template (Deprecated. Use Github Remote)"
+msgstr "E-mail шаблон (Не рекомендуємо. Краще використайте GitHub Remote)"
+
+#: events/models.py:83 loco:559e860014d7253f4a8b4582
+msgid "Email Templates (Deprecated. Use Github Remote)"
+msgstr "E-mail шаблони (Не рекомендуємо. Краще використайте GitHub Remote)"
+
+#: events/models.py:86 loco:559e860014d7253f4a8b4583
+msgid "\"~!~\"-separated variables list"
+msgstr ""
+
+#: events/models.py:98 loco:559e860014d7253f4a8b4584
+msgid "Github remote with Email Templates"
+msgstr "Github remote з email шаблонами"
+
+#: events/models.py:99 loco:559e860014d7253f4a8b4585
+msgid "Github remotes with Email Templates"
+msgstr "Github remotes з email шаблонами"
+
+#: events/models.py:103 loco:559e860014d7253f4a8b4586
+msgid ""
+"If any of remotes is selected, it will be used. Otherwise, Templates from DB "
+"will be used."
+msgstr ""
+"Якщо один з репозиторіїв буде обраний, він буде використаний для генерації "
+"листів. Інакше, будуть використані шаблони з бази даних."
+
+#: events/models.py:127 loco:559e860014d7253f4a8b4587
+msgid "Created datetime"
+msgstr "Час створення"
+
+#: events/models.py:131 loco:559e860014d7253f4a8b4588
+msgid "Owner group"
+msgstr "Група власника"
+
+#: events/models.py:133 loco:559e860014d7253f4a8b4589
+msgid "Submitted"
+msgstr ""
+
+#: events/templates/admin/events/template/change_list.html:9 loco:#: 559e860014d7253f4a8b458a
+msgid "Import from GIT"
+msgstr "Імпортувати з GIT'а"
+
+#: events/templates/base_public.html:5 loco:559e860014d7253f4a8b458b
+msgid "IKMGE"
+msgstr ""
+
+#: events/templates/base_public.html:9 loco:559e860014d7253f4a8b458c
+msgid "Home"
+msgstr "Головна"
+
+#: events/templates/base_public.html:10 itkpimail/dashboard/dashboard.py:83 loco:#: 559e860014d7253f4a8b458d
+msgid "Administration"
+msgstr "Адміністрація"
+
+#: events/templates/companies/event.html:20 loco:559e860014d7253f4a8b458e
+msgid "Speakers"
+msgstr "Спікери"
+
+#: events/templates/companies/event.html:26 loco:559e860014d7253f4a8b458f
+msgid "Date and time"
+msgstr "Дата і час"
+
+#: events/templates/companies/event.html:48 loco:559e860014d7253f4a8b4590
+msgid "Location"
+msgstr "Місце"
+
+#: events/templates/companies/event.html:51 loco:559e860014d7253f4a8b4591
+msgid "Online"
+msgstr "Онлайн"
+
+#: events/templates/companies/event.html:66 loco:559e860014d7253f4a8b4592
+msgid "Registration"
+msgstr "Реєстрація"
+
+#: events/templates/companies/home.html:19 loco:559e860014d7253f4a8b4593
+msgid "No events yet."
+msgstr "Поки нема подій."
+
+#: events/templates/companies/home.html:28 loco:559e860014d7253f4a8b4594
+msgid "prev"
+msgstr "попередня"
+
+#: events/templates/companies/home.html:31 loco:559e860014d7253f4a8b4595
+msgid "Page"
+msgstr "Сторінка"
+
+#: events/templates/companies/home.html:31 loco:559e860014d7253f4a8b4596
+msgid "of"
+msgstr "з"
+
+#: events/templates/companies/home.html:34 loco:559e860014d7253f4a8b4597
+msgid "next"
+msgstr "наступна"
+
+#: events/templates/companies/list.html:5 loco:559e860014d7253f4a8b4598
+msgid "Companies"
+msgstr "Компанії"
+
+#: events/templates/companies/suggest.html:7 loco:559e860014d7253f4a8b4599
+msgid "Suggest events"
+msgstr "Запропонувати події"
+
+#: events/templates/companies/suggest.html:25 loco:559e860014d7253f4a8b459a
+msgid "No events selected"
+msgstr "Не вибрано жодної події"
+
+#: events/templates/parametrize.html:7 loco:559e860014d7253f4a8b459b
+msgid "Pass parameters to template"
+msgstr "Додайте параметри в шаблон"
+
+#: events/templates/preview.html:7 loco:559e860014d7253f4a8b459c
+msgid "Submit"
+msgstr "Відправити"
+
+#: events/templates/preview.html:14 loco:559e860014d7253f4a8b459d
+msgid "Preview"
+msgstr "Перегляд"
+
+#: events/templates/preview.html:20 loco:559e860014d7253f4a8b459e
+msgid "Generated HTML"
+msgstr "Згенерувати HTML"
+
+#: itkpimail/dashboard/checker.py:17 loco:559e860014d7253f4a8b459f
+msgid "Configuration check"
+msgstr "Перевірити конфігурацію"
+
+#: itkpimail/dashboard/dashboard.py:28 loco:559e860014d7253f4a8b45a0
+msgid "Welcome, Supreme User, The Greatest of all Users, My Creator!"
+msgstr "Вітаю, Богоподібний, Найвеличніший серед людей, Мій Творець!"
+
+#: itkpimail/dashboard/dashboard.py:30 loco:559e860014d7253f4a8b45a1
+msgid "Maillist Generation Engine"
+msgstr ""
+
+#: itkpimail/dashboard/dashboard.py:37 loco:559e860014d7253f4a8b45a2
+msgid "Go to public page of {}"
+msgstr "Відкрити публічну сторінку {}"
+
+#: itkpimail/dashboard/dashboard.py:40 loco:559e860014d7253f4a8b45a3
+msgid "Public page"
+msgstr "Публічна сторінка"
+
+#: itkpimail/dashboard/dashboard.py:45 loco:559e860014d7253f4a8b45a4
+msgid "Go to public view: companies list"
+msgstr "Вібкрити публічну сторінку із списком груп"
+
+#: itkpimail/dashboard/dashboard.py:54 loco:559e860014d7253f4a8b45a5
+msgid "Quick links"
+msgstr "Quick links"
+
+#: itkpimail/dashboard/dashboard.py:63 loco:559e860014d7253f4a8b45a6
+msgid "General"
+msgstr "Основне"
+
+#: itkpimail/dashboard/dashboard.py:67 loco:559e860014d7253f4a8b45a7
+msgid "Configuration"
+msgstr "Конфігурація"
+
+#: itkpimail/dashboard/dashboard.py:72 loco:559e860014d7253f4a8b45a8
+msgid "Digest Generator"
+msgstr "Генератор дайджестів"
+
+#: itkpimail/dashboard/dashboard.py:107 loco:559e860014d7253f4a8b45a9
+msgid "Recent Actions"
+msgstr "Останні дії"
+
+#: itkpimail/settings.py:111 loco:559e860014d7253f4a8b45aa
+msgid "Ukrainian"
+msgstr "Українська"
+
+#: itkpimail/settings.py:112 loco:559e860014d7253f4a8b45ab
+msgid "English"
+msgstr "English"
+
+#: itkpimail/urls.py:6 itkpimail/urls.py:7 itkpimail/urls.py:8 loco:#: 559e860014d7253f4a8b45ac
+msgid "IT KPI Maillist Generation Engine"
+msgstr ""
+
+#: mailchimp_app/apps.py:6 loco:559e860014d7253f4a8b45ad
+msgid "MailChimp Configuration"
+msgstr "Конфігурація MailChimp\n"
+
+#: mailchimp_app/models.py:10 loco:559e860014d7253f4a8b45ae
+msgid "Mailchimp API Key"
+msgstr "Mailchimp API Key"
+
+#: mailchimp_app/models.py:15 loco:559e860014d7253f4a8b45af
+msgid "Selected"
+msgstr "Обрано"
