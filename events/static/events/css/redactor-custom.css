@@ -1,3 +1,7 @@
 .redactor-editor ol, .redactor-editor ul {
 	list-style: outside disc;
 }
+
+.redactor-box ul {
+	float: none;
+}

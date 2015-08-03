@@ -8,6 +8,8 @@
 
 <h1>{{ name }}</h1>
 
+{% trans "You're welcome to" %} <a href="{% url 'suggest_event' name %}">{% trans 'suggest events' %}</a>!
+
 <ul>
 {% for event in object_list %}
     <li>

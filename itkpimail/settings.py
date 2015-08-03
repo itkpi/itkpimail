@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'redactor',
     'events',
     'mailchimp_app',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -159,6 +160,10 @@ AUTH_USER_MODEL = 'customauth.User'
 
 ADMIN_TOOLS_INDEX_DASHBOARD = 'itkpimail.dashboard.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
+
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
 
 try:
     from .local_settings import *

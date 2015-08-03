@@ -160,6 +160,15 @@ class SuggestedEventAdminForm(EventAdminForm):
     level = forms.ChoiceField(required=False, choices=Event.LEVEL_OF_EVENT)
 
 
+def fill_suggested_by(obj, user):
+    if user.is_anonymous():
+        obj.suggested_by = 'anonymous'
+        return
+    obj.group = user.groups.all()[0]
+    user_group = ','.join(group.name for group in user.groups.all())
+    obj.suggested_by = "{}::{}".format(user_group, user.username)
+
+
 class SuggestedEventAdmin(admin.ModelAdmin):
     form = SuggestedEventAdminForm
     actions = [accept_suggested]
@@ -169,9 +178,7 @@ class SuggestedEventAdmin(admin.ModelAdmin):
     list_display = ('title', 'when', 'date', 'group', 'suggested_by')
 
     def save_model(self, request, obj, form, change):
-        obj.group = request.user.groups.all()[0]
-        user_group = ','.join(group.name for group in request.user.groups.all())
-        obj.suggested_by = "{}::{}".format(user_group, request.user.username)
+        fill_suggested_by(obj, request.user)
         obj.save()
 
     def get_queryset(self, request):

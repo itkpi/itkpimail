@@ -50,6 +50,7 @@ class BaseEvent(models.Model):
                     )
     social = RedactorField(
                         verbose_name=u'Social',
+                        help_text=_('How to get to the event, useful links and comments'),
                         redactor_options={'lang': 'en', 'focus': 'true'},
                         allow_file_upload=False,
                         allow_image_upload=False
@@ -57,10 +58,10 @@ class BaseEvent(models.Model):
     image_url = models.CharField(max_length=200, default="")
     level = models.CharField(max_length=10, choices=LEVEL_OF_EVENT, default=EMPTY)
     place = models.CharField(max_length=200, null=True)
-    when = models.DateField(null=True)
-    when_time = models.TimeField(null=True, blank=True)
-    when_end = models.DateField(null=True, blank=True)
-    when_end_time = models.TimeField(null=True, blank=True)
+    when = models.DateField(null=True, help_text='Event beginning date')
+    when_time = models.TimeField(null=True, blank=True, help_text='Event beginning time')
+    when_end = models.DateField(null=True, blank=True, help_text='Event ending date')
+    when_end_time = models.TimeField(null=True, blank=True, help_text='Event ending time')
     when_time_required = models.BooleanField(default=True)
     publish = models.BooleanField(default=False, help_text=_(u'This event will be published on your company\'s page'))
     registration = models.CharField(max_length=200, default="")

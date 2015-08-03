@@ -1,12 +1,14 @@
+from customauth import admin
 from customauth.admin import CustomGroup
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, TemplateView, ListView
-from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm
+from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm, SuggestPublicForm
 from events.mailchimp_utils import get_mailchimp_api, get_list
 from events.models import Preview, Event
+from events.admin import SuggestedEventAdminForm, SuggestedEventAdmin, fill_suggested_by
 
 
 class PreviewView(View):
@@ -133,3 +135,26 @@ class SuggestView(FormView):
         preview = Preview.objects.get(pk=self.preview_id)
         context['preview'] = preview
         return context
+
+
+class SuggestPublicView(FormView):
+    form_class = SuggestPublicForm
+    template_name = 'companies/suggest_public.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.group_name = kwargs['slug']
+        self.group = CustomGroup.objects.get(name=self.group_name)
+        self.user = request.user
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        object = form.save(commit=False)
+        object.group = self.group
+        fill_suggested_by(object, self.user)
+        object.save()
+        return redirect('suggest_thanks', self.group_name)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['group_name'] = self.group_name
+        return data

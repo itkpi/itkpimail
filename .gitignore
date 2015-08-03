@@ -62,3 +62,6 @@ venv
 *.sqlite3
 
 local_settings.py
+
+staticfiles
+*.bak

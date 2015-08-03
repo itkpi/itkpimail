@@ -1,0 +1,60 @@
+{% extends "base_public.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ group_name }}{% endblock %}
+
+{% block extrahead %}
+<link href="/static/events/uniforms/css/uni-form.css" media="all" rel="stylesheet"/>
+<link href="/static/events/uniforms/css/default.uni-form.css" media="all" rel="stylesheet"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script type="text/javascript" src="/static/events/uniforms/js/uni-form.jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/static/events/datepicker/themes/classic.css" id="theme_base">
+<link rel="stylesheet" href="/static/events/datepicker/themes/classic.date.css" id="theme_date">
+<link rel="stylesheet" href="/static/events/datepicker/themes/classic.time.css" id="theme_time">
+
+<script src="/static/events/datepicker/picker.js"></script>
+<script src="/static/events/datepicker/picker.date.js"></script>
+<script src="/static/events/datepicker/picker.time.js"></script>
+<script src="/static/events/datepicker/legacy.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.dateinput').pickadate({
+            format: "yyyy-mm-dd",
+        });
+        $('.timeinput').pickatime({
+            format: "HH:i",
+        });
+    });
+</script>
+
+
+<link rel="stylesheet" href="/static/events/css/codemirror.css">
+<link rel="stylesheet" href="/static/events/css/redactor-custom.css">
+<link rel="stylesheet" href="/static/redactor/css/redactor.css">
+<script src="/static/events/js/codemirror.js"></script>
+<script src="/static/events/js/multiplex.js"></script>
+<script src="/static/events/js/xml.js"></script>
+<script src="/static/events/js/css.js"></script>
+<script src="/static/events/js/htmlmixed.js"></script>
+<script src="/static/events/js/htmlembedded.js"></script>
+<script src="/static/redactor/redactor.js"></script>
+<script src="/static/redactor/jquery.redactor.init.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ group_name }}: {% trans 'Suggest events' %}</h1>
+<img src="https://pp.vk.me/c624731/v624731254/39755/c9eIAdxmpXU.jpg" style="float: right; width: 300px" />
+
+{% crispy form %}
+
+{% endblock %}
