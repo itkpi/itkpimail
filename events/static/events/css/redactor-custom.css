@@ -3,5 +3,5 @@
 }
 
 .redactor-box ul {
-	float: none;
+	float: none !important;
 }
