@@ -1,10 +1,10 @@
 {% extends "base_public.html" %}
 {% load i18n %}
 
-{% block title %}{{ slug }}{% endblock %}
+{% block title %}{{ request.tenant.group.name }}{% endblock %}
 
 {% block content %}
 
-<h1>Thank you! {{ slug }} will receive your event suggestion</h1>
+<h1>Thank you! {{ request.tenant.group.name }} will receive your event suggestion</h1>
 
 {% endblock %}

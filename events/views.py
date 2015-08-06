@@ -129,7 +129,7 @@ class SuggestPublicView(FormView):
         object.group = self.tenant.group
         fill_suggested_by(object, self.user)
         object.save()
-        return redirect('suggest_thanks', self.tenant.slug)
+        return redirect('suggest_thanks')
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
