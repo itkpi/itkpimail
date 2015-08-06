@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{{ group_name }}{% endblock %}
+{% block title %}{{ tenant.group.name }}{% endblock %}
 
 {% block extrahead %}
 <link href="/static/events/uniforms/css/uni-form.css" media="all" rel="stylesheet"/>
@@ -52,8 +52,8 @@
 
 {% block content %}
 
-<h1>{{ group_name }}: {% trans 'Suggest events' %}</h1>
-<img src="https://pp.vk.me/c624731/v624731254/39755/c9eIAdxmpXU.jpg" style="float: right; width: 300px" />
+<h1>{{ tenant.group.name }}: {% trans 'Suggest events' %}</h1>
+<img src="{{ tenant.big_logo_url }}" style="float: right; width: 300px" />
 
 {% crispy form %}
 

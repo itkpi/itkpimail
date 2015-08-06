@@ -23,3 +23,4 @@ class Tenant(models.Model):
     slug = models.CharField(max_length=50, help_text=_("Short name"))
     domain = models.CharField(max_length=256)
     group = models.ForeignKey(CustomGroup)
+    big_logo_url = models.CharField(max_length=256, null=True)

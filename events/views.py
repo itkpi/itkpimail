@@ -133,7 +133,7 @@ class SuggestPublicView(FormView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['group_name'] = self.tenant.group.name
+        data['tenant'] = self.tenant
         return data
 
 
