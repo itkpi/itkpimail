@@ -1,14 +1,15 @@
-from customauth import admin
 from customauth.admin import CustomGroup
+from customauth.models import Tenant
+from customauth.utils import get_tenant
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import redirect, render_to_response
+from django.http import HttpResponse, Http404
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, TemplateView, ListView
 from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm, SuggestPublicForm
 from events.mailchimp_utils import get_mailchimp_api, get_list
 from events.models import Preview, Event
-from events.admin import SuggestedEventAdminForm, SuggestedEventAdmin, fill_suggested_by
+from events.admin import fill_suggested_by
 
 
 class PreviewView(View):
@@ -91,7 +92,7 @@ class CompaniesListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['companies'] = sorted(group.name for group in CustomGroup.objects.all())
+        data['companies'] = Tenant.objects.all().order_by('slug')
         return data
 
 
@@ -101,17 +102,38 @@ class CompanyView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        group = CustomGroup.objects.get(name=self.group_name)
-        return Event.objects.filter(owner__groups=group, publish=True).\
+        return Event.objects.filter(owner__groups=self.tenant.group, publish=True).\
             order_by('-when')
 
     def dispatch(self, request, *args, **kwargs):
-        self.group_name = kwargs['slug']
+        self.tenant = get_tenant(kwargs, request)
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['name'] = self.group_name
+        data['tenant'] = self.tenant
+        return data
+
+
+class SuggestPublicView(FormView):
+    form_class = SuggestPublicForm
+    template_name = 'companies/suggest_public.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.tenant = get_tenant(kwargs, request)
+        self.user = request.user
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        object = form.save(commit=False)
+        object.group = self.tenant.group
+        fill_suggested_by(object, self.user)
+        object.save()
+        return redirect('suggest_thanks', self.tenant.slug)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['group_name'] = self.tenant.group.name
         return data
 
 
@@ -135,26 +157,3 @@ class SuggestView(FormView):
         preview = Preview.objects.get(pk=self.preview_id)
         context['preview'] = preview
         return context
-
-
-class SuggestPublicView(FormView):
-    form_class = SuggestPublicForm
-    template_name = 'companies/suggest_public.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        self.group_name = kwargs['slug']
-        self.group = CustomGroup.objects.get(name=self.group_name)
-        self.user = request.user
-        return super().dispatch(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        object = form.save(commit=False)
-        object.group = self.group
-        fill_suggested_by(object, self.user)
-        object.save()
-        return redirect('suggest_thanks', self.group_name)
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['group_name'] = self.group_name
-        return data

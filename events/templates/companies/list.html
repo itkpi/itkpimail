@@ -6,7 +6,7 @@
 
 <ul>
 {% for company in companies %}
-<li><a href="{% url 'company' company %}">{{ company }}</a></li>
+<li><a href="{% url 'company' company.slug %}">{{ company.group.name }}</a></li>
 {% endfor %}
 </ul>
 

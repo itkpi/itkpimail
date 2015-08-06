@@ -1,10 +1,10 @@
-from customauth.models import User
+from customauth.models import User, CustomGroup, Tenant
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import Group
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
+from events.admin import filter_by_owner_group_admin
 from events.middlewares import get_current_request
 
 
@@ -47,12 +47,6 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(User, CustomUserAdmin)
 
 
-class CustomGroup(Group):
-    class Meta:
-        proxy = True
-        verbose_name = _('Group')
-
-
 class CustomGroupAdmin(GroupAdmin):
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -64,3 +58,15 @@ class CustomGroupAdmin(GroupAdmin):
         return queryset
 
 admin.site.register(CustomGroup, CustomGroupAdmin)
+
+
+class TenantAdmin(admin.ModelAdmin):
+    list_display = ('id', 'slug', 'group', 'domain')
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_supreme:
+            queryset = queryset.filter(group=request.user.groups.all())
+        return queryset
+
+admin.site.register(Tenant, TenantAdmin)

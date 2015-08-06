@@ -31,11 +31,11 @@ class CustomIndexDashboard(Dashboard):
         site_name = get_admin_site_name(context)
 
         links = []
-        if context.request.user.groups.all():
-            company_name = context.request.user.groups.all()[0].name
+        if context.request.tenant:
+            company_name = context.request.tenant.group.name
             links.append({
                 'title': _('Go to public page of {}'.format(company_name)),
-                'url': reverse('company', args=(company_name,)),
+                'url': reverse('event_list'),
                 'external': True,
                 'description': _('Public page'),
                 'attrs': {'target': '_blank'},

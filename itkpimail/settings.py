@@ -62,6 +62,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'events.middlewares.RequestMiddleware',
+    'customauth.middlewares.TenantsMiddleware',
 )
 
 ROOT_URLCONF = 'itkpimail.urls'

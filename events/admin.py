@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin import helpers
 from django.contrib.admin.helpers import ActionForm
 from django import forms
 from django.forms import ModelForm
