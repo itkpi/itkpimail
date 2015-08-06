@@ -25,7 +25,7 @@ class CustomIndexDashboard(Dashboard):
 
     def init_with_context(self, context):
         if context.request.user.is_supreme:
-            self.title = _("Welcome, Supreme User, The Greatest of all Users, My Creator!")
+            self.title = _('Welcome, Supreme User, The Greatest of all Users, My Creator!')
         else:
             self.title = _("Maillist Generation Engine")
         site_name = get_admin_site_name(context)

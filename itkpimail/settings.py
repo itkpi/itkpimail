@@ -53,6 +53,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,12 +82,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
 ]
 
-LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 WSGI_APPLICATION = 'itkpimail.wsgi.application'
 
@@ -105,14 +106,18 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru_UA'
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 LANGUAGES = (
-    ('uk', _('Ukrainian')),
-    ('en', _('English')),
+    ('uk_UA', _('Ukrainian')),
+    ('ru_UA', _('Russian')),
+    ('en_US', _('English')),
 )
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EET'
 
 USE_I18N = True
 
