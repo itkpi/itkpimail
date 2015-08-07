@@ -80,6 +80,13 @@ class CustomIndexDashboard(Dashboard):
         ))
 
         self.children.append(modules.ModelList(
+            _('Blogs'),
+            models=('blog.*',),
+            deletable=False,
+            collapsible=False,
+        ))
+
+        self.children.append(modules.ModelList(
             _('Administration'),
             deletable=False,
             collapsible=False,

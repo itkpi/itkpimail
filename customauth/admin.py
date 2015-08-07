@@ -4,7 +4,6 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
-from events.admin import filter_by_owner_group_admin
 from events.middlewares import get_current_request
 
 

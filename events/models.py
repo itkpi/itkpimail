@@ -1,5 +1,5 @@
 from django.utils.translation import ugettext_lazy as _
-from customauth.models import User, OwnedModel
+from customauth.models import User, OwnedModel, GroupOwnedModel
 from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Q
@@ -122,7 +122,6 @@ class Event(BaseEvent, OwnedModel):
     date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_(u"Created datetime"))
 
 
-class SuggestedEvent(BaseEvent):
-    group = models.ForeignKey(Group, null=True, editable=False, verbose_name=_("Owner group"))
+class SuggestedEvent(BaseEvent, GroupOwnedModel):
     suggested_by = models.CharField(max_length=200, editable=False, default='anonymous')
     date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_("Submitted"))

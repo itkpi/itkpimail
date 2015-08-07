@@ -1,0 +1,39 @@
+{% extends "base_public.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ request.tenant.group.name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ request.tenant.group.name }} Blog</h1>
+
+{% for post in object_list %}
+    <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+        <i>Tags: {{ post.tags }}</i>
+        <hr />
+        <br />
+{% empty %}
+    <p>{% trans 'No events yet.' %}</p>
+{% endfor %}
+
+
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt; {% trans 'prev' %}</a>
+                {% endif %}
+                <span class="page-current">
+                    {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">{% trans 'next' %} &gt;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from events.admin import filter_by_owner_group_admin
 from mailchimp_app.models import MailChimpCredential
 
 
@@ -11,10 +10,6 @@ class MailChimpCredentialAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
         obj.save()
-
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return filter_by_owner_group_admin(queryset, request)
 
     def owner_groups(self, obj):
         if obj.owner:

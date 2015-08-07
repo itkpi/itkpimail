@@ -12,10 +12,10 @@ from itkpimail import settings
 from redactor.widgets import RedactorEditor
 
 
-def filter_by_owner_group_admin(queryset, request):
-    if not request.user.is_supreme:
-        queryset = filter_by_owner_group(queryset, request)
-    return queryset
+# def filter_by_owner_group_admin(queryset, request):
+#     if not request.user.is_supreme:
+#         queryset = filter_by_owner_group(queryset, request)
+#     return queryset
 
 
 # Previews
@@ -27,10 +27,6 @@ class PreviewAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
         obj.save()
-
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return filter_by_owner_group_admin(queryset, request)
 
     def owner_groups(self, obj):
         if obj.owner:
@@ -137,10 +133,6 @@ class EventAdmin(admin.ModelAdmin):
             obj.owner = request.user
         obj.save()
 
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return filter_by_owner_group_admin(queryset, request)
-
     def owner_groups(self, obj):
         if obj.owner:
             return ','.join(group.name for group in obj.owner.groups.all())
@@ -228,24 +220,15 @@ class TemplatesAdmin(admin.ModelAdmin):
         if obj.owner:
             return ','.join(group.name for group in obj.owner.groups.all())
 
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return filter_by_owner_group_admin(queryset, request)
-
 admin.site.register(Template, TemplatesAdmin)
 
 
-# Register your models here.
 class GitRemoteAdmin(admin.ModelAdmin):
     list_display = ('remote', 'is_default', 'owner_groups')
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
         obj.save()
-
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return filter_by_owner_group_admin(queryset, request)
 
     def owner_groups(self, obj):
         if obj.owner:
