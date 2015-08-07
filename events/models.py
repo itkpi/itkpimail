@@ -1,5 +1,5 @@
 from django.utils.translation import ugettext_lazy as _
-from customauth.models import User
+from customauth.models import User, OwnedModel
 from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Q
@@ -77,7 +77,7 @@ class BaseEvent(models.Model):
             return self.title
 
 
-class Template(models.Model):
+class Template(OwnedModel):
     class Meta:
         unique_together = ['slug', 'owner']
         verbose_name = _("Email Template (Deprecated. Use Github Remote)")
@@ -87,13 +87,11 @@ class Template(models.Model):
     variables = models.CharField(max_length=200, help_text=_('"~!~"-separated variables list'), default='', null=True, blank=True)
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=False)
 
-    owner = models.ForeignKey(User, null=True, editable=False)
-
     def __str__(self):
         return self.slug
 
 
-class GitRemote(models.Model):
+class GitRemote(OwnedModel):
     class Meta:
         unique_together = ('remote', 'owner')
         verbose_name = _("Github remote with Email Templates")
@@ -103,28 +101,24 @@ class GitRemote(models.Model):
     is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected',
                                                     help_text=_('If any of remotes is selected, it will be used. '
                                                                 'Otherwise, Templates from DB will be used.'))
-    owner = models.ForeignKey(User, null=True, editable=False)
 
     def __str__(self):
         return self.remote
 
 
-class Preview(models.Model):
+class Preview(OwnedModel):
     published = models.BooleanField(default=False)
     body = models.TextField(null=True)
     list_id = models.CharField(max_length=20, null=True)
     mailchimp_url = models.CharField(max_length=200, null=True, blank=True, editable=False)
-
-    owner = models.ForeignKey(User, null=True, editable=False)
 
     @models.permalink
     def get_absolute_url(self):
         return 'preview', [str(self.id)]
 
 
-class Event(BaseEvent):
+class Event(BaseEvent, OwnedModel):
     previews = models.ManyToManyField('Preview')
-    owner = models.ForeignKey(User, null=True, editable=False)
     date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_(u"Created datetime"))
 
 

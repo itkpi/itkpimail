@@ -1,4 +1,5 @@
-from customauth.models import Tenant
+from customauth.models import Tenant, User
+from django.db import models
 from django.http import Http404
 
 

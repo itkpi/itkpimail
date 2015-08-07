@@ -1,8 +1,7 @@
-{% extends "admin/base_site.html" %}
-
+{% extends "base_public.html" %}
 {% load i18n %}
 
-{% block title %}{% trans 'IKMGE' %}{% endblock %}
+{% block title %}{{ request.tenant.group.name }}{% endblock %}
 
 {% block extrahead %}
     <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
@@ -12,10 +11,12 @@
           type="text/css" media="screen" charset="utf-8">
 {% endblock %}
 
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-<a href="{% url 'event_list' %}">{% trans 'Home' %}</a>
-<a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a>
-{% if title %} &rsaquo; {{ title }}{% endif %}
-</div>
+{% block content %}
+
+<h1>{% trans 'Blog of ' %}{{ request.tenant.group.name }}</h1>
+
+<div class="editable" style="outline: none; margin: 0 0 20px 0; padding: 0 0 20px 0; border-bottom: 1px solid #dbdbdb;"></div>
+
+<script>var editor = new MediumEditor('.editable');</script>
+
 {% endblock %}

@@ -24,3 +24,9 @@ class Tenant(models.Model):
     domain = models.CharField(max_length=256)
     group = models.ForeignKey(CustomGroup)
     big_logo_url = models.CharField(max_length=256, null=True)
+
+
+class OwnedModel(models.Model):
+    class Meta:
+        abstract = True
+    owner = models.ForeignKey(User, null=True, editable=False)

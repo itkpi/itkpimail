@@ -46,10 +46,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'redactor',
     'events',
     'mailchimp_app',
-    'crispy_forms',
+    'blog'
 )
 
 MIDDLEWARE_CLASSES = (
