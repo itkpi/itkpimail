@@ -8,10 +8,13 @@
     <h1>Unpublished posts</h1>
 
     {% for post in object_list %}
-        <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h2>
+        <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a>
+            <a href="{% url 'blog_post_editor' post.id %}"><span class="fa fa-edit"></span>Edit</a>
+            <a href="{% url 'blog_post_publish' post.id %}"><span class="fa fa-eye"></span>Publish</a>
+        </h2>
 
         <p>{{ post.content|safe }}</p>
-        <p>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+        <p>Author: <i>{{ post.owner.first_name }} {{ post.owner.last_name }}</i></p>
         <hr />
         <br />
     {% empty %}

@@ -2,15 +2,21 @@
 
 {% load i18n %}
 
+
+{% block staff_tools %}
+    {{ block.super }}
+    <a href="{% url 'blog_unpublished_article_list' %}"><span class="fa fa-eye"></span>Show unpublished posts</a>
+{% endblock %}
+
 {% block content %}
     {{ block.super }}
-    {% if request.user.is_staff %}
-    <a href="{% url 'blog_unpublished_article_list' %}">Show unpublished posts</a>
-    {% endif %}
 
     {% for post in object_list %}
         <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a>
-            {% if request.user.is_staff %}<a href="{% url 'blog_post_editor' post.id %}"><span class="fa fa-edit"></span></a>{% endif %}
+            {% if request.user.is_staff %}
+                <a href="{% url 'blog_post_editor' post.id %}"><span class="fa fa-edit"></span>Edit</a>
+                <a href="{% url 'blog_post_unpublish' post.id %}"><span class="fa fa-eye-slash"></span>Unpublish</a>
+            {% endif %}
         </h2>
 
         <p>{{ post.content|safe }}</p>

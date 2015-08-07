@@ -11,7 +11,7 @@ class BlogEntry(OwnedModel):
     content = models.TextField()
     tags = models.CharField(max_length=256)
     date_published = models.DateField()
-    published = models.BooleanField(default=True)
+    published = models.BooleanField(default=False, editable=False)
 
     @models.permalink
     def get_absolute_url(self):

@@ -1,9 +1,13 @@
-from blog.forms import BlogPostForm
+import datetime
+from blog.forms import BlogPostForm, BlogPostFormCreate
 from blog.models import BlogEntry
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, View
+from django.views.generic.detail import SingleObjectMixin
 
 
 class BlogListView(ListView):
@@ -43,3 +47,40 @@ class BlogPostEditView(UpdateView):
     @method_decorator(login_required(login_url='/admin/login'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+
+class BlogPostCreateView(CreateView):
+    form_class = BlogPostFormCreate
+    template_name = 'blog/editor.html'
+    model = BlogEntry
+
+    def form_valid(self, form):
+        form.instance.owner = self.user
+        return super().form_valid(form)
+
+    @method_decorator(login_required(login_url='/admin/login'))
+    def dispatch(self, request, *args, **kwargs):
+        self.user = request.user
+        return super().dispatch(request, *args, **kwargs)
+
+
+class BlogPostPublishView(SingleObjectMixin, View):
+    model = BlogEntry
+
+    @method_decorator(login_required(login_url='/admin/login'))
+    def get(self, request, **kwargs):
+        self.object = self.get_object()
+        self.object.published = True
+        self.object.save()
+        return HttpResponseRedirect(reverse('blog_article_list'))
+
+
+class BlogPostUnpublishView(SingleObjectMixin, View):
+    model = BlogEntry
+
+    @method_decorator(login_required(login_url='/admin/login'))
+    def get(self, request, **kwargs):
+        self.object = self.get_object()
+        self.object.published = False
+        self.object.save()
+        return HttpResponseRedirect(reverse('blog_unpublished_article_list'))

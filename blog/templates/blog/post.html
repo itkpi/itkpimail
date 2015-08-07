@@ -9,7 +9,7 @@
     {{ block.super }}
 
     <h2>{{ object.title }}
-        {% if request.user.is_staff %}<a href="{% url 'blog_post_editor' object.id %}"><span class="fa fa-edit"></span></a>{% endif %}</h2>
+        {% if request.user.is_staff %}<a href="{% url 'blog_post_editor' object.id %}"><span class="fa fa-edit"></span>Edit</a>{% endif %}</h2>
 
     <p>{{ object.content|safe }}</p>
     <p><i>Tags: {{ object.tags }}</i><br />

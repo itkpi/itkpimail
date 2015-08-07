@@ -23,5 +23,12 @@
 {% block content %}
 
 <h1><a href="{% url 'blog_article_list' %}">{{ request.tenant.group.name }} Blog</a></h1>
+{% if request.user.is_staff %}
+    <div id="stafftools">
+    {% block staff_tools %}
+        <a href="{% url 'blog_create_post' %}"><span class="fa fa-plus-circle"></span>Write a post</a>
+    {% endblock %}
+    </div>
+{% endif %}
 
 {% endblock %}
