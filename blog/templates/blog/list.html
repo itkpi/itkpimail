@@ -9,11 +9,12 @@
     {% endif %}
 
     {% for post in object_list %}
-        <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h2>
+        <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a>
+            {% if request.user.is_staff %}<a href="{% url 'blog_post_editor' post.id %}"><span class="fa fa-edit"></span></a>{% endif %}
+        </h2>
 
         <p>{{ post.content|safe }}</p>
-        <i>Tags: {{ post.tags }}</i>
-        <p>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+        <p>Author: <i>{{ post.owner.first_name }} {{ post.owner.last_name }}</i></p>
         <hr />
         <br />
     {% empty %}

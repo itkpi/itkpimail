@@ -25,7 +25,7 @@ class BlogListUnpublishedView(ListView):
         return BlogEntry.objects.filter(published=False).\
             order_by('-date_published')
 
-    @login_required
+    @method_decorator(login_required(login_url='/admin/login'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

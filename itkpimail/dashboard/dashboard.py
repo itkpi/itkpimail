@@ -34,22 +34,19 @@ class CustomIndexDashboard(Dashboard):
         if context.request.tenant:
             company_name = context.request.tenant.group.name
             links.append({
-                'title': _('Go to public page of {}'.format(company_name)),
+                'title': _('Go to public events list of {}'.format(company_name)),
                 'url': reverse('event_list'),
                 'external': True,
                 'description': _('Public page'),
                 'attrs': {'target': '_blank'},
             })
-        links += [
-                {
-                    'title': _('Go to public view: companies list'),
-                    'url': reverse('companies_list'),
-                    'external': True,
-                    'description': 'Public page',
-                    'attrs': {'target': '_blank'},
-                },
-                # [_('Change password'), reverse('%s:password_change' % site_name)],
-            ]
+            links.append({
+                'title': _('Go to blog of {}'.format(company_name)),
+                'url': reverse('blog_article_list'),
+                'external': True,
+                'description': _('Public page'),
+                'attrs': {'target': '_blank'},
+            })
         self.children.append(modules.LinkList(
             _('Quick links'),
             layout='stacked',  # inline

@@ -11,7 +11,6 @@
         <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h2>
 
         <p>{{ post.content|safe }}</p>
-        <i>Tags: {{ post.tags }}</i>
         <p>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
         <hr />
         <br />
