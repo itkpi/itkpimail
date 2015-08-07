@@ -1,22 +1,86 @@
-{% extends "base_public.html" %}
+{% extends "blog/blog_base.html" %}
+
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}{{ request.tenant.group.name }}{% endblock %}
 
 {% block extrahead %}
-    <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css"
-          type="text/css" media="screen" charset="utf-8">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/themes/default.min.css"
-          type="text/css" media="screen" charset="utf-8">
+    {{ block.super }}
+    <link rel="stylesheet" href="/static/events/datepicker/themes/classic.css" id="theme_base">
+    <link rel="stylesheet" href="/static/events/datepicker/themes/classic.date.css" id="theme_date">
+    <link rel="stylesheet" href="/static/events/datepicker/themes/classic.time.css" id="theme_time">
+
+    <script src="/static/events/datepicker/picker.js"></script>
+    <script src="/static/events/datepicker/picker.date.js"></script>
+    <script src="/static/events/datepicker/picker.time.js"></script>
+    <script src="/static/events/datepicker/legacy.js"></script>
+
+    <style>
+        .textarea {
+            margin: 0 0 0 50px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            $('.dateinput').pickadate({
+                format: "yyyy-mm-dd",
+                clear: ''
+            });
+            $('.timeinput').pickatime({
+                format: "HH:i",
+                clear: ''
+            });
+
+            editor = new MediumEditor('.textarea', {
+                autoLink: true,
+                imageDragging: true,
+                buttonLabels: 'fontawesome',
+
+                toolbar: {
+                    /* These are the default options for the toolbar,
+                       if nothing is passed this is what is used */
+                    allowMultiParagraphSelection: true,
+                    buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote']
+                }
+            });
+
+            $(function () {
+                $('.textarea').mediumInsert({
+                    editor: editor,
+                    addons: {
+                        images: {
+                            label: '<span class="fa fa-cloud-upload"></span>',
+                        },
+                        embeds: {
+                            label: '<span class="fa fa-camera"></span>',
+                            placeholder: 'Paste an image url, YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter'
+                        }
+                    }
+                });
+            });
+        });
+
+
+        function prepareForm() {
+            var serialized = editor.serialize();
+            for (var key in serialized) {
+                $('textarea').val(serialized[key].value);
+            }
+            return false;
+        }
+    </script>
+
 {% endblock %}
 
 {% block content %}
 
-<h1>{% trans 'Blog of ' %}{{ request.tenant.group.name }}</h1>
+    {{ block.super }}
 
-<div class="editable" style="outline: none; margin: 0 0 20px 0; padding: 0 0 20px 0; border-bottom: 1px solid #dbdbdb;"></div>
+{% crispy form %}
 
-<script>var editor = new MediumEditor('.editable');</script>
-
+<!--<textarea class="editable" style="outline: none; margin: 0 0 20px 0; padding: 0 0 20px 0; border-bottom: 1px solid #dbdbdb; font-size: 16px;">-->
+    <!--{{ object.content }}-->
+<!--</textarea>-->
 {% endblock %}

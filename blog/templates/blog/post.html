@@ -1,0 +1,18 @@
+{% extends "blog/blog_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ request.tenant.group.name }}{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <h2>{{ object.title }}
+        {% if request.user.is_staff %}<a href="{% url 'blog_post_editor' object.id %}">edit</a>{% endif %}</h2>
+
+    <p>{{ object.content|safe }}</p>
+    <i>Tags: {{ object.tags }}</i>
+    <hr />
+
+{% endblock %}

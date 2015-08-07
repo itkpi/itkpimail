@@ -5,16 +5,7 @@
 {% block title %}{{ tenant.group.name }}{% endblock %}
 
 {% block extrahead %}
-<link href="/static/events/uniforms/css/uni-form.css" media="all" rel="stylesheet"/>
-<link href="/static/events/uniforms/css/default.uni-form.css" media="all" rel="stylesheet"/>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-<script type="text/javascript" src="/static/events/uniforms/js/uni-form.jquery.min.js"></script>
-
-
+{{ block.super }}
 <link rel="stylesheet" href="/static/events/datepicker/themes/classic.css" id="theme_base">
 <link rel="stylesheet" href="/static/events/datepicker/themes/classic.date.css" id="theme_date">
 <link rel="stylesheet" href="/static/events/datepicker/themes/classic.time.css" id="theme_time">
@@ -28,9 +19,11 @@
     $(document).ready(function() {
         $('.dateinput').pickadate({
             format: "yyyy-mm-dd",
+            clear: ''
         });
         $('.timeinput').pickatime({
             format: "HH:i",
+            clear: ''
         });
     });
 </script>

@@ -4,9 +4,8 @@
 
 {% block content %}
     {{ block.super }}
-    {% if request.user.is_staff %}
-    <a href="{% url 'blog_unpublished_article_list' %}">Show unpublished posts</a>
-    {% endif %}
+
+    <h1>Unpublished posts</h1>
 
     {% for post in object_list %}
         <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h2>

@@ -1,0 +1,27 @@
+{% extends "base_public.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ request.tenant.group.name }} Blog{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css"
+          type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/themes/default.min.css"
+          type="text/css" media="screen" charset="utf-8">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.runtime.min.js"></script>
+    <link rel="stylesheet" href="/static/blog/css/medium-editor-insert-plugin.min.css">
+    <script src="/static/blog/js/medium-editor-insert-plugin.min.js"></script>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+<h1><a href="{% url 'blog_article_list' %}">{{ request.tenant.group.name }} Blog</a></h1>
+
+{% endblock %}

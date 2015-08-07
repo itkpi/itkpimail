@@ -31,6 +31,7 @@ class CustomUserAdmin(UserAdmin):
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser')
 
     def get_readonly_fields(self, request, obj=None):
         if not request.user.is_supreme:
