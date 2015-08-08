@@ -7,7 +7,7 @@ from events.loaders import is_github_remote_enabled, get_github_repo
 
 from events.middlewares import get_current_request
 from events.adminactions import generate_mail, preview, publish, unpublish, accept_suggested, suggest
-from events.models import Event, Template, Preview, filter_by_owner_group, GitRemote, SuggestedEvent
+from events.models import Event, Template, Preview, filter_by_owner_group, GitRemote, SuggestedEvent, Settings
 from itkpimail import settings
 from redactor.widgets import RedactorEditor
 
@@ -234,3 +234,12 @@ class GitRemoteAdmin(admin.ModelAdmin):
         if obj.owner:
             return ','.join(group.name for group in obj.owner.groups.all())
 admin.site.register(GitRemote, GitRemoteAdmin)
+
+
+class SettingsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'is_default',)
+
+    def save_model(self, request, obj, form, change):
+        obj.group = request.user.groups.all()[0]
+        obj.save()
+admin.site.register(Settings, SettingsAdmin)

@@ -32,7 +32,13 @@ class ExclusiveBooleanFieldOnOwnerGroups(models.BooleanField):
             with transaction_context():
                 if getattr(self, field_name) is True:
                     u_args = {field_name: False}
-                    sender._default_manager.filter(owner__groups__in=self.owner.groups.all()).update(**u_args)
+                    if hasattr(sender, 'owner'):
+                        sender._default_manager.filter(owner__groups__in=self.owner.groups.all()).update(**u_args)
+                    elif hasattr(sender, 'group'):
+                        sender._default_manager.filter(group=self.group).update(**u_args)
+                    else:
+                        raise AttributeError('No "owner" or "group" field in model, '
+                                             'ExclusiveBooleanFieldOnOwnerGroups can not work.')
                 old_save(self, *args, **kwargs)
         new_save.alters_data = True
 
