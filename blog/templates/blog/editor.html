@@ -55,8 +55,12 @@
               handleClick: function (event) {
                 var range = rangy.getSelection().getRangeAt(0);
                 if (range.text()) {
-                    range.pasteHtml(range.text());
-                    MediumEditor.util.execFormatBlock(document, 'pre');
+                    if (MediumEditor.selection.getSelectionStart(document).tagName.toLowerCase() != 'pre') {
+                        range.pasteHtml('<pre class="prettyprint">' + range.toHtml().replace(/(<\/p>)/ig, "\n").replace(/(<([^>]+)>)/ig,"") + '</pre>');
+                    } else {
+                        MediumEditor.selection.getSelectionStart(document).classList.remove('prettyprint');
+                        MediumEditor.util.execFormatBlock(document, 'pre');
+                    }
                 }
               },
 

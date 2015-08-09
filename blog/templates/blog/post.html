@@ -4,6 +4,11 @@
 
 {% block title %}{{ request.tenant.group.name }}{% endblock %}
 
+{% block extrahead %}
+    {{ block.super }}
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+{% endblock %}
+
 {% block content %}
 
     {{ block.super }}
