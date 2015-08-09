@@ -8,7 +8,7 @@ from django import forms
 class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogEntry
-        exclude = []
+        exclude = ['published']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -1,7 +1,6 @@
 from blog.views import BlogListView, BlogPostView, BlogPostEditView, BlogListUnpublishedView, BlogPostCreateView, \
     BlogPostPublishView, BlogPostUnpublishView
-from django.conf.urls import include, url
-from django.views.generic import TemplateView
+from django.conf.urls import url
 
 
 urlpatterns = [
@@ -12,4 +11,6 @@ urlpatterns = [
     url(r'^post/(?P<pk>\d+)/edit$', BlogPostEditView.as_view(), name="blog_post_editor"),
     url(r'^post/(?P<pk>\d+)/publish$', BlogPostPublishView.as_view(), name="blog_post_publish"),
     url(r'^post/(?P<pk>\d+)/unpublish$', BlogPostUnpublishView.as_view(), name="blog_post_unpublish"),
+
+    # url(r'^author/(?P<username>[^\/]*)$', AuthorView.as_view(), name="author"),
 ]
