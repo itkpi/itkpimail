@@ -58,7 +58,7 @@ def generate_mail(modeladmin, request, queryset):
             setup_template_variables(queryset, variables)
             rendered = template_obj.render(Context(variables))
 
-            preview = Preview(body=str(rendered))
+            preview = Preview(body=str(rendered), owner=request.user)
             preview.save()
 
             for event in queryset:
