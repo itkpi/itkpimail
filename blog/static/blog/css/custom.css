@@ -1,4 +1,13 @@
 .medium-insert-embeds img {
-  max-width:100%;
-  max-height:100%;
+    max-width:100%;
+    max-height:100%;
+}
+
+.textarea ul {
+    float: none !important;
+}
+
+.textarea ul li {
+    margin: 0 0 0 0 !important;
+    list-style: inside disc !important;
 }
