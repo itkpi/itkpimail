@@ -74,9 +74,9 @@ class BlogPostPublishView(SingleObjectMixin, View):
         self.object.published = True
         self.object.save()
         if self.object.personal:
-            call_hook(POST_PUBLISHED, self.object)
-        else:
             call_hook(POST_PUBLISHED_PERSONAL, self.object)
+        else:
+            call_hook(POST_PUBLISHED, self.object)
         return HttpResponseRedirect(self.object.get_absolute_url())
 
 
