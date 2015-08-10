@@ -87,7 +87,7 @@ class CustomIndexDashboard(Dashboard):
             _('Administration'),
             deletable=False,
             collapsible=False,
-            models=('customauth.*', ),
+            models=('customauth.*', 'hooks.*'),
         ))
 
         self.children.append(ConfigurationChecker())
