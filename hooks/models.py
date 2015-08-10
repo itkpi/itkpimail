@@ -9,7 +9,7 @@ EVENT_SUGGESTED = 'event_suggested'
 
 
 class Hook(GroupOwnedModel):
-    event = models.CharField(max_length=10, choices=((EVENT_SUGGESTED, 'Event suggested'),
+    event = models.CharField(max_length=50, choices=((EVENT_SUGGESTED, 'Event suggested'),
                                                      (POST_PUBLISHED, 'Blog post published'),
                                                      (POST_PUBLISHED_PERSONAL, 'Personal blog post published')))
     url = models.URLField()
