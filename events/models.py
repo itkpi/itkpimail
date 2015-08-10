@@ -124,17 +124,3 @@ class Event(BaseEvent, OwnedModel):
 class SuggestedEvent(BaseEvent, GroupOwnedModel):
     suggested_by = models.CharField(max_length=200, editable=False, default='anonymous')
     date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_("Submitted"))
-
-
-class Settings(GroupOwnedModel):
-    class Meta:
-        verbose_name = _("Settings")
-        verbose_name_plural = _("Settings")
-    is_default = ExclusiveBooleanFieldOnOwnerGroups(default=True, verbose_name='Selected',
-                                                    help_text=_('Only one settings configuration can be selected'
-                                                                ' at one time.'))
-
-    event_suggest_callback = models.URLField()
-    event_suggest_callback_method = models.CharField(max_length=10, choices=(('GET', 'GET'), ('POST', 'POST')))
-    event_suggest_callback_body = models.TextField(help_text="For POST request. You can use variable 'object' which is"
-                                                             "suggested event")

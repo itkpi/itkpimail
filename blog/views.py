@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, View
 from django.views.generic.detail import SingleObjectMixin
+from hooks.models import POST_PUBLISHED, POST_PUBLISHED_PERSONAL
+from hooks.views import call_hook
 
 
 class BlogListView(ListView):
@@ -71,6 +73,10 @@ class BlogPostPublishView(SingleObjectMixin, View):
         self.object = self.get_object()
         self.object.published = True
         self.object.save()
+        if self.object.personal:
+            call_hook(POST_PUBLISHED, self.object)
+        else:
+            call_hook(POST_PUBLISHED_PERSONAL, self.object)
         return HttpResponseRedirect(self.object.get_absolute_url())
 
 

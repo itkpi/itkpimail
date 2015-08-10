@@ -1,20 +1,18 @@
-from customauth.admin import CustomGroup
 from customauth.models import Tenant
 from customauth.utils import get_tenant
 from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from django.shortcuts import redirect
-from django.template import Template, Context
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, TemplateView, ListView
 from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm, SuggestPublicForm
 from events.mailchimp_utils import get_mailchimp_api, get_list
-from events.middlewares import get_current_request
-from events.models import Preview, Event, SuggestedEvent, Settings
+from events.models import Preview, Event, SuggestedEvent
 from events.admin import fill_suggested_by
-import requests
+from hooks.models import EVENT_SUGGESTED
+from hooks.views import call_hook
 
 
 class PreviewView(View):
@@ -165,20 +163,5 @@ class SuggestView(FormView):
 
 
 @receiver(post_save, sender=SuggestedEvent)
-def event_suggestion_callback(sender, instance, created, **kwargs):
-    if created and is_settings_configured():
-        settings = get_settings()
-        if settings.event_suggest_callback_method == 'POST':
-            data = Template(settings.event_suggest_callback_body).render(Context({'object': instance}))
-            print(data)
-            requests.post(settings.event_suggest_callback, data)
-        else:
-            requests.request(settings.event_suggest_callback_method, settings.event_suggest_callback)
-
-
-def get_settings():
-    return Settings.objects.get(group=get_current_request().tenant.group)
-
-
-def is_settings_configured():
-    return Settings.objects.filter(group=get_current_request().tenant.group).exists()
+def event_suggestion_signal(sender, instance, created, **kwargs):
+    call_hook(EVENT_SUGGESTED, instance)
