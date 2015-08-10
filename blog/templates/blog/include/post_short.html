@@ -1,0 +1,19 @@
+<h2>
+    {% if object.personal %}
+        <span class="fa fa-user"></span>
+    {% else %}
+        <span class="fa fa-building"></span>
+    {% endif %}
+
+    {% if object.published %}
+        <span class="fa fa-eye"></span>
+    {% else %}
+        <span class="fa fa-eye-slash"></span>
+    {% endif %}
+
+    <a href="{% url 'blog_post' object.slug %}">{{ object.title }}</a>
+    {% include 'blog/include/post_control.html' %}
+</h2>
+
+<p>{{ object.content|safe }}</p>
+<p>Author: <a href="{% url 'author' object.owner.username %}">{{ object.owner.first_name }} {{ object.owner.last_name }}</a></p>

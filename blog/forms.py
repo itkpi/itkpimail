@@ -28,7 +28,7 @@ class BlogPostForm(forms.ModelForm):
                 'tags',
                 'slug',
                 'date_published',
-                'published'
+                'personal'
             ),
             ButtonHolder(
                 Submit('submit', 'Save'),

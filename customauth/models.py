@@ -27,7 +27,6 @@ class Tenant(models.Model):
     big_logo_url = models.CharField(max_length=256, null=True)
 
 
-
 # Abstract models to support multi-tenant models. Model can be either be owned by specific user or by group
 # TODO: check ownership by Tenant, not Group
 

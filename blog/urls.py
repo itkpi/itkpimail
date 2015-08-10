@@ -1,5 +1,6 @@
 from blog.views import BlogListView, BlogPostView, BlogPostEditView, BlogListUnpublishedView, BlogPostCreateView, \
-    BlogPostPublishView, BlogPostUnpublishView
+    BlogPostPublishView, BlogPostUnpublishView, AuthorView, AuthorUnpublishedView, AuthorPostsView, \
+    BlogPostToPersonalView, BlogPostToCompanyView, AuthorListView
 from django.conf.urls import url
 
 
@@ -11,6 +12,16 @@ urlpatterns = [
     url(r'^post/(?P<pk>\d+)/edit$', BlogPostEditView.as_view(), name="blog_post_editor"),
     url(r'^post/(?P<pk>\d+)/publish$', BlogPostPublishView.as_view(), name="blog_post_publish"),
     url(r'^post/(?P<pk>\d+)/unpublish$', BlogPostUnpublishView.as_view(), name="blog_post_unpublish"),
+    url(r'^post/(?P<pk>\d+)/to_personal$', BlogPostToPersonalView.as_view(), name="blog_post_to_personal"),
+    url(r'^post/(?P<pk>\d+)/to_company$', BlogPostToCompanyView.as_view(), name="blog_post_to_company"),
 
-    # url(r'^author/(?P<username>[^\/]*)$', AuthorView.as_view(), name="author"),
+    url(r'^authors/$', AuthorListView.as_view(), name="author_list"),
+    url(r'^author/(?P<username>[^\/]*)$', AuthorView.as_view(), name="author"),
+    url(r'^author/(?P<username>[^\/]*)/posts$', AuthorPostsView.as_view(), name="author_posts"),
+    url(r'^author/(?P<username>[^\/]*)/posts/unpublished$', AuthorUnpublishedView.as_view(),
+        name="author_unpublished_posts"),
+    url(r'^author/(?P<username>[^\/]*)/posts/personal$', AuthorPostsView.as_view(personal=True),
+        name="author_personal_posts"),
+    url(r'^author/(?P<username>[^\/]*)/posts/personal/unpublished$', AuthorUnpublishedView.as_view(personal=True),
+        name="author_personal_unpublished_posts"),
 ]

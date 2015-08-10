@@ -1,0 +1,20 @@
+{% extends "blog/blog_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ request.tenant.group.name }}{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <h2>{{ author.first_name }} {{ author.last_name }}</h2>
+
+    <ul>
+        <li><a href="{% url 'author_posts' author.username %}">Posts</a></li>
+        <li><a href="{% url 'author_unpublished_posts' author.username %}">Unpublished posts</a></li>
+        <li><a href="{% url 'author_personal_posts' author.username %}">Personal posts</a></li>
+        <li><a href="{% url 'author_personal_unpublished_posts' author.username %}">Unpublished personal posts</a></li>
+    </ul>
+
+{% endblock %}

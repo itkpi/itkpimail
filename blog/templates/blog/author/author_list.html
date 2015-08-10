@@ -1,0 +1,23 @@
+{% extends "blog/blog_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ request.tenant.group.name }}{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    {% load i18n %}
+<h1>Authors</h1>
+<ul>
+    {% for object in object_list %}
+        <li><a href="{% url 'author_posts' object.username %}">{{object.first_name}} {{object.last_name}}
+            [{{object.username}}]</a></li>
+    {% empty %}
+        <p>{% trans 'No authors yet.' %}</p>
+    {% endfor %}
+</ul>
+    {% include 'blog/include/pagination.html' %}
+
+{% endblock %}

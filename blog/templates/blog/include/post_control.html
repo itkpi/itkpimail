@@ -1,0 +1,16 @@
+{% if request.user.is_staff %}
+    <span style="font-size: 10pt">
+    <a href="{% url 'blog_post_editor' object.id %}"><span class="fa fa-edit"></span>Edit</a>
+    {% if object.published %}
+        <a href="{% url 'blog_post_unpublish' object.id %}"><span class="fa fa-eye-slash"></span>Unpublish</a>
+    {% else %}
+        <a href="{% url 'blog_post_publish' object.id %}"><span class="fa fa-eye"></span>Publish</a>
+    {% endif %}
+
+    {% if object.personal %}
+        <a href="{% url 'blog_post_to_company' object.id %}"><span class="fa fa-building"></span>Move to company blog</a>
+    {% else %}
+        <a href="{% url 'blog_post_to_personal' object.id %}"><span class="fa fa-user"></span>Move to personal blog</a>
+    {% endif %}
+    </span>
+{% endif %}

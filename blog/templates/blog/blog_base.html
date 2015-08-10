@@ -34,5 +34,9 @@
     {% endblock %}
     </div>
 {% endif %}
+<ul>
+    <li><a href="{% url 'blog_article_list' %}">Blog posts</a></li>
+    <li><a href="{% url 'author_list' %}">Authors</a></li>
+</ul>
 
 {% endblock %}

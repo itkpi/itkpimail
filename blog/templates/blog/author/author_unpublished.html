@@ -1,11 +1,15 @@
-{% extends "blog/blog_base.html" %}
+{% extends "blog/author/author.html" %}
 
 {% load i18n %}
 
+{% block title %}{{ request.tenant.group.name }}{% endblock %}
+
 {% block content %}
+
     {{ block.super }}
 
-    <h1>Unpublished posts</h1>
+    <h3>Unpublished posts</h3>
+    <hr />
 
     {% include 'blog/include/post_list.html' %}
     {% include 'blog/include/pagination.html' %}

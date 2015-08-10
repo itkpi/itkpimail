@@ -1,0 +1,10 @@
+{% load i18n %}
+{% for object in object_list %}
+    {% include 'blog/include/post_short.html' %}
+    <hr />
+    <br />
+{% empty %}
+    <p>{% trans 'No posts yet.' %}</p>
+{% endfor %}
+
+{% include 'blog/include/pagination.html' %}

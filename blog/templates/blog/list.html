@@ -16,36 +16,7 @@
 {% block content %}
     {{ block.super }}
 
-    {% for post in object_list %}
-        <h2><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a>
-            {% if request.user.is_staff %}
-                <a href="{% url 'blog_post_editor' post.id %}"><span class="fa fa-edit"></span>Edit</a>
-                <a href="{% url 'blog_post_unpublish' post.id %}"><span class="fa fa-eye-slash"></span>Unpublish</a>
-            {% endif %}
-        </h2>
-
-        <p>{{ post.content|safe }}</p>
-        <p>Author: <i>{{ post.owner.first_name }} {{ post.owner.last_name }}</i></p>
-        <hr />
-        <br />
-    {% empty %}
-        <p>{% trans 'No posts yet.' %}</p>
-    {% endfor %}
-
-    {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}">&lt; {% trans 'prev' %}</a>
-                {% endif %}
-                <span class="page-current">
-                    {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">{% trans 'next' %} &gt;</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
+    {% include 'blog/include/post_list.html' %}
+    {% include 'blog/include/pagination.html' %}
 
 {% endblock %}
