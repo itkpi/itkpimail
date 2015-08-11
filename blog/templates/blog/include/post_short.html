@@ -11,6 +11,11 @@
         <span class="fa fa-eye-slash"></span>
     {% endif %}
 
+    {% if object.personal %}
+        <a href="{% url 'author' object.owner.username %}">{{ object.owner.first_name }} {{ object.owner.last_name }}</a>
+        &mdash;
+    {% endif %}
+
     <a href="{% url 'blog_post' object.slug %}">{{ object.title }}</a>
     {% include 'blog/include/post_control.html' %}
 </h2>

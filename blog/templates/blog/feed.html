@@ -1,0 +1,18 @@
+{% extends "blog/blog_base.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <h1>Feed</h1>
+    <p>Posts from personal and company blogs</p>
+
+    {% include 'blog/include/post_list.html' %}
+    {% include 'blog/include/pagination.html' %}
+
+{% endblock %}

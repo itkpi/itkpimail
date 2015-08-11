@@ -21,6 +21,16 @@ class BlogListView(ListView):
             order_by('-date_published')
 
 
+class BlogFeedView(ListView):
+    template_name = 'blog/feed.html'
+    model = BlogEntry
+    paginate_by = 5
+
+    def get_queryset(self):
+        return BlogEntry.objects.filter(published=True).\
+            order_by('-date_published')
+
+
 class BlogListUnpublishedView(ListView):
     template_name = 'blog/list_unpublished.html'
     model = BlogEntry

@@ -1,11 +1,12 @@
 from blog.views import BlogListView, BlogPostView, BlogPostEditView, BlogListUnpublishedView, BlogPostCreateView, \
     BlogPostPublishView, BlogPostUnpublishView, AuthorView, AuthorUnpublishedView, AuthorPostsView, \
-    BlogPostToPersonalView, BlogPostToCompanyView, AuthorListView
+    BlogPostToPersonalView, BlogPostToCompanyView, AuthorListView, BlogFeedView
 from django.conf.urls import url
 
 
 urlpatterns = [
     url(r'^$', BlogListView.as_view(), name="blog_article_list"),
+    url(r'^feed$', BlogFeedView.as_view(), name="blog_feed"),
     url(r'^unpublished$', BlogListUnpublishedView.as_view(), name="blog_unpublished_article_list"),
     url(r'^post/(?P<slug>[^\/]*)$', BlogPostView.as_view(), name="blog_post"),
     url(r'^write$', BlogPostCreateView.as_view(), name="blog_create_post"),
