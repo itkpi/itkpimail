@@ -11,3 +11,42 @@
     margin: 0 0 0 0 !important;
     list-style: inside disc !important;
 }
+
+
+.spoiler_body {
+    display:none;
+    font-style:italic;
+    border-left: thick solid #555555;
+    margin-top: 0px !important;
+    padding-left: 4pt;
+}
+
+.textarea .spoiler_body {
+    display:block;
+}
+
+.spoiler_links {
+    cursor:pointer;
+    font-weight:bold;
+    text-decoration:underline;
+    margin-bottom: 0px !important;
+}
+
+.spoiler_links_closed:before {
+  content:'\f196';
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  display: inline-block;
+  margin-right: 4pt;
+}
+
+
+.spoiler_links_opened:before {
+  content:'\f147';
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  display: inline-block;
+  margin-right: 4pt;
+}

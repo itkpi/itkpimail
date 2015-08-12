@@ -16,6 +16,8 @@
     <script src="/static/events/datepicker/picker.time.js"></script>
     <script src="/static/events/datepicker/legacy.js"></script>
 
+    <script src="/static/blog/js/ext.js"></script>
+
     <style>
         .textarea {
             margin: 0 0 0 50px;
@@ -35,40 +37,6 @@
 
             rangy.init();
 
-            var HighlighterButton = MediumEditor.extensions.button.extend({
-              name: 'highlighter',
-              tagNames: ['pre'],
-              contentDefault: '<b>H</b>',
-              contentFA: '<i class="fa fa-terminal"></i>',
-              aria: 'Hightlight',
-              action: 'highlight',
-
-              init: function () {
-                MediumEditor.extensions.button.prototype.init.call(this);
-
-                this.classApplier = rangy.createCssClassApplier('highlight', {
-                    elementTagName: 'pre',
-                    normalize: true
-                });
-              },
-
-              handleClick: function (event) {
-                var range = rangy.getSelection().getRangeAt(0);
-                if (range.text()) {
-                    if (MediumEditor.selection.getSelectionStart(document).tagName.toLowerCase() != 'pre') {
-                        range.pasteHtml('<pre class="prettyprint">' + range.toHtml().replace(/(<\/p>)/ig, "\n").replace(/(<([^>]+)>)/ig,"") + '</pre>');
-                    } else {
-                        MediumEditor.selection.getSelectionStart(document).classList.remove('prettyprint');
-                        MediumEditor.util.execFormatBlock(document, 'pre');
-                    }
-                }
-              },
-
-              isAlreadyApplied: function (node) {
-                return node.nodeName.toLowerCase() === 'pre';
-              }
-            });
-
             editor = new MediumEditor('.textarea', {
                 autoLink: true,
                 imageDragging: true,
@@ -81,11 +49,12 @@
                     buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3',
                               'quote', 'orderedlist', 'unorderedlist',
                               'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'highlighter',
-                              'removeFormat']
+                              'removeFormat', 'spoiler']
                 },
 
                 extensions: {
-                  'highlighter': new HighlighterButton()
+                  'highlighter': new HighlighterButton(),
+                  'spoiler': new SpoilerButton(),
                 }
             });
 

@@ -25,6 +25,24 @@
 
     <link rel="stylesheet" href="/static/blog/css/custom.css">
 
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('.spoiler_links').click(function(){
+        $(this).next('.spoiler_body').toggle('normal');
+        if ($('.spoiler_links').hasClass("spoiler_links_closed")) {
+            $('.spoiler_links').removeClass("spoiler_links_closed spoiler_links_opened");
+            $('.spoiler_links').addClass("spoiler_links_opened");
+        } else {
+            $('.spoiler_links').removeClass("spoiler_links_closed spoiler_links_opened");
+            $('.spoiler_links').addClass("spoiler_links_closed");
+        }
+        return false;
+      });
+
+      $('.spoiler_links').removeClass("spoiler_links_closed spoiler_links_opened");
+      $('.spoiler_links').addClass("spoiler_links_closed");
+    });
+    </script>
 {% endblock %}
 
 {% block content %}
