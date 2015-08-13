@@ -1,6 +1,7 @@
 {% extends "blog/blog_base.html" %}
 
 {% load i18n %}
+{% load md5_filter %}
 
 {% block title %}{{ request.tenant.group.name }}{% endblock %}
 
@@ -8,7 +9,11 @@
 
     {{ block.super }}
 
-    <h2>{{ author.first_name }} {{ author.last_name }}</h2>
+    <h2>
+        {% if author.email %}
+            <img src="http://www.gravatar.com/avatar/{{ author.email|md5 }}" style="width: 35px" />
+        {% endif %}
+        {{ author.first_name }} {{ author.last_name }}</h2>
 
     <ul>
         <li><a href="{% url 'author_posts' author.username %}">Posts</a></li>

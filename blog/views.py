@@ -2,7 +2,6 @@ from blog.forms import BlogPostForm, BlogPostFormCreate
 from blog.models import BlogEntry
 from customauth.models import User
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, View

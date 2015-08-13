@@ -1,3 +1,5 @@
+{% load md5_filter %}
+
 <h2>
     {% if object.personal %}
         <span class="fa fa-user"></span>
@@ -12,6 +14,9 @@
     {% endif %}
 
     {% if object.personal %}
+        {% if object.owner.email %}
+            <img src="http://www.gravatar.com/avatar/{{ object.owner.email|md5 }}" style="width: 35px" />
+        {% endif %}
         <a href="{% url 'author' object.owner.username %}">{{ object.owner.first_name }} {{ object.owner.last_name }}</a>
         &mdash;
     {% endif %}
