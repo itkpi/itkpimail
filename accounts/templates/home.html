@@ -3,6 +3,6 @@
 {% block content %}
       <div class="jumbotron">
         <h1>Welcome to {{ request.tenant.group.name }}</h1>
-        <p class="lead"><img src="{{ request.tenant.big_logo_url }}" /></p>
+        <p class="lead"><img src="{{ request.tenant.big_logo_url }}" style="max-width: 100%;"/></p>
       </div>
 {% endblock %}
