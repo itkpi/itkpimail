@@ -1,0 +1,18 @@
+{% extends "base_public.html" %}
+{% load md5_filter %}
+
+{% block content %}
+
+<h1>Account information</h1>
+<p>Avatar: <img src="http://www.gravatar.com/avatar/{{ object.email|md5 }}" /></p>
+<p>Username: {{ object.username }}</p>
+<p>First name: {{ object.first_name }}</p>
+<p>Last name: {{ object.last_name }}</p>
+<p>Email: {{ object.email }}</p>
+
+<h2>Operations</h2>
+<ul>
+<li><a href="{% url 'account_edit' %}">Edit</a></li>
+<li><a href="{% url 'password_change' %}">Change password</a></li>
+</ul>
+{% endblock %}

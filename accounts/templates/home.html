@@ -1,0 +1,8 @@
+{% extends "base_public.html" %}
+
+{% block content %}
+      <div class="jumbotron">
+        <h1>Welcome to {{ request.tenant.group.name }}</h1>
+        <p class="lead"><img src="{{ request.tenant.big_logo_url }}" /></p>
+      </div>
+{% endblock %}

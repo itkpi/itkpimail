@@ -2,11 +2,11 @@
 
 {% load i18n %}
 
-{% block title %}{{ tenant.group.name }}{% endblock %}
+{% block title %}{{ tenant.group.name }} Events{% endblock %}
 
 {% block content %}
 
-<h1>{{ tenant.group.name }}</h1>
+<h1>{{ tenant.group.name }} Events</h1>
 
 {% trans "You're welcome to" %} <a href="{% url 'suggest_event' %}">{% trans 'suggest events' %}</a>!
 
