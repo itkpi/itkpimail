@@ -85,7 +85,7 @@ def retrieve_template(template_id):
 
         variables = {var["name"]: var["initial"] for var in parse_vars(template_db.variables)}
 
-    template = get_template(template_slug)  # TODO: using=MyLoader
+    template = get_template(template_slug, using='mail')
     return template, variables
 
 

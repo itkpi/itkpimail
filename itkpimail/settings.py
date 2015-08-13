@@ -72,6 +72,7 @@ ROOT_URLCONF = 'itkpimail.urls'
 
 TEMPLATES = [
     {
+        'NAME': 'default',
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'override_templates'),
                  os.path.join(BASE_DIR, 'itkpimail', 'templates')],
@@ -79,13 +80,23 @@ TEMPLATES = [
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
-                'events.loaders.MyLoader',
             ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+    {
+        'NAME': 'mail',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'OPTIONS': {
+            'loaders': [
+                'events.loaders.MyLoader',
+            ],
+            'context_processors': [
             ],
         },
     },
@@ -168,6 +179,29 @@ ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'events': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'hooks': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 try:
     from .local_settings import *

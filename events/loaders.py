@@ -1,8 +1,12 @@
+import logging
 from django.template import loader, TemplateDoesNotExist
 from events.models import *
 from events.middlewares import get_current_request
 from github import Github, UnknownObjectException
 from itkpimail.settings import GITHUB_API_TOKEN
+
+
+logger = logging.getLogger(__name__)
 
 
 def is_github_remote_enabled(request):
@@ -40,6 +44,7 @@ class MyLoader(loader.base.Loader):
 
     def load_template_source_from_git(self, request, template_name, template_dirs=None):
         try:
+            logger.info("Loading template {} from GitHub".format(template_name))
             repo = get_github_repo(request)
             return repo.get_file_contents(template_name).decoded_content.decode(), template_name
         except UnknownObjectException:

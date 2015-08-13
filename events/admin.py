@@ -12,12 +12,6 @@ from itkpimail import settings
 from redactor.widgets import RedactorEditor
 
 
-# def filter_by_owner_group_admin(queryset, request):
-#     if not request.user.is_supreme:
-#         queryset = filter_by_owner_group(queryset, request)
-#     return queryset
-
-
 # Previews
 
 
