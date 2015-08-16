@@ -88,17 +88,17 @@ TEMPLATES = [
             ],
         },
     },
-    {
-        'NAME': 'mail',
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'OPTIONS': {
-            'loaders': [
-                'events.loaders.MyLoader',
-            ],
-            'context_processors': [
-            ],
-        },
-    },
+    # {
+    #     'NAME': 'mail',
+    #     'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    #     'OPTIONS': {
+    #         'loaders': [
+    #             'events.loaders.MyLoader',
+    #         ],
+    #         'context_processors': [
+    #         ],
+    #     },
+    # },
 ]
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)

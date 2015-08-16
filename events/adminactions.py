@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response, redirect, render
 from django.template import Context, RequestContext
 from django.template.debug import DebugVariableNode
 from django.template.loader import get_template
+from django.template.backends.django import DjangoTemplates
 from django.utils.timezone import now
 from events.forms import SuggestForm
 from events.loaders import is_github_remote_enabled, get_github_repo
@@ -85,7 +86,18 @@ def retrieve_template(template_id):
 
         variables = {var["name"]: var["initial"] for var in parse_vars(template_db.variables)}
 
-    template = get_template(template_slug, using='mail')
+    engine = DjangoTemplates(
+            {
+                'NAME': 'mail',
+                'APP_DIRS': False,
+                'DIRS': [],
+                'OPTIONS': {
+                    'loaders': [
+                        'events.loaders.MyLoader',
+                    ],
+                },
+            })
+    template = engine.get_template(template_slug)
     return template, variables
 
 
