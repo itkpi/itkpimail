@@ -3,7 +3,7 @@ containers:
     setup:
     - !Ubuntu trusty
     - !UbuntuUniverse
-    - !Install [libpq-dev]
+    - !Install [libpq-dev, ca-certificates]
     - !Py3Requirements requirements.txt
     - !Env {DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb}
     environ: {DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb}
