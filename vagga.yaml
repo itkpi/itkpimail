@@ -1,0 +1,67 @@
+containers:
+  django:
+    setup:
+    - !Ubuntu trusty
+    - !UbuntuUniverse
+    - !Install [libpq-dev]
+    - !Py3Requirements requirements.txt
+    - !Env {DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb}
+    environ: {DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb}
+  postgres:
+    setup:
+    - !Ubuntu trusty
+    - !Install [postgresql]
+    - !Sh |
+        echo "127.0.0.1 localhost" >> /etc/hosts
+
+commands:
+
+  setup: !Supervise
+    description: Run ITKPIMAIL
+    children:
+      django: !Command
+        container: django
+        run: |
+            until [ -e /work/tmp/POSTGRES_SETUP_DONE ]; do sleep 1; done  # wait postgres setup
+            echo "Migrating..."
+            python3 manage.py migrate auth
+            python3 manage.py migrate customauth
+            python3 manage.py migrate
+            python3 manage.py loaddata local_data.json
+
+      pg: !Command
+        container: postgres
+        run: |
+            if [ ! -e /work/tmp/itkpidb ]
+            then
+                mkdir -p /work/tmp/itkpidb
+                chown postgres:postgres /work/tmp/itkpidb
+                sudo -u postgres /usr/lib/postgresql/9.3/bin/initdb /work/tmp/itkpidb
+                sed -i.bak "s/^\s*#unix_socket_directories .*$/unix_socket_directories = '\/work\/tmp\/run'/g" /work/tmp/itkpidb/postgresql.conf
+                echo "host all all all trust" >> /work/tmp/itkpidb/pg_hba.conf
+            fi
+            [ ! -e /work/tmp/run ] && mkdir -p /work/tmp/run && chown postgres:postgres /work/tmp/run
+            sudo -u postgres /usr/lib/postgresql/9.3/bin/postgres -D /work/tmp/itkpidb &
+            sudo -u postgres -s << END_OF_SUDO
+                until nc -z -w 4 127.0.0.1 5432; do sleep 3; done  # wait until postgres is up
+                createuser -h /work/tmp/run vaggauser
+                psql -h /work/tmp/run -c 'alter user vaggauser with createdb' postgres
+                PGPASSWORD=password createdb -h /work/tmp/run -U vaggauser vaggadb
+            END_OF_SUDO
+            echo 'ok' > /work/tmp/POSTGRES_SETUP_DONE
+            wait
+
+  run: !Supervise
+    description: Run ITKPIMAIL
+    children:
+      django: !Command
+        container: django
+        run: |
+            until nc -z -w 4 127.0.0.1 5432; do sleep 1; done  # wait until postgres is up
+            python3 manage.py migrate
+            python3 manage.py runserver 0.0.0.0:5000
+
+      pg: !Command
+        container: postgres
+        run: |
+            sudo -u postgres /usr/lib/postgresql/9.3/bin/postgres -D /work/tmp/itkpidb

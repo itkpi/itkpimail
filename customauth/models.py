@@ -33,7 +33,7 @@ class Tenant(models.Model):
 class OwnedModelManager(models.Manager):
     def get_queryset(self):
         queryset = super().get_queryset()
-        if get_current_request().user.is_anonymous() or not get_current_request().user.is_supreme:
+        if get_current_request() and (get_current_request().user.is_anonymous() or not get_current_request().user.is_supreme):
             queryset = queryset.filter(owner__groups=get_current_request().tenant.group)
         return queryset
 
@@ -48,7 +48,7 @@ class OwnedModel(models.Model):
 class GroupOwnedModelManager(models.Manager):
     def get_queryset(self):
         queryset = super().get_queryset()
-        if get_current_request().user.is_anonymous() or not get_current_request().user.is_supreme:
+        if get_current_request() and (get_current_request().user.is_anonymous() or not get_current_request().user.is_supreme):
             queryset = queryset.filter(group=get_current_request().tenant.group)
         return queryset
 

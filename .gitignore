@@ -65,3 +65,5 @@ local_settings.py
 
 staticfiles
 *.bak
+.vagga
+tmp/*
