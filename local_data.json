@@ -1,1 +1,146 @@
-[{"fields": {"name": "TEST", "permissions": [37, 38, 39, 34, 35, 36, 40, 41, 42]}, "pk": 1, "model": "auth.group"}, {"fields": {"expire_date": "2015-08-30T11:26:05.443Z", "session_data": "OTAwMTVkOTgyMmIwNDY2ZjUwM2MyMTU0ZWNjMGY2NjkzMGQyN2U2Mjp7Il9hdXRoX3VzZXJfaGFzaCI6ImMwMTk3NDgxZGM5NmNlYjJlNTkzMGM3OWI3YzBjOTRkMjBjOGE4MzAiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0="}, "pk": "zjvbwkagp0szbg6tpgfu2tjokq43v98m", "model": "sessions.session"}, {"fields": {"is_superuser": true, "is_staff": true, "username": "admin", "is_active": true, "email": "admin@admin.com", "is_supreme": true, "date_joined": "2015-08-16T11:25:57.419Z", "user_permissions": [], "first_name": "John", "password": "pbkdf2_sha256$20000$zAsgRqtn2dCu$tccgAtCsvuc9XTm+4Es/sBxF2rvsdpC17yvWcHOrxfY=", "last_name": "Galt", "groups": [], "last_login": "2015-08-16T11:26:05.430Z"}, "pk": 1, "model": "customauth.user"}, {"fields": {"data": "{}", "user": 1, "dashboard_id": "dashboard"}, "pk": 1, "model": "dashboard.dashboardpreferences"}, {"fields": {"data": "{}", "user": 1, "dashboard_id": "authentication-dashboard"}, "pk": 2, "model": "dashboard.dashboardpreferences"}, {"fields": {"big_logo_url": "http://vignette2.wikia.nocookie.net/mlp/images/d/dd/My_Little_Pony_Theme_Song.png/revision/latest?cb=20130805001726&path-prefix=ru", "domain": "127.0.0.1:5000", "group": 1, "slug": "test"}, "pk": 1, "model": "customauth.tenant"}]
+[
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "TEST",
+    "permissions": [
+      37,
+      38,
+      39,
+      34,
+      35,
+      36,
+      40,
+      41,
+      42
+    ]
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "07bkfhcm3tjeg1ibktx1antbcbqk499h",
+  "fields": {
+    "session_data": "NDEzZmVlZDJlMzI3ZGJiMWE3MDg3NzY2ZWJiOGQ0ODU1NmY3Yjg1Yzp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiMzZiMDM4MDM2ZWU2NmM0ZDQyMWFkNGMxNDNkOTMwZTNmYmFlNGY4YSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+    "expire_date": "2015-08-30T13:15:02.011Z"
+  }
+},
+{
+  "model": "customauth.user",
+  "pk": 1,
+  "fields": {
+    "groups": [],
+    "first_name": "John",
+    "username": "admin",
+    "user_permissions": [],
+    "is_superuser": true,
+    "is_supreme": true,
+    "last_name": "Galt",
+    "date_joined": "2015-08-16T11:25:57.419Z",
+    "password": "pbkdf2_sha256$20000$zAsgRqtn2dCu$tccgAtCsvuc9XTm+4Es/sBxF2rvsdpC17yvWcHOrxfY=",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "last_login": "2015-08-16T11:26:05.430Z"
+  }
+},
+{
+  "model": "customauth.user",
+  "pk": 2,
+  "fields": {
+    "groups": [
+      1
+    ],
+    "first_name": "Stannis",
+    "username": "user",
+    "user_permissions": [],
+    "is_superuser": true,
+    "is_supreme": false,
+    "last_name": "Baratheon",
+    "date_joined": "2015-08-16T13:14:22Z",
+    "password": "pbkdf2_sha256$20000$jEJibPLCQTCi$333kxwRGRTlYbclGaRTQY0R31SDUls+9eQRRpnfbvlg=",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "last_login": "2015-08-16T13:15:01.944Z"
+  }
+},
+{
+  "model": "dashboard.dashboardpreferences",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "dashboard_id": "dashboard",
+    "data": "{}"
+  }
+},
+{
+  "model": "dashboard.dashboardpreferences",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "dashboard_id": "authentication-dashboard",
+    "data": "{}"
+  }
+},
+{
+  "model": "dashboard.dashboardpreferences",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "dashboard_id": "events-dashboard",
+    "data": "{}"
+  }
+},
+{
+  "model": "dashboard.dashboardpreferences",
+  "pk": 4,
+  "fields": {
+    "user": 2,
+    "dashboard_id": "dashboard",
+    "data": "{}"
+  }
+},
+{
+  "model": "customauth.tenant",
+  "pk": 1,
+  "fields": {
+    "big_logo_url": "http://vignette2.wikia.nocookie.net/mlp/images/d/dd/My_Little_Pony_Theme_Song.png/revision/latest?cb=20130805001726&path-prefix=ru",
+    "group": 1,
+    "slug": "test",
+    "domain": "127.0.0.1:5000"
+  }
+},
+{
+  "model": "events.gitremote",
+  "pk": 1,
+  "fields": {
+    "owner": 2,
+    "remote": "itkpi/digest-templates",
+    "is_default": true
+  }
+},
+{
+  "model": "events.event",
+  "pk": 1,
+  "fields": {
+    "special": false,
+    "date": "2015-08-16T13:13:59.992Z",
+    "publish": false,
+    "agenda": "<p><strong>\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u0430:</strong><br></p><ul>\r\n                                <li>123</li>\r\n                                </ul><p>                                <strong>\u0421\u043f\u0456\u043a\u0435\u0440\u0438:</strong><br></p><ul>\r\n                                <li> 456</li>\r\n                                </ul>",
+    "place": "Equestria",
+    "owner": 2,
+    "when_end_time": null,
+    "registration": "http://example.com",
+    "when_end": null,
+    "when_time_required": false,
+    "level": "JUNIOR",
+    "when_time": null,
+    "social": "<p>123</p>",
+    "previews": [],
+    "image_url": "http://vignette2.wikia.nocookie.net/mlp/images/e/ef/Everyone_is_amused_S1E5_cropped.png/revision/latest?cb=20130502025934&path-prefix=ru",
+    "title": "Test",
+    "when": "2015-08-16"
+  }
+}
+]
