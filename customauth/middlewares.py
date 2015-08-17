@@ -1,4 +1,5 @@
 from customauth.models import Tenant
+from django.core.exceptions import PermissionDenied
 
 
 class TenantsMiddleware(object):
@@ -7,3 +8,5 @@ class TenantsMiddleware(object):
         request.tenant = None
         if tenant_search.exists():
             request.tenant = tenant_search.get()
+        else:
+            raise PermissionDenied("Tenant not found")
