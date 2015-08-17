@@ -16,10 +16,14 @@
         {{ author.first_name }} {{ author.last_name }}</h2>
 
     <ul>
-        <li><a href="{% url 'author_posts' author.username %}">Posts</a></li>
-        <li><a href="{% url 'author_unpublished_posts' author.username %}">Unpublished posts</a></li>
-        <li><a href="{% url 'author_personal_posts' author.username %}">Personal posts</a></li>
-        <li><a href="{% url 'author_personal_unpublished_posts' author.username %}">Unpublished personal posts</a></li>
+        <li><a href="{% url 'author_posts' author.username %}">Company Posts</a></li>
+        {% if user.is_staff %}
+            <li><a href="{% url 'author_unpublished_posts' author.username %}">Unpublished Company Posts</a></li>
+        {% endif %}
+        <li><a href="{% url 'author_personal_posts' author.username %}">Personal Posts</a></li>
+        {% if user == author %}
+            <li><a href="{% url 'author_personal_unpublished_posts' author.username %}">Unpublished Personal Posts</a></li>
+        {% endif %}
     </ul>
 
 {% endblock %}

@@ -13,7 +13,7 @@ class AccountView(DetailView):
     model = User
 
     def get_object(self, queryset=None):
-      return self.model.objects.get(pk=self.request.user.pk)
+        return self.model.objects.get(pk=self.request.user.pk)
 
 
 class AccountEditView(UpdateView):
@@ -22,7 +22,7 @@ class AccountEditView(UpdateView):
     model = User
 
     def get_object(self, queryset=None):
-      return self.model.objects.get(pk=self.request.user.pk)
+        return self.model.objects.get(pk=self.request.user.pk)
 
     def get_success_url(self):
         return reverse('account')

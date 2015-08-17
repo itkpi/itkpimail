@@ -11,6 +11,15 @@ from hooks.models import POST_PUBLISHED, POST_PUBLISHED_PERSONAL
 from hooks.views import call_hook
 
 
+def staff_required(login_url=None):
+    """
+    To perform operation staff status is required
+    """
+    def check_staff(user):
+        return user.is_staff
+    return user_passes_test(check_staff, login_url=login_url)
+
+
 class BlogListView(ListView):
     template_name = 'blog/list.html'
     model = BlogEntry
@@ -40,7 +49,8 @@ class BlogListUnpublishedView(ListView):
         return BlogEntry.objects.filter(published=False, personal=False).\
             order_by('-date_published')
 
-    @method_decorator(login_required(login_url='/admin/login'))
+    @method_decorator(login_required)
+    @method_decorator(staff_required())
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -68,6 +78,8 @@ class BlogPostCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.user
+        if not self.user.is_staff:
+            form.instance.personal = True
         return super().form_valid(form)
 
     @method_decorator(login_required)
@@ -107,20 +119,11 @@ class BlogPostUnpublishView(SingleObjectMixin, View):
         return HttpResponseRedirect(self.object.get_absolute_url())
 
 
-def staff_required(login_url=None):
-    """
-    To perform operation staff status is required
-    """
-    def check_staff(user):
-        return user.is_staff
-    return user_passes_test(check_staff, login_url=login_url)
-
-
 class BlogPostToPersonalView(SingleObjectMixin, View):
     model = BlogEntry
 
     @method_decorator(login_required)
-    @method_decorator(staff_required)
+    @method_decorator(staff_required())
     def get(self, request, **kwargs):
         self.object = self.get_object()
         self.object.personal = True
@@ -132,7 +135,7 @@ class BlogPostToCompanyView(SingleObjectMixin, View):
     model = BlogEntry
 
     @method_decorator(login_required)
-    @method_decorator(staff_required)
+    @method_decorator(staff_required())
     def get(self, request, **kwargs):
         self.object = self.get_object()
         self.object.personal = False
@@ -164,7 +167,6 @@ class AuthorPostsView(ListView):
     model = BlogEntry
     paginate_by = 5
     personal = False
-    filter_personal = True
     published = True
 
     def dispatch(self, request, *args, **kwargs):
@@ -177,10 +179,23 @@ class AuthorPostsView(ListView):
         return context
 
     def get_queryset(self):
-        qs = BlogEntry.objects.filter(published=self.published, owner=self.author).\
+
+        if not self.published:
+            if self.personal:
+                # Permissions check: we should not show unpublished personal posts to
+                # not authors of their posts.
+                # This filter will return results only if author == request.user
+                # (previous filter filtered owner by author and this by request.user)
+                if self.request.user != self.author:
+                    raise PermissionDenied()
+            if not self.personal:
+                # Permissions check: we should not show unpublished company posts to
+                # non-staff users.
+                if not self.request.user.is_staff:
+                    raise PermissionDenied()
+        qs = BlogEntry.objects.filter(published=self.published, owner=self.author,
+                                      personal=self.personal). \
             order_by('-date_published')
-        if self.filter_personal:
-            qs = qs.filter(personal=self.personal)
         return qs
 
 

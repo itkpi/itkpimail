@@ -3,6 +3,7 @@ from blog.models import BlogEntry
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Button
 from django import forms
+from events.middlewares import get_current_request
 
 
 class BlogPostForm(forms.ModelForm):
@@ -17,7 +18,7 @@ class BlogPostForm(forms.ModelForm):
         self.helper.form_action = ''
         self.helper.attrs = {'onsubmit': "prepareForm()"}
 
-        self.helper.layout = Layout(
+        fields = [
             Fieldset(
                 'Blog post',
                 'title',
@@ -28,12 +29,12 @@ class BlogPostForm(forms.ModelForm):
                 'tags',
                 'slug',
                 'date_published',
-                'personal'
             ),
-            ButtonHolder(
-                Submit('submit', 'Save'),
-            )
-        )
+            ]
+        if get_current_request().user.is_staff:
+            fields += [ButtonHolder(Fieldset('Staff', 'personal'),)]
+        fields += [ButtonHolder(Submit('submit', 'Save'),)]
+        self.helper.layout = Layout(*fields)
 
 
 class BlogPostFormCreate(BlogPostForm):
