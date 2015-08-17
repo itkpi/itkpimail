@@ -44,6 +44,11 @@ class OwnedModel(models.Model):
     owner = models.ForeignKey(User, null=True, editable=False)
     objects = OwnedModelManager()
 
+    def can_edit(self):
+        if not get_current_request():
+            return False
+        return get_current_request().user.is_staff or self.owner == get_current_request().user
+
 
 class GroupOwnedModelManager(models.Manager):
     def get_queryset(self):
@@ -58,3 +63,9 @@ class GroupOwnedModel(models.Model):
         abstract = True
     group = models.ForeignKey(Group, null=True, editable=False, verbose_name=_("Owner group"))
     objects = GroupOwnedModelManager()
+
+    def can_edit(self):
+        if not get_current_request():
+            return False
+        return get_current_request().user.is_staff or \
+            (self.group in get_current_request().groups.all())

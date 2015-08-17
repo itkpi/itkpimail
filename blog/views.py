@@ -1,7 +1,8 @@
 from blog.forms import BlogPostForm, BlogPostFormCreate
 from blog.models import BlogEntry
 from customauth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, View
@@ -54,7 +55,8 @@ class BlogPostEditView(UpdateView):
     template_name = 'blog/editor.html'
     model = BlogEntry
 
-    @method_decorator(login_required(login_url='/admin/login'))
+    @method_decorator(login_required())
+    @method_decorator(permission_required('blog.change_blogentry'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -68,7 +70,8 @@ class BlogPostCreateView(CreateView):
         form.instance.owner = self.user
         return super().form_valid(form)
 
-    @method_decorator(login_required(login_url='/admin/login'))
+    @method_decorator(login_required)
+    @method_decorator(permission_required('blog.add_blogentry'))
     def dispatch(self, request, *args, **kwargs):
         self.user = request.user
         return super().dispatch(request, *args, **kwargs)
@@ -77,9 +80,11 @@ class BlogPostCreateView(CreateView):
 class BlogPostPublishView(SingleObjectMixin, View):
     model = BlogEntry
 
-    @method_decorator(login_required(login_url='/admin/login'))
+    @method_decorator(login_required)
     def get(self, request, **kwargs):
         self.object = self.get_object()
+        if not self.object.can_edit():
+            raise PermissionDenied()
         self.object.published = True
         self.object.save()
         if self.object.personal:
@@ -92,18 +97,30 @@ class BlogPostPublishView(SingleObjectMixin, View):
 class BlogPostUnpublishView(SingleObjectMixin, View):
     model = BlogEntry
 
-    @method_decorator(login_required(login_url='/admin/login'))
+    @method_decorator(login_required)
     def get(self, request, **kwargs):
         self.object = self.get_object()
+        if not self.object.can_edit():
+            raise PermissionDenied()
         self.object.published = False
         self.object.save()
         return HttpResponseRedirect(self.object.get_absolute_url())
 
 
+def staff_required(login_url=None):
+    """
+    To perform operation staff status is required
+    """
+    def check_staff(user):
+        return user.is_staff
+    return user_passes_test(check_staff, login_url=login_url)
+
+
 class BlogPostToPersonalView(SingleObjectMixin, View):
     model = BlogEntry
 
-    @method_decorator(login_required(login_url='/admin/login'))
+    @method_decorator(login_required)
+    @method_decorator(staff_required)
     def get(self, request, **kwargs):
         self.object = self.get_object()
         self.object.personal = True
@@ -114,7 +131,8 @@ class BlogPostToPersonalView(SingleObjectMixin, View):
 class BlogPostToCompanyView(SingleObjectMixin, View):
     model = BlogEntry
 
-    @method_decorator(login_required(login_url='/admin/login'))
+    @method_decorator(login_required)
+    @method_decorator(staff_required)
     def get(self, request, **kwargs):
         self.object = self.get_object()
         self.object.personal = False

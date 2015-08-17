@@ -48,13 +48,17 @@
 {% block content %}
 
 <h1><a href="{% url 'blog_feed' %}">{{ request.tenant.group.name }} Blog</a></h1>
-{% if request.user.is_staff %}
-    <div id="stafftools">
-    {% block staff_tools %}
+<div id="stafftools">
+    {% if request.user.is_staff %}
+        {% block staff_tools %}
+            <!-- STAFF TOOLS -->
+        {% endblock %}
+    {% endif %}
+    {% if perms.blog.add_blogentry %}
         <a href="{% url 'blog_create_post' %}"><span class="fa fa-plus-circle"></span>Write a post</a>
-    {% endblock %}
-    </div>
-{% endif %}
+    {% endif %}
+</div>
+
 <ul>
     <li><a href="{% url 'blog_feed' %}">Feed</a></li>
     <li><a href="{% url 'blog_article_list' %}">Company blog</a></li>
