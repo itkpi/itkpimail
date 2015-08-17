@@ -10,13 +10,14 @@ from events.middlewares import get_current_request
 class CustomUserCreationForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit)
-        if commit:
+
+        request = get_current_request()
+        if not request.user.is_supreme:  # supreme user can choose group after creation
+            # ignore commit value to add groups
             user.save()
-            request = get_current_request()
-            if not request.user.is_supreme:  # supreme user can choose group after creation
-                for group in request.user.groups.all():
-                    user.groups.add(group)
-                user.save()
+            for group in request.user.groups.all():
+                user.groups.add(group)
+            user.save()
 
         return user
 

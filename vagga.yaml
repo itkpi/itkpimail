@@ -5,6 +5,7 @@ containers:
     - !UbuntuUniverse
     - !Install [libpq-dev, ca-certificates]
     - !Py3Requirements requirements.txt
+    - !Env {DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb}
     environ: {DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb}
   postgres:
     setup:
@@ -16,7 +17,7 @@ containers:
 commands:
 
   setup: !Supervise
-    description: Setup database. Run this command before "run".
+    description: Run ITKPIMAIL
     children:
       django: !Command
         container: django

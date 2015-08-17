@@ -3,7 +3,6 @@
   "model": "auth.group",
   "pk": 1,
   "fields": {
-    "name": "TEST",
     "permissions": [
       37,
       38,
@@ -14,63 +13,98 @@
       40,
       41,
       42
-    ]
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "07bkfhcm3tjeg1ibktx1antbcbqk499h",
-  "fields": {
-    "session_data": "NDEzZmVlZDJlMzI3ZGJiMWE3MDg3NzY2ZWJiOGQ0ODU1NmY3Yjg1Yzp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiMzZiMDM4MDM2ZWU2NmM0ZDQyMWFkNGMxNDNkOTMwZTNmYmFlNGY4YSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
-    "expire_date": "2015-08-30T13:15:02.011Z"
+    ],
+    "name": "TEST"
   }
 },
 {
   "model": "customauth.user",
   "pk": 1,
   "fields": {
-    "groups": [],
-    "first_name": "John",
     "username": "admin",
-    "user_permissions": [],
-    "is_superuser": true,
-    "is_supreme": true,
-    "last_name": "Galt",
-    "date_joined": "2015-08-16T11:25:57.419Z",
-    "password": "pbkdf2_sha256$20000$zAsgRqtn2dCu$tccgAtCsvuc9XTm+4Es/sBxF2rvsdpC17yvWcHOrxfY=",
     "email": "admin@admin.com",
-    "is_staff": true,
     "is_active": true,
-    "last_login": "2015-08-16T11:26:05.430Z"
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$20000$zAsgRqtn2dCu$tccgAtCsvuc9XTm+4Es/sBxF2rvsdpC17yvWcHOrxfY=",
+    "is_superuser": true,
+    "last_login": "2015-08-17T08:13:07.501Z",
+    "last_name": "Galt",
+    "is_supreme": true,
+    "first_name": "John",
+    "is_staff": true,
+    "date_joined": "2015-08-16T11:25:57.419Z"
   }
 },
 {
   "model": "customauth.user",
   "pk": 2,
   "fields": {
+    "username": "superuser",
+    "email": "",
+    "is_active": true,
     "groups": [
       1
     ],
-    "first_name": "Stannis",
-    "username": "user",
     "user_permissions": [],
-    "is_superuser": true,
-    "is_supreme": false,
-    "last_name": "Baratheon",
-    "date_joined": "2015-08-16T13:14:22Z",
     "password": "pbkdf2_sha256$20000$jEJibPLCQTCi$333kxwRGRTlYbclGaRTQY0R31SDUls+9eQRRpnfbvlg=",
-    "email": "",
+    "is_superuser": true,
+    "last_login": "2015-08-17T08:13:19.264Z",
+    "last_name": "Baratheon",
+    "is_supreme": false,
+    "first_name": "Stannis",
     "is_staff": true,
+    "date_joined": "2015-08-16T13:14:22Z"
+  }
+},
+{
+  "model": "customauth.user",
+  "pk": 38,
+  "fields": {
+    "username": "staffuser",
+    "email": "",
     "is_active": true,
-    "last_login": "2015-08-16T13:15:01.944Z"
+    "groups": [
+      1
+    ],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$20000$KZtSIpYUQ3z4$NI3qPuBjhZ66Q0ICP5aX86mGLwonoDdwWX+KIdWe5Ww=",
+    "is_superuser": false,
+    "last_login": null,
+    "last_name": "Snow",
+    "is_supreme": false,
+    "first_name": "John",
+    "is_staff": true,
+    "date_joined": "2015-08-17T08:13:32Z"
+  }
+},
+{
+  "model": "customauth.user",
+  "pk": 39,
+  "fields": {
+    "username": "user",
+    "email": "",
+    "is_active": true,
+    "groups": [
+      1
+    ],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$20000$VJSGeFZdLUuM$lD3szqLqZN+3FGGIuljlBlv3s9E8/eKzFKHkHoYld+g=",
+    "is_superuser": false,
+    "last_login": null,
+    "last_name": "Stark",
+    "is_supreme": false,
+    "first_name": "Aria",
+    "is_staff": false,
+    "date_joined": "2015-08-17T08:13:47Z"
   }
 },
 {
   "model": "dashboard.dashboardpreferences",
   "pk": 1,
   "fields": {
-    "user": 1,
     "dashboard_id": "dashboard",
+    "user": 1,
     "data": "{}"
   }
 },
@@ -78,8 +112,8 @@
   "model": "dashboard.dashboardpreferences",
   "pk": 2,
   "fields": {
-    "user": 1,
     "dashboard_id": "authentication-dashboard",
+    "user": 1,
     "data": "{}"
   }
 },
@@ -87,8 +121,8 @@
   "model": "dashboard.dashboardpreferences",
   "pk": 3,
   "fields": {
-    "user": 1,
     "dashboard_id": "events-dashboard",
+    "user": 1,
     "data": "{}"
   }
 },
@@ -96,8 +130,8 @@
   "model": "dashboard.dashboardpreferences",
   "pk": 4,
   "fields": {
-    "user": 2,
     "dashboard_id": "dashboard",
+    "user": 2,
     "data": "{}"
   }
 },
@@ -105,8 +139,8 @@
   "model": "customauth.tenant",
   "pk": 1,
   "fields": {
-    "big_logo_url": "http://vignette2.wikia.nocookie.net/mlp/images/d/dd/My_Little_Pony_Theme_Song.png/revision/latest?cb=20130805001726&path-prefix=ru",
     "group": 1,
+    "big_logo_url": "http://vignette2.wikia.nocookie.net/mlp/images/d/dd/My_Little_Pony_Theme_Song.png/revision/latest?cb=20130805001726&path-prefix=ru",
     "slug": "test",
     "domain": "127.0.0.1:5000"
   }
@@ -124,23 +158,23 @@
   "model": "events.event",
   "pk": 1,
   "fields": {
-    "special": false,
-    "date": "2015-08-16T13:13:59.992Z",
-    "publish": false,
-    "agenda": "<p><strong>\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u0430:</strong><br></p><ul>\r\n                                <li>123</li>\r\n                                </ul><p>                                <strong>\u0421\u043f\u0456\u043a\u0435\u0440\u0438:</strong><br></p><ul>\r\n                                <li> 456</li>\r\n                                </ul>",
-    "place": "Equestria",
-    "owner": 2,
-    "when_end_time": null,
-    "registration": "http://example.com",
-    "when_end": null,
-    "when_time_required": false,
-    "level": "JUNIOR",
     "when_time": null,
-    "social": "<p>123</p>",
-    "previews": [],
-    "image_url": "http://vignette2.wikia.nocookie.net/mlp/images/e/ef/Everyone_is_amused_S1E5_cropped.png/revision/latest?cb=20130502025934&path-prefix=ru",
+    "registration": "http://example.com",
+    "when_end_time": null,
+    "place": "Equestria",
+    "publish": false,
+    "level": "JUNIOR",
+    "owner": 2,
     "title": "Test",
-    "when": "2015-08-16"
+    "social": "<p>123</p>",
+    "when_time_required": false,
+    "when": "2015-08-16",
+    "date": "2015-08-16T13:13:59.992Z",
+    "agenda": "<p><strong>\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u0430:</strong><br></p><ul>\r\n                                <li>123</li>\r\n                                </ul><p>                                <strong>\u0421\u043f\u0456\u043a\u0435\u0440\u0438:</strong><br></p><ul>\r\n                                <li> 456</li>\r\n                                </ul>",
+    "when_end": null,
+    "image_url": "http://vignette2.wikia.nocookie.net/mlp/images/e/ef/Everyone_is_amused_S1E5_cropped.png/revision/latest?cb=20130502025934&path-prefix=ru",
+    "previews": [],
+    "special": false
   }
 }
 ]
