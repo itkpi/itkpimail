@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.4"
+install:
+  - pip install -r requirements.txt
+before_script:
+  - python manage.py migrate auth customauth
+  - python manage.py migrate
+script:
+  - python manage.py test
+
