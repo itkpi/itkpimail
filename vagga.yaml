@@ -64,3 +64,8 @@ commands:
         container: postgres
         run: |
             sudo -u postgres /usr/lib/postgresql/9.3/bin/postgres -D /work/tmp/itkpidb
+
+  test: !Command
+    description: Run unit tests
+    container: django
+    run: DATABASE_URL= python3 manage.py test
