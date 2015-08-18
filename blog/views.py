@@ -11,11 +11,13 @@ from hooks.models import POST_PUBLISHED, POST_PUBLISHED_PERSONAL
 from hooks.views import call_hook
 
 
-def staff_required(login_url=None):
+def staff_required(login_url=None, raise_exception=False):
     """
     To perform operation staff status is required
     """
     def check_staff(user):
+        if not user.is_staff and raise_exception:
+            raise PermissionDenied()
         return user.is_staff
     return user_passes_test(check_staff, login_url=login_url)
 
@@ -50,7 +52,7 @@ class BlogListUnpublishedView(ListView):
             order_by('-date_published')
 
     @method_decorator(login_required)
-    @method_decorator(staff_required())
+    @method_decorator(staff_required(raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -137,7 +139,7 @@ class BlogPostToPersonalView(SingleObjectMixin, View):
     model = BlogEntry
 
     @method_decorator(login_required)
-    @method_decorator(staff_required())
+    @method_decorator(staff_required(raise_exception=True))
     def get(self, request, **kwargs):
         self.object = self.get_object()
         self.object.personal = True
@@ -149,7 +151,7 @@ class BlogPostToCompanyView(SingleObjectMixin, View):
     model = BlogEntry
 
     @method_decorator(login_required)
-    @method_decorator(staff_required())
+    @method_decorator(staff_required(raise_exception=True))
     def get(self, request, **kwargs):
         self.object = self.get_object()
         self.object.personal = False

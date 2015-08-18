@@ -202,3 +202,39 @@ class BlogSecurityTest(TenantTestMixin, BlogTestCase):
         post = self.create_blog_post(owner=post_owner, personal=False, published=True)
         response = self.client.get(reverse('blog_post', args=(post.slug,)))
         self.assertEqual(response.status_code, 200)
+
+    def test_staff_move_to_company(self):
+        post_owner = self.create_user('user1')
+        post_owner.is_staff = True
+        post_owner.save()
+        self.login(post_owner)
+
+        post = self.create_blog_post(owner=post_owner, personal=True, published=True)
+        response = self.client.get(reverse('blog_post_to_company', args=(post.pk,)))
+        self.assertIn(response.status_code, [200, 302])
+
+    def test_move_to_company(self):
+        post_owner = self.create_user('user1')
+        self.login(post_owner)
+
+        post = self.create_blog_post(owner=post_owner, personal=True, published=True)
+        response = self.client.get(reverse('blog_post_to_company', args=(post.pk,)))
+        self.assertEqual(response.status_code, 403)
+
+    def test_staff_move_to_personal(self):
+        post_owner = self.create_user('user1')
+        post_owner.is_staff = True
+        post_owner.save()
+        self.login(post_owner)
+
+        post = self.create_blog_post(owner=post_owner, personal=False, published=True)
+        response = self.client.get(reverse('blog_post_to_personal', args=(post.pk,)))
+        self.assertIn(response.status_code, [200, 302])
+
+    def test_move_to_personal(self):
+        post_owner = self.create_user('user1')
+        self.login(post_owner)
+
+        post = self.create_blog_post(owner=post_owner, personal=False, published=True)
+        response = self.client.get(reverse('blog_post_to_personal', args=(post.pk,)))
+        self.assertEqual(response.status_code, 403)
