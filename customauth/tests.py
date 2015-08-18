@@ -27,12 +27,19 @@ class TenantTestMixin:
                              group=self.group, big_logo_url='logo.jpg')
         self.tenant.save()
 
+    def create_user(self, name):
+        user = User.objects.create_user(username=name,
+                                        email='{}@example.com'.format(name),
+                                        password='1111')
+        user.groups.add(self.group)
+        return user
+
+    def login(self, user):
+        self.client.login(username=user.username, password='1111')
+
 
 class UserTestMixin(TenantTestMixin):
     def setUp(self):
         super().setUp()
-        self.user = User.objects.create_user(username='user',
-                                             email='user@example.com',
-                                             password='1111')
-        self.user.groups.add(self.group)
-        self.client.login(username='user', password='1111')
+        self.user = self.create_user('user')
+        self.login(self.user)

@@ -59,6 +59,17 @@ class BlogPostView(DetailView):
     template_name = 'blog/post.html'
     model = BlogEntry
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if not obj.published and obj.owner != request.user:
+            if obj.personal:
+                # unpublished personal posts can see only owner
+                raise PermissionDenied()
+            if not request.user.is_staff:
+                # unpublished company posts can see only staff
+                raise PermissionDenied()
+        return super().dispatch(request, *args, **kwargs)
+
 
 class BlogPostEditView(UpdateView):
     form_class = BlogPostForm
@@ -66,8 +77,11 @@ class BlogPostEditView(UpdateView):
     model = BlogEntry
 
     @method_decorator(login_required())
-    @method_decorator(permission_required('blog.change_blogentry'))
+    @method_decorator(permission_required('blog.change_blogentry', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if not obj.can_edit():
+            raise PermissionDenied()
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -83,7 +97,7 @@ class BlogPostCreateView(CreateView):
         return super().form_valid(form)
 
     @method_decorator(login_required)
-    @method_decorator(permission_required('blog.add_blogentry'))
+    @method_decorator(permission_required('blog.add_blogentry', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         self.user = request.user
         return super().dispatch(request, *args, **kwargs)
