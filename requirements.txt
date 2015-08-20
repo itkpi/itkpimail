@@ -16,3 +16,5 @@ requests==2.6.0
 six==1.9.0
 static3==0.5.1
 django-crispy-forms==1.4.0
+trafaret==0.5.4
+setuptools

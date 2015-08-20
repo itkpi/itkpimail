@@ -63,6 +63,7 @@ class GroupOwnedModel(models.Model):
         abstract = True
     group = models.ForeignKey(Group, null=True, editable=False, verbose_name=_("Owner group"))
     objects = GroupOwnedModelManager()
+    all_objects = models.Manager()
 
     def can_edit(self):
         if not get_current_request():

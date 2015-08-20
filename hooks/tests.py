@@ -1,10 +1,12 @@
 from http.server import SimpleHTTPRequestHandler, BaseHTTPRequestHandler, HTTPServer
 import logging
 from threading import Thread
+import json
 from customauth.tests import TenantTestMixin
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from hooks.models import Hook, IncomingHook
+from events.models import SuggestedEvent
+from hooks.models import Hook, IncomingHook, IN_EVENT_SUGGEST
 from hooks.views import call_hook
 
 LOG = logging.getLogger(__name__)
@@ -86,7 +88,7 @@ class OutgoingHookTest(TenantTestMixin, TestCase):
 
 class IncomingHookTest(TenantTestMixin, TestCase):
     def test_simple(self):
-        hook = IncomingHook(event='IN_EVENT', name='test', key='abcd', group=self.group)
+        hook = IncomingHook(event='IN_SOME_EVENT', name='test', key='abcd', group=self.group)
         hook.save()
 
         resp = self.client.post(reverse('incoming_hook', args=('abcd',)), json={"test": "123"})
@@ -94,7 +96,39 @@ class IncomingHookTest(TenantTestMixin, TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.content, b'ok')
 
-    def test_not_found(self):
+    def test_wrong_key(self):
         resp = self.client.post(reverse('incoming_hook', args=('abcd',)), json={"test": "123"})
 
         self.assertEqual(resp.status_code, 404)
+        self.assertJSONEqual(resp.content.decode(), {"status": "wrong key"})
+
+    def test_suggest_event_wrong_data(self):
+        hook = IncomingHook(event=IN_EVENT_SUGGEST, name='test', key='abcd', group=self.group)
+        hook.save()
+
+        resp = self.client.post(reverse('incoming_hook', args=('abcd',)),
+                                content_type='application/json',
+                                data=json.dumps({"title": "123"}))
+
+        self.assertEqual(resp.status_code, 400)
+        data = json.loads(resp.content.decode())
+        self.assertEqual(data['status'], 'data error')
+
+    def test_suggest_event(self):
+        hook = IncomingHook(event=IN_EVENT_SUGGEST, name='test', key='abcd', group=self.group)
+        hook.save()
+        events_count = SuggestedEvent.objects.count()
+
+        resp = self.client.post(reverse('incoming_hook', args=('abcd',)),
+                                content_type='application/json',
+                                data=json.dumps({'title': 'TITLE',
+                                                 'agenda': 'AGENDA',
+                                                 'social': 'SOCIAL',
+                                                 'image_url': 'http://domain.com/url.png',
+                                                 'level': 'middle',
+                                                 'when': '2015-09-01'}))
+
+        data = json.loads(resp.content.decode())
+        self.assertEqual(data['status'], 'ok')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(SuggestedEvent.objects.count(), events_count + 1)
