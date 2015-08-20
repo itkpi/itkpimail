@@ -27,6 +27,7 @@ class IncomingHookAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not change:
             obj.key = str(uuid4()).replace('-', '')
+        obj.group = request.tenant.group
         obj.save()
 
     def get_form(self, request, obj=None, **kwargs):
