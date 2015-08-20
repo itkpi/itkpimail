@@ -16,7 +16,7 @@ containers:
 commands:
 
   setup: !Supervise
-    description: Run ITKPIMAIL
+    description: Setup ITKPIMAIL. Run this command before 'run'.
     children:
       django: !Command
         container: django
