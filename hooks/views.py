@@ -1,6 +1,8 @@
 import logging
+from django.http import HttpResponse, Http404
 from django.template import Template, Context
-from hooks.models import Hook
+from django.views.generic import View
+from hooks.models import Hook, IncomingHook
 import requests
 
 logger = logging.getLogger(__name__)
@@ -14,3 +16,13 @@ def call_hook(event_name, instance):
             requests.post(hook.url, data.encode('utf-8'))
         else:
             requests.request(hook.method, hook.url)
+
+
+class IncomingHookView(View):
+    def post(self, request, key):
+        try:
+            hook = IncomingHook.objects.get(key=key)
+        except IncomingHook.DoesNotExist:
+            raise Http404()
+        print(request.POST)
+        return HttpResponse('ok')

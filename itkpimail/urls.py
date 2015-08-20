@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^events/', include('events.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^hooks/', include('hooks.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 

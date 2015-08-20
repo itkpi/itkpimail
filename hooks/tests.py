@@ -2,8 +2,9 @@ from http.server import SimpleHTTPRequestHandler, BaseHTTPRequestHandler, HTTPSe
 import logging
 from threading import Thread
 from customauth.tests import TenantTestMixin
+from django.core.urlresolvers import reverse
 from django.test import TestCase
-from hooks.models import Hook
+from hooks.models import Hook, IncomingHook
 from hooks.views import call_hook
 
 LOG = logging.getLogger(__name__)
@@ -81,3 +82,19 @@ class OutgoingHookTest(TenantTestMixin, TestCase):
 
         self.shutdown_server(httpd, httpd_thread)
         self.assertEqual(httpd.recorded, [])
+
+
+class IncomingHookTest(TenantTestMixin, TestCase):
+    def test_simple(self):
+        hook = IncomingHook(event='IN_EVENT', name='test', key='abcd', group=self.group)
+        hook.save()
+
+        resp = self.client.post(reverse('incoming_hook', args=('abcd',)), json={"test": "123"})
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content, b'ok')
+
+    def test_not_found(self):
+        resp = self.client.post(reverse('incoming_hook', args=('abcd',)), json={"test": "123"})
+
+        self.assertEqual(resp.status_code, 404)
