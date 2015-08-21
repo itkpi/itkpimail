@@ -1,4 +1,4 @@
-from customauth.models import User, CustomGroup, Tenant
+from customauth.models import User, CustomGroup, Tenant, TenantDomain
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.forms import UserCreationForm
@@ -61,8 +61,15 @@ class CustomGroupAdmin(GroupAdmin):
 admin.site.register(CustomGroup, CustomGroupAdmin)
 
 
+class UnitInline(admin.TabularInline):
+    model = TenantDomain
+
+
 class TenantAdmin(admin.ModelAdmin):
-    list_display = ('id', 'slug', 'group', 'domain')
+    list_display = ('id', 'slug', 'group')
+    inlines = [
+        UnitInline,
+    ]
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)

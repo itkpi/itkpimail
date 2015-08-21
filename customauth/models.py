@@ -22,9 +22,13 @@ class CustomGroup(Group):
 
 class Tenant(models.Model):
     slug = models.CharField(max_length=50, help_text=_("Short name"))
-    domain = models.CharField(max_length=256)
     group = models.ForeignKey(CustomGroup)
     big_logo_url = models.CharField(max_length=256, null=True)
+
+
+class TenantDomain(models.Model):
+    domain = models.CharField(max_length=256)
+    tenant = models.ForeignKey(Tenant)
 
 
 # Abstract models to support multi-tenant models. Model can be either be owned by specific user or by group
