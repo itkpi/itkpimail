@@ -39,7 +39,7 @@
           <ul class="nav navbar-nav">
             {% block navigation %}
                 {{ block.super }}
-                <li><a href="{% url 'event_list' %}">{% trans 'Events' %}</a></li>
+                <li><a href="{% url 'event_calendar' %}">{% trans 'Events' %}</a></li>
                 <li><a href="{% url 'blog_feed' %}">{% trans 'Blog' %}</a></li>
                 <li><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>
                 {% endblock %}

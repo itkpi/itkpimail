@@ -17,7 +17,7 @@ urlpatterns = [
 
     # tenant-based pages
     url(r'^$', CompanyView.as_view(), name="event_list"),
-    url(r'^calendar$', TemplateView.as_view(template_name='companies/calendar.html'), name="calendar"),
+    url(r'^calendar$', TemplateView.as_view(template_name='companies/calendar.html'), name="event_calendar"),
     url(r'^events.json$', JSONEventsView.as_view(), name="calendar"),
     url(r'^suggest$', SuggestPublicView.as_view(), name="suggest_event"),
     url(r'^suggest/thanks$', TemplateView.as_view(template_name='companies/suggest_thanks.html'), name="suggest_thanks"),
