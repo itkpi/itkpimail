@@ -1,9 +1,10 @@
+import datetime
 from customauth.models import Tenant
 from customauth.utils import get_tenant
 from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, TemplateView, ListView
@@ -116,6 +117,25 @@ class CompanyView(ListView):
         data = super().get_context_data(**kwargs)
         data['tenant'] = self.tenant
         return data
+
+
+class JSONEventsView(View):
+    def get(self, request):
+        start = datetime.date.fromtimestamp(int(request.GET['start']))
+        end = datetime.date.fromtimestamp(int(request.GET['end']))
+        events = Event.objects.filter(when__gte=start, when__lt=end)
+        return JsonResponse({'events': [self.to_dict(event) for event in events]})
+
+    def to_dict(self, event):
+        return {
+            'id': event.pk,
+            'title': event.title,
+            'start': event.when,
+            'start_time': event.when_time,
+            'end': event.when_end,
+            'end_time': event.when_end_time,
+            'registration': event.registration,
+        }
 
 
 class SuggestPublicView(FormView):

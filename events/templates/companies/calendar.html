@@ -1,0 +1,75 @@
+{% extends "base_public.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ tenant.group.name }} Events{% endblock %}
+
+
+{% block extrahead %}
+{{ block.super }}
+    <link href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css' rel='stylesheet' />
+    <link href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js'></script>
+
+<script>
+
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+
+            events: function(start, end, timezone, callback) {
+                $.ajax({
+                    url: 'events.json',
+                    dataType: 'json',
+                    data: {
+                        start: start.unix(),
+                        end: end.unix()
+                    },
+                    success: function(doc) {
+                        var events = [];
+                        console.log(doc);
+                        doc['events'].forEach(function(event) {
+                            events.push({
+                                id: event['id'],
+                                title: event['title'],
+                                start: event['start'],
+                                url: event['registration']
+                            });
+                        });
+                        callback(events);
+                    }
+                });
+            }
+		});
+
+	});
+
+</script>
+
+<style>
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ tenant.group.name }} Events</h1>
+
+    {% trans "You're welcome to" %} <a href="{% url 'suggest_event' %}">{% trans 'suggest events' %}</a>!
+
+	<div id='calendar'></div>
+
+{% endblock %}
