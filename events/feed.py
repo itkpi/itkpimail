@@ -35,4 +35,4 @@ class EventFeed(ICalFeed):
             return item.when_end
 
     def item_location(self, item):
-        return item.location
+        return item.place

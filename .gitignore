@@ -67,3 +67,5 @@ staticfiles
 *.bak
 .vagga
 tmp/*
+
+src/*
