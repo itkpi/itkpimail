@@ -4,7 +4,7 @@ from events.models import Event
 
 
 class EventFeed(ICalFeed):
-    timezone = 'UTC'
+    timezone = 'EST'
     file_name = "events.ics"
 
     def get_feed(self, obj, request):
@@ -27,3 +27,12 @@ class EventFeed(ICalFeed):
         if item.when_time:
             return datetime.combine(item.when, item.when_time)
         return item.when
+
+    def item_end_datetime(self, item):
+        if item.when_end:
+            if item.when_end_time:
+                return datetime.combine(item.when_end, item.when_end_time)
+            return item.when_end
+
+    def item_location(self, item):
+        return item.location
