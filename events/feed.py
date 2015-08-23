@@ -5,7 +5,7 @@ from events.models import Event
 
 
 class EventFeed(ICalFeed):
-    timezone = 'EST'
+    timezone = 'EET'
     file_name = "events.ics"
 
     def get_feed(self, obj, request):
