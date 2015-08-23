@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView, View, TemplateView, ListView
+from django.views.generic import FormView, View, TemplateView, ListView, DetailView
 from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm, SuggestPublicForm
 from events.mailchimp_utils import get_mailchimp_api, get_list
 from events.models import Preview, Event, SuggestedEvent
@@ -117,6 +117,11 @@ class CompanyView(ListView):
         data = super().get_context_data(**kwargs)
         data['tenant'] = self.tenant
         return data
+
+
+class EventView(DetailView):
+    template_name = 'companies/one_event.html'
+    model = Event
 
 
 class JSONEventsView(View):

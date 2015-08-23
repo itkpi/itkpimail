@@ -4,7 +4,7 @@
     <img src="{{ event.image_url }}" alt="image for {{ event.title }}" style="width:300px; float: right" />
 {% endif %}
 
-<h3>{{ event.title }} </h3>
+<h3><a href="{% url 'one_event' event.pk %}">{{ event.title }}</a></h3>
 <p>
     {{ event.description | safe }}
 </p>

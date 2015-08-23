@@ -120,6 +120,9 @@ class Event(BaseEvent, OwnedModel):
     previews = models.ManyToManyField('Preview')
     date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name=_(u"Created datetime"))
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'one_event', [self.id]
 
 class SuggestedEvent(BaseEvent, GroupOwnedModel):
     suggested_by = models.CharField(max_length=200, editable=False, default='anonymous')

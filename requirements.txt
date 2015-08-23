@@ -18,3 +18,7 @@ static3==0.5.1
 django-crispy-forms==1.4.0
 trafaret==0.5.4
 setuptools
+-e git://github.com/rrader/django-ical.git#egg=django_ical
+icalendar
+pytz
+python-dateutil
