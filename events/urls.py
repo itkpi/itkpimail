@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^event/(?P<pk>\d+)$', EventView.as_view(), name="one_event"),
     url(r'^calendar$', TemplateView.as_view(template_name='companies/calendar.html'), name="event_calendar"),
     url(r'^events.json$', JSONEventsView.as_view(), name="calendar"),
-    url(r'^events.ics$', EventFeed(), name="calendar_ics"),
+    url(r'^feed/events.ics$', EventFeed(), name="calendar_ics"),
     url(r'^suggest$', SuggestPublicView.as_view(), name="suggest_event"),
     url(r'^suggest/thanks$', TemplateView.as_view(template_name='companies/suggest_thanks.html'), name="suggest_thanks"),
 ]
