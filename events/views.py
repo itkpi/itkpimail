@@ -28,12 +28,14 @@ class PreviewView1(FormView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.user = request.user
         self.preview_id = int(kwargs['p_id'])
         self.model = Preview.objects.get(pk=self.preview_id)
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         self.model.list_id = form.cleaned_data['list_id']
+        self.model.owner = self.user
         self.model.save()
         return redirect('preview_step2', self.preview_id)
 
@@ -50,6 +52,7 @@ class PreviewView2(FormView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.user = request.user
         self.preview_id = int(kwargs['p_id'])
         self.model = Preview.objects.get(pk=self.preview_id)
         return super().dispatch(request, *args, **kwargs)
@@ -69,6 +72,7 @@ class PreviewView2(FormView):
         data = get_mailchimp_api().campaigns.create('regular', options, content)
 
         self.model.published = True
+        self.model.owner = self.user
         self.model.mailchimp_url = "https://admin.mailchimp.com/campaigns/wizard/html-paste?id={}".\
                                    format(data['web_id'])
         self.model.save()
