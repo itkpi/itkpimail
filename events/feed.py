@@ -1,5 +1,6 @@
 from datetime import datetime
 from django_ical.views import ICalFeed
+import re
 from events.models import Event
 
 
@@ -21,7 +22,11 @@ class EventFeed(ICalFeed):
         return item.title
 
     def item_description(self, item):
-        return item.agenda
+        agenda = item.agenda
+        agenda = re.sub(r'<p[^>]*>', '\n', agenda)
+        agenda = re.sub(r'<br[^>]*>', '\n', agenda)
+        agenda = re.sub(r'<[^>]*>', '', agenda)
+        return agenda.strip()
 
     def item_start_datetime(self, item):
         if item.when_time:
