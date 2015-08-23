@@ -141,8 +141,15 @@
   "fields": {
     "group": 1,
     "big_logo_url": "http://vignette2.wikia.nocookie.net/mlp/images/d/dd/My_Little_Pony_Theme_Song.png/revision/latest?cb=20130805001726&path-prefix=ru",
-    "slug": "test",
-    "domain": "127.0.0.1:5000"
+    "slug": "test"
+  }
+},
+{
+  "model": "customauth.tenantdomain",
+  "pk": 1,
+  "fields": {
+    "domain": "127.0.0.1:5000",
+    "tenant": 1
   }
 },
 {

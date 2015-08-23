@@ -69,3 +69,5 @@ staticfiles
 tmp/*
 
 src/*
+
+.vagrant
