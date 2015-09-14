@@ -35,4 +35,4 @@ class SuggestPublicForm(forms.ModelForm):
         self.helper.form_action = ''
 
     registration = forms.CharField(help_text=_("Registration link"), required=False)
-    place = forms.CharField(help_text=_("Registration link"), required=False)
+    place = forms.CharField(help_text=_("Місце проведення " <a href="https://vk.com/page-42456628_49958531?f=Place">[?]</a></p>), required=False)
