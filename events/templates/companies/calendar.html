@@ -1,4 +1,4 @@
-{% extends "base_public.html" %}
+{% extends "base.html" %}
 
 {% load i18n %}
 
@@ -12,7 +12,23 @@
     <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js'></script>
 
+    <link href="/static/events/css/custom.css" media="all" rel="stylesheet"/>
 <script>
+    function showDetails(id) {
+        $.ajax({
+            url: 'event/'+id+'.json',
+            dataType: 'json',
+            success: function(doc) {
+            event_detail
+                $('#event_detail').html(
+                    "<b>" + doc.title + "</b><br/>" +
+                    "<i>Місце: " + doc.place + "</i><br/>" +
+                    "<p>Агенда: " + doc.agenda + "</p>" +
+                    "<a href='event/" + id + "'>Більше>></a>"
+                    );
+            }
+        });
+    }
 
 	$(document).ready(function() {
 
@@ -41,7 +57,7 @@
                                 id: event['id'],
                                 title: event['title'],
                                 start: event['start'],
-                                url: event['registration']
+                                url: "javascript:showDetails(" + event['id'] + ")"
                             });
                         });
                         callback(events);
@@ -64,12 +80,65 @@
 
 {% endblock %}
 
-{% block content %}
+{% block body %}
 
-<h1>{{ tenant.group.name }} Events</h1>
 
-    {% trans "You're welcome to" %} <a href="{% url 'suggest_event' %}">{% trans 'suggest events' %}</a>!
 
-	<div id='calendar'></div>
+
+<!--<div class="heading">-->
+      <!--<div class="container">-->
+        <!--<div class="header">-->
+
+        <!--</div>-->
+        <!--<div class="collapse navbar-collapse">-->
+          <!--<ul class="nav navbar-nav">-->
+            <!--{% block navigation %}-->
+                <!--{{ block.super }}-->
+                <!--<li><a href="{% url 'event_calendar' %}">{% trans 'Events' %}</a></li>-->
+                <!--<li><a href="{% url 'blog_feed' %}">{% trans 'Blog' %}</a></li>-->
+                <!--<li><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>-->
+                <!--{% endblock %}-->
+          <!--</ul>-->
+            <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--{% if not request.user.is_anonymous %}-->
+                    <!--<li><a href="{% url 'account' %}">{{request.user.first_name}} [{{request.user.username}}]</a></li>-->
+                    <!--<li><a href="{% url 'logout' %}">Logout</a></li>-->
+                <!--{% else %}-->
+                    <!--<li><a href="{% url 'login' %}">Login</a></li>-->
+                <!--{% endif %}-->
+            <!--</ul>-->
+        <!--</div>-->
+      <!--</div>-->
+<!--</div>-->
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 main-content">
+                <a class="brand" href="{% url 'home_page' %}">{{ request.tenant.group.name }}</a>
+                <div id='calendar'></div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                  <ol>
+                    <li>Хочеш дізнатися про всі події, знижки та акції від IT KPI вчасно? <a href="http://us10.list-manage.com/subscribe?u=15d4299ae57e158586630f5f5&id=a09b19a41b">Підпишись на щотижневу розсилку!</a></li>
+
+                    <li>Додай <a href="{% url 'calendar_ics' %}">наш календар</a>
+                        у форматі ICS до
+                        <a href="https://support.google.com/calendar/answer/37100?hl=uk">календарів Google</a>
+                        щоб випадково не пропустити бажаного івенту.</li>
+
+                    <li>Скажи "Дякую" нам, зробивши внесок в календар: Знаєш про подію якої немає в календарі - <a href="{% url 'suggest_event' %}">додай її сам</a>!</li>
+                  </ol>
+                </div>
+                <div id="event_detail" class="row main-content">
+                  Натистіть на подію щоб дізнатись подробиці
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.container -->
+</div>
+
 
 {% endblock %}

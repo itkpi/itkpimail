@@ -1,33 +1,8 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
 {% load i18n %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% trans 'IKMGE' %}{% endblock %}</title>
 
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-        <script type="text/javascript" src="/static/events/uniforms/js/uni-form.jquery.min.js"></script>
-
-        <link href="/static/events/uniforms/css/uni-form.css" media="all" rel="stylesheet"/>
-        <link href="/static/events/uniforms/css/default.uni-form.css" media="all" rel="stylesheet"/>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-    {% block extrahead %}
-    {% endblock %}
-
-</head>
-<body>
+{% block body %}
 
 <div class="heading">
     <div class="navbar navbar-inverse" role="navigation">
@@ -62,7 +37,7 @@
 
     <div class="container">
 
-      <div class="starter-template">
+      <div>
         {% block content %}
         {% endblock %}
       </div>
@@ -70,6 +45,4 @@
     </div><!-- /.container -->
 </div>
 
-</body>
-</html>
-
+{% endblock %}

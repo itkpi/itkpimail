@@ -75,6 +75,20 @@ class BaseEvent(models.Model):
         else:
             return self.title
 
+    def to_dict(self):
+        return {
+            'id': self.pk,
+            'title': self.title,
+            'start': self.when,
+            'start_time': self.when_time,
+            'end': self.when_end,
+            'end_time': self.when_end_time,
+            'registration': self.registration,
+            'social': self.social,
+            'agenda': self.agenda,
+            'place': self.place
+        }
+
 
 class Template(OwnedModel):
     class Meta:

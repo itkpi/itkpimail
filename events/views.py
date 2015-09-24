@@ -133,18 +133,17 @@ class JSONEventsView(View):
         start = datetime.date.fromtimestamp(int(request.GET['start']))
         end = datetime.date.fromtimestamp(int(request.GET['end']))
         events = Event.objects.filter(when__gte=start, when__lt=end)
-        return JsonResponse({'events': [self.to_dict(event) for event in events]})
+        return JsonResponse({'events': [event.to_dict() for event in events]})
 
-    def to_dict(self, event):
-        return {
-            'id': event.pk,
-            'title': event.title,
-            'start': event.when,
-            'start_time': event.when_time,
-            'end': event.when_end,
-            'end_time': event.when_end_time,
-            'registration': event.registration,
-        }
+
+class JSONEventView(DetailView):
+    model = Event
+
+    def render_to_response(self, context, **response_kwargs):
+        return JsonResponse(
+            self.get_object().to_dict(),
+            **response_kwargs
+        )
 
 
 class SuggestPublicView(FormView):

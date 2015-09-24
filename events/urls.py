@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 from events.feed import EventFeed
 from events.views import PreviewView, PreviewView1, PreviewView2, CompaniesListView, CompanyView, SuggestPublicView, \
-    JSONEventsView, EventView
+    JSONEventsView, EventView, JSONEventView
 
 urlpatterns = [
     url(r'^company/(?P<tenant_slug>[^/]*)$', CompanyView.as_view(), name="company"),
@@ -18,6 +18,7 @@ urlpatterns = [
     # tenant-based pages
     url(r'^$', CompanyView.as_view(), name="event_list"),
     url(r'^event/(?P<pk>\d+)$', EventView.as_view(), name="one_event"),
+    url(r'^event/(?P<pk>\d+).json$', JSONEventView.as_view(), name="one_event_json"),
     url(r'^calendar$', TemplateView.as_view(template_name='companies/calendar.html'), name="event_calendar"),
     url(r'^events.json$', JSONEventsView.as_view(), name="calendar"),
     url(r'^feed/events.ics$', EventFeed(), name="calendar_ics"),
