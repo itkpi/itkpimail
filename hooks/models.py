@@ -4,10 +4,12 @@ from django.db import models
 POST_PUBLISHED_PERSONAL = 'blog_post_published_personal'
 POST_PUBLISHED = 'blog_post_published'
 EVENT_SUGGESTED = 'event_suggested'
+EVENT_SUGGESTED_CHANGED = 'event_suggested_changed'
 
 
 class Hook(GroupOwnedModel):
     event = models.CharField(max_length=50, choices=((EVENT_SUGGESTED, 'Event suggested'),
+                                                     (EVENT_SUGGESTED_CHANGED, 'Suggested event changed'),
                                                      (POST_PUBLISHED, 'Blog post published'),
                                                      (POST_PUBLISHED_PERSONAL, 'Personal blog post published')))
     url = models.URLField()

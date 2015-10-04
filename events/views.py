@@ -12,7 +12,7 @@ from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm, 
 from events.mailchimp_utils import get_mailchimp_api, get_list
 from events.models import Preview, Event, SuggestedEvent
 from events.admin import fill_suggested_by
-from hooks.models import EVENT_SUGGESTED
+from hooks.models import EVENT_SUGGESTED, EVENT_SUGGESTED_CHANGED
 from hooks.views import call_hook
 
 
@@ -192,4 +192,7 @@ class SuggestView(FormView):
 
 @receiver(post_save, sender=SuggestedEvent)
 def event_suggestion_signal(sender, instance, created, **kwargs):
-    call_hook(EVENT_SUGGESTED, instance)
+    if created:
+        call_hook(EVENT_SUGGESTED, instance)
+    else:
+        call_hook(EVENT_SUGGESTED_CHANGED, instance)
