@@ -142,7 +142,7 @@ unpublish.short_description = _("Remove from company's page")
 def accept_suggested(modeladmin, request, queryset):
     for suggested_event in queryset:
         kwargs = model_to_dict(suggested_event)
-        print(kwargs)
+        kwargs.pop('id', None)
         kwargs['date'] = now()
         kwargs['owner'] = request.user
         event = Event(**kwargs)
