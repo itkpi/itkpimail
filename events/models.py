@@ -86,7 +86,11 @@ class BaseEvent(models.Model):
             'registration': self.registration,
             'social': self.social,
             'agenda': self.agenda,
-            'place': self.place
+            'place': self.place,
+            'level': self.level,
+            'image_url': self.image_url,
+            'special': self.special,
+            'when_time_required': self.when_time_required
         }
 
 
@@ -137,6 +141,12 @@ class Event(BaseEvent, OwnedModel):
     @models.permalink
     def get_absolute_url(self):
         return 'one_event', [self.id]
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['owner'] = self.owner.username
+        return data
+
 
 class SuggestedEvent(BaseEvent, GroupOwnedModel):
     suggested_by = models.CharField(max_length=200, editable=False, default='anonymous')
