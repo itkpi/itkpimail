@@ -6,28 +6,8 @@
 
 {% block extrahead %}
 {{ block.super }}
-<link rel="stylesheet" href="/static/events/datepicker/themes/classic.css" id="theme_base">
-<link rel="stylesheet" href="/static/events/datepicker/themes/classic.date.css" id="theme_date">
-<link rel="stylesheet" href="/static/events/datepicker/themes/classic.time.css" id="theme_time">
-
-<script src="/static/events/datepicker/picker.js"></script>
-<script src="/static/events/datepicker/picker.date.js"></script>
-<script src="/static/events/datepicker/picker.time.js"></script>
-<script src="/static/events/datepicker/legacy.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('.dateinput').pickadate({
-            format: "yyyy-mm-dd",
-            clear: ''
-        });
-        $('.timeinput').pickatime({
-            format: "HH:i",
-            clear: ''
-        });
-    });
-</script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>
 
 <link rel="stylesheet" href="/static/events/css/codemirror.css">
 <link rel="stylesheet" href="/static/events/css/redactor-custom.css">
@@ -41,13 +21,22 @@
 <script src="/static/redactor/redactor.js"></script>
 <script src="/static/redactor/jquery.redactor.init.js"></script>
 
+<script>
+    $(document).ready(function() {
+        $('.dateinput').datetimepicker({
+            format:'Y-m-d H:i'
+        });
+    });
+</script>
+
 {% endblock %}
 
-{% block content %}
+{% block body %}
 
-<h1>{{ tenant.group.name }}: {% trans 'Suggest events' %}</h1>
-<img src="{{ tenant.big_logo_url }}" style="float: right; width: 300px" />
-
-{% crispy form %}
+<div class="container">
+    <h1>{{ tenant.group.name }}: {% trans 'Suggest events' %}</h1>
+    <img src="{{ tenant.big_logo_url }}" style="float: right; width: 300px" />
+    {% crispy form %}
+</div>
 
 {% endblock %}

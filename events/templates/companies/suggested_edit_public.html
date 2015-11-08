@@ -1,0 +1,14 @@
+{% extends "companies/suggest_public.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="container">
+    <h1>{{ tenant.group.name }}: {% trans 'Edit suggested event' %}</h1>
+    <img src="{{ tenant.big_logo_url }}" style="float: right; width: 300px" />
+    <p>Use this link to edit suggested event: <br> <a href="{{ edit_url }}">{{ edit_url }}</a></p>
+    {% crispy form %}
+</div>
+
+{% endblock %}

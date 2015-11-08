@@ -148,7 +148,7 @@
   "model": "customauth.tenantdomain",
   "pk": 1,
   "fields": {
-    "domain": "127.0.0.1:5000",
+    "domain": "127.0.0.1:5003",
     "tenant": 1
   }
 },

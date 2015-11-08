@@ -5,7 +5,10 @@ containers:
     - !UbuntuUniverse
     - !Install [libpq-dev, ca-certificates, git]
     - !Py3Requirements requirements.txt
-    environ: {DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb}
+    environ:
+      DATABASE_URL: postgres://vaggauser:password@127.0.0.1:5432/vaggadb
+      EVENTSMONKEY_URL: http://127.0.0.1:5001
+      EVENTSMONKEY_TEAM: default
   postgres:
     setup:
     - !Ubuntu trusty
@@ -58,7 +61,8 @@ commands:
         run: |
             until nc -z -w 4 127.0.0.1 5432; do sleep 1; done  # wait until postgres is up
             python3 manage.py migrate
-            python3 manage.py runserver 0.0.0.0:5000
+            python3 manage.py collectstatic --noinput
+            python3 manage.py runserver 0.0.0.0:5003
 
       pg: !Command
         container: postgres

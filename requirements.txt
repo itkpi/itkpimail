@@ -15,10 +15,11 @@ PyGithub==1.25.2
 requests==2.6.0
 six==1.9.0
 static3==0.5.1
-django-crispy-forms==1.4.0
+django-crispy-forms==1.5.2
 trafaret==0.5.4
 setuptools
 -e git://github.com/rrader/django-ical.git#egg=django_ical
 icalendar
 pytz
 python-dateutil
+python-postmark>=0.4.3

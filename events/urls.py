@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 from events.feed import EventFeed
 from events.views import PreviewView, PreviewView1, PreviewView2, CompaniesListView, CompanyView, SuggestPublicView, \
-    JSONEventsView, EventView, JSONEventView
+    JSONEventsView, EventView, JSONEventView, SuggestEditPublicView
 
 urlpatterns = [
     url(r'^company/(?P<tenant_slug>[^/]*)$', CompanyView.as_view(), name="company"),
@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^events.json$', JSONEventsView.as_view(), name="calendar"),
     url(r'^feed/events.ics$', EventFeed(), name="calendar_ics"),
     url(r'^suggest$', SuggestPublicView.as_view(), name="suggest_event"),
+    url(r'^suggested/edit/(?P<secret>.*)$', SuggestEditPublicView.as_view(), name="suggested_edit"),
     url(r'^suggest/thanks$', TemplateView.as_view(template_name='companies/suggest_thanks.html'), name="suggest_thanks"),
 ]

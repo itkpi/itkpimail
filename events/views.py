@@ -1,14 +1,17 @@
 import datetime
 from customauth.models import Tenant
 from customauth.utils import get_tenant
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, TemplateView, ListView, DetailView
-from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm, SuggestPublicForm
+from events.eventsmonkey import EventsMonkey
+from events.forms import CampaignCreateForm1, CampaignCreateForm2, SuggestForm, SuggestPublicForm, SuggestEditPublicForm
 from events.mailchimp_utils import get_mailchimp_api, get_list
 from events.models import Preview, Event, SuggestedEvent
 from events.admin import fill_suggested_by
@@ -156,15 +159,56 @@ class SuggestPublicView(FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        object = form.save(commit=False)
-        object.group = self.tenant.group
-        fill_suggested_by(object, self.user)
-        object.save()
-        return redirect('suggest_thanks')
+        data = form.cleaned_data
+        if not data['registration_url']:
+            data['registration_url'] = None
+        data['team'] = settings.EVENTSMONKEY_TEAM
+        api = EventsMonkey(settings.EVENTSMONKEY_URL)
+        suggested = api.suggest(data)
+        return redirect('suggested_edit', suggested['secret'])
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['tenant'] = self.tenant
+        return data
+
+
+class SuggestEditPublicView(FormView):
+    form_class = SuggestEditPublicForm
+    template_name = 'companies/suggested_edit_public.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.tenant = get_tenant(kwargs, request)
+        self.user = request.user
+        self.secret = kwargs['secret']
+        self.api = EventsMonkey(settings.EVENTSMONKEY_URL)
+        self.event_data = self.api.get(self.secret)
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial.update(self.event_data)
+        return initial
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        if not data['registration_url']:
+            data['registration_url'] = None
+        data['team'] = settings.EVENTSMONKEY_TEAM
+        api = EventsMonkey(settings.EVENTSMONKEY_URL)
+        suggested = api.edit(self.secret, data)
+        return redirect('suggested_edit', suggested['secret'])
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['tenant'] = self.tenant
+        data['edit_url'] = self.request.\
+            build_absolute_uri(reverse('suggested_edit', args=(self.secret,)))
+        data['secret'] = self.secret
         return data
 
 

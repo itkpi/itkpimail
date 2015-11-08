@@ -165,6 +165,8 @@ STATICFILES_DIRS = (
 )
 
 GITHUB_API_TOKEN = os.environ.get("GITHUB_API_TOKEN", None)
+EVENTSMONKEY_URL = os.environ.get("EVENTSMONKEY_URL", None)
+EVENTSMONKEY_TEAM = os.environ.get("EVENTSMONKEY_TEAM", None)
 
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
